@@ -32,3 +32,10 @@ export function fetchPassengerHome() {
     });
   }
   
+
+  export async function requestTrip(payload) {
+    console.log("🛫 Mock -> requestTrip", payload);
+    // Simula latencia 
+    return new Promise((res) => setTimeout(res, 600));
+  }
+  
