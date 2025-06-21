@@ -10,6 +10,7 @@ import ResetPasswordPage from "./pages/auth/ResetPasswordPage";
 /* pasajero ------------------------------------------------------------ */
 import PassengerHomePage from "./pages/passenger/PassengerHomePage";
 import PassengerProfilePage from "./pages/passenger/PassengerProfilePage";
+import RequestTripPage from "./pages/passenger/RequestTripPage";
 /* driver   ------------------------------------------------------------ */
 /* (cuando tengas Home + Profile del conductor los importas igual)      */
 
@@ -53,6 +54,16 @@ export default function App() {
           </PrivateRoute>
         }
       />
+
+      <Route
+        path="/request-trip"
+        element={
+          <PrivateRoute role="PASAJERO">
+            <RequestTripPage />
+          </PrivateRoute>
+        }
+      />
+
 
       {/* -------------------------  conductor (placeholder) ------------ */}
       {/* 

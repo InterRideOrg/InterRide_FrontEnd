@@ -1,11 +1,11 @@
+// src/pages/passenger/PassengerHomePage.jsx
 import React from "react";
 import {
   Box,
   Stack,
   Typography,
   IconButton,
-  Divider,
-  CircularProgress
+  CircularProgress,
 } from "@mui/material";
 import FiberManualRecordIcon from "@mui/icons-material/FiberManualRecord";
 import ArrowForwardIosIcon   from "@mui/icons-material/ArrowForwardIos";
@@ -13,8 +13,12 @@ import ArrowForwardIosIcon   from "@mui/icons-material/ArrowForwardIos";
 import MainLayout        from "../../components/layout/MainLayout";
 import LargeActionButton from "../../components/ui/LargeActionButton";
 import { useQuery }      from "@tanstack/react-query";
-import { fetchPassengerHome } from "../../services/mockApi";
-import { useAuth } from "../../auth/AuthContext";
+import {
+  fetchPassengerHome,
+  fetchPassengerProfile,
+} from "../../services/mockApi";
+import { useAuth }   from "../../auth/AuthContext";
+import { useNavigate } from "react-router-dom";   // ← hook de navegación
 
 /* ----- tarjeta de viaje (reutilizable) ------------------- */
 function TripCard({ title, subtitle, onClick, color = "primary.main" }) {
@@ -30,7 +34,7 @@ function TripCard({ title, subtitle, onClick, color = "primary.main" }) {
         display: "flex",
         justifyContent: "space-between",
         alignItems: "center",
-        cursor: "pointer"
+        cursor: "pointer",
       }}
     >
       <Box>
@@ -48,13 +52,24 @@ function TripCard({ title, subtitle, onClick, color = "primary.main" }) {
 
 /* -------------------------------------------------------- */
 export default function PassengerHomePage() {
-  const { user } = useAuth(); // nombre para “Hola, Madison”
-  const { data, isLoading }   = useQuery({
+  const { user } = useAuth();
+
+  /* hook de navegación ───────────────────────────── */
+  const navigate = useNavigate();               // 👈🏻  NUEVO
+
+  /* ----- Home (viajes) ----- */
+  const { data: home, isLoading: loadingHome } = useQuery({
     queryKey: ["home"],
-    queryFn : fetchPassengerHome
+    queryFn : fetchPassengerHome,
   });
 
-  if (isLoading) {
+  /* ----- Perfil (nombre) --- */
+  const { data: profile, isLoading: loadingProfile } = useQuery({
+    queryKey: ["profile"],
+    queryFn : fetchPassengerProfile,
+  });
+
+  if (loadingHome || loadingProfile) {
     return (
       <MainLayout>
         <Box mt={12} textAlign="center">
@@ -64,39 +79,40 @@ export default function PassengerHomePage() {
     );
   }
 
-  const { current, available } = data;
+  const { current, available } = home;
 
   return (
     <MainLayout>
       <Stack spacing={4} maxWidth="900px" mx="auto">
-      {/* ---------- Encabezado + acción ---------- */}
+        {/* ---------- Encabezado + acción ---------- */}
         <Box
-        display="flex"
-        alignItems="center"
-        justifyContent="space-between"
-        flexWrap="wrap"        // ← mantiene responsividad en pantallas chicas
-        gap={2}                // separación cuando haga wrap
-        mb={4}
+          display="flex"
+          alignItems="center"
+          justifyContent="space-between"
+          flexWrap="wrap"
+          gap={2}
+          mb={4}
         >
-            {/* saludo */}
-            <Box>
-                <Typography variant="h4" fontWeight={600}>
-                Hola, {user?.firstName ?? "usuario"}
-                </Typography>
-                <Typography color="text.secondary">
-                Es hora de un nuevo viaje.
-                </Typography>
-            </Box>
-                {/* botón de acción */}
-                <LargeActionButton
-                sx={{ flexShrink: 0 }}
-                onClick={() => alert("🚧 Próximamente")}
-                >
-                Solicitar Un Nuevo Viaje
-                </LargeActionButton>
+          {/* saludo */}
+          <Box>
+            <Typography variant="h4" fontWeight={600}>
+              Hola,&nbsp;{profile?.nombres ?? "Usuario"}
+            </Typography>
+            <Typography color="text.secondary">
+              Es hora de un nuevo viaje.
+            </Typography>
+          </Box>
+
+          {/* botón de acción */}
+          <LargeActionButton
+            sx={{ flexShrink: 0 }}
+            onClick={() => navigate("/request-trip")}  // ← ahora funciona
+          >
+            Solicitar Un Nuevo Viaje
+          </LargeActionButton>
         </Box>
 
-        {/* bloque Viaje en curso */}
+        {/* -------- Viaje en curso -------- */}
         <Stack spacing={1.5}>
           <Stack direction="row" alignItems="center" spacing={1}>
             <FiberManualRecordIcon sx={{ color: "error.main", fontSize: 12 }} />
@@ -116,7 +132,7 @@ export default function PassengerHomePage() {
           )}
         </Stack>
 
-        {/* bloque Viajes disponibles */}
+        {/* -------- Viajes disponibles -------- */}
         <Stack spacing={1.5}>
           <Stack
             direction="row"
@@ -130,17 +146,13 @@ export default function PassengerHomePage() {
               <Typography fontWeight={700}>Viajes Disponibles</Typography>
             </Box>
 
-            <IconButton
-              size="small"
-              onClick={() => alert("ver todos")}
-              sx={{ fontSize: 13 }}
-            >
+            <IconButton size="small" onClick={() => alert("ver todos")}>
               Ver Todos
             </IconButton>
           </Stack>
 
           <Stack spacing={2}>
-            {available.map(v => (
+            {available.map((v) => (
               <TripCard
                 key={v.id}
                 title={v.destination}
