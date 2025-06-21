@@ -1,8 +1,8 @@
 import React from 'react';
-import AuthLayout from '../components/layout/AuthLayout';
-import FormCard from '../components/layout/FormCard';
-import AuthTextField from '../components/inputs/AuthTextField';
-import PrimaryButton from '../components/buttons/PrimaryButton';
+import AuthLayout from '../../components/layout/AuthLayout';
+import FormCard from '../../components/ui/FormCard';
+import AuthTextField from '../../components/inputs/AuthTextField';
+import PrimaryButton from '../../components/buttons/PrimaryButton';
 import {
   Typography, Stack, Box, Divider, IconButton, Link,
 } from '@mui/material';
@@ -26,7 +26,7 @@ export default function LoginPage() {
             <Typography variant="subtitle1" color="common.white">Contraseña</Typography>
             <AuthTextField type="password" placeholder="************" />
             <Box textAlign="right" mt={1}>
-              <Link href="#" underline="hover" color="common.white" fontSize={14}>
+              <Link href="/forgot-password" underline="hover" color="common.white" fontSize={14}>
                 Contraseña Olvidada
               </Link>
             </Box>

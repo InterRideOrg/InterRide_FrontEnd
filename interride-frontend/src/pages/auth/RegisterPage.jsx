@@ -1,8 +1,8 @@
 import React from 'react';
-import AuthLayout from '../components/layout/AuthLayout';
-import FormCard from '../components/layout/FormCard';
-import AuthTextField from '../components/inputs/AuthTextField';
-import PrimaryButton from '../components/buttons/PrimaryButton';
+import AuthLayout from '../../components/layout/AuthLayout';
+import FormCard from '../../components/ui/FormCard';
+import AuthTextField from '../../components/inputs/AuthTextField';
+import PrimaryButton from '../../components/buttons/PrimaryButton';
 import {
   Stack, Box, Typography, Checkbox, FormControlLabel,
 } from '@mui/material';
