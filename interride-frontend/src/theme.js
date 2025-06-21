@@ -2,51 +2,61 @@
 import { createTheme } from '@mui/material/styles';
 
 export const theme = createTheme({
-  /* ---------- PALETA DE COLORES ---------- */
   palette: {
     mode: 'light',
     primary: {
-      main: '#325B6B',     // azul-petrol
-      light: '#E3F2FD',    // bg claro (mock-up)
-      dark:  '#264653',
+      main: '#325B6B',   // brand primary
+      light: '#E3F2FD',  // fondos claros
+      dark:  '#264653',  // azul card
       contrastText: '#FFFFFF',
     },
     secondary: {
-      main: '#80BEC5',
-      light: '#A7D4D9',
-      dark:  '#4F7780',
-      contrastText: '#FFFFFF',
+      main: '#80BEC5',   // gris azulado guía
     },
   },
-
-  /* ---------- TIPOGRAFÍAS ---------- */
   typography: {
-    fontFamily: 'Inter, Roboto, "Helvetica Neue", Arial, sans-serif',
-    h1: { fontSize: 60, fontWeight: 700 },
-    h2: { fontSize: 48, fontWeight: 700 },
-    h3: { fontSize: 36, fontWeight: 700 },
+    fontFamily: 'Inter, sans-serif',
+    h1: { fontSize: 60, fontWeight: 600 },
+    h2: { fontSize: 48, fontWeight: 600 },
+    h3: { fontSize: 36, fontWeight: 600 },
     body1: { fontSize: 24 },
     body2: { fontSize: 17 },
     caption: { fontSize: 12 },
   },
 
-  /* ---------- RADIO GLOBAL ---------- */
-  // ⬅ NUEVO: todos los componentes heredan 12 px
+  // ⬇️  aquí están los cambios
   shape: {
-    borderRadius: 12,
+    borderRadius: 20,                 // ← radio por defecto creciente
   },
-
-  /* ---------- SOBRECARGAS DE COMPONENTES ---------- */
   components: {
-    /* TextField / OutlinedInput redondeados
-       (sobrescribe lo global en caso de que se cambie en otro lugar) */
     MuiOutlinedInput: {
       styleOverrides: {
         root: {
-          borderRadius: 12,
+          backgroundColor: '#FFFFFF', // siempre fondo blanco
+          borderRadius: 20,           // radio extra redondeado en inputs
+          '& fieldset': {
+            borderRadius: 20,
+          },
+          // hover & focus
+          '&:hover fieldset': {
+            borderColor: '#607D8B33', // sutil
+          },
+          '&.Mui-focused fieldset': {
+            borderWidth: 2,
+            borderColor: '#39A6AC',   // color hover guía
+          },
         },
         input: {
-          padding: '14px',           // mismo padding que MUI default ‘lg’
+          padding: '14px 20px',       // un poco más de aire
+        },
+      },
+    },
+    MuiButton: {
+      styleOverrides: {
+        root: {
+          borderRadius: 9999,         // píldora
+          textTransform: 'none',
+          fontWeight: 600,
         },
       },
     },
