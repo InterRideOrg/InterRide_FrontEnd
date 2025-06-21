@@ -13,7 +13,7 @@ import ArrowForwardIosIcon   from "@mui/icons-material/ArrowForwardIos";
 import MainLayout        from "../../components/layout/MainLayout";
 import LargeActionButton from "../../components/ui/LargeActionButton";
 import { useQuery }      from "@tanstack/react-query";
-import { fetchPassengerHome } from "../../services/mockApi";
+import { fetchPassengerHome, fetchPassengerProfile } from "../../services/mockApi";
 import { useAuth } from "../../auth/AuthContext";
 
 /* ----- tarjeta de viaje (reutilizable) ------------------- */
@@ -49,12 +49,17 @@ function TripCard({ title, subtitle, onClick, color = "primary.main" }) {
 /* -------------------------------------------------------- */
 export default function PassengerHomePage() {
   const { user } = useAuth(); // nombre para “Hola, Madison”
-  const { data, isLoading }   = useQuery({
+  // ───── Home (viajes) ───────────────────────────────
+  const { data: home, isLoading: loadingHome } = useQuery({
     queryKey: ["home"],
     queryFn : fetchPassengerHome
   });
-
-  if (isLoading) {
+  // ───── Perfil (nombre) ─────────────────────────────
+  const { data: profile, isLoading: loadingProfile } = useQuery({
+      queryKey: ["profile"],
+      queryFn : fetchPassengerProfile
+  });
+  if (loadingHome || loadingProfile) {
     return (
       <MainLayout>
         <Box mt={12} textAlign="center">
@@ -64,7 +69,7 @@ export default function PassengerHomePage() {
     );
   }
 
-  const { current, available } = data;
+  const { current, available } = home;
 
   return (
     <MainLayout>
@@ -78,15 +83,17 @@ export default function PassengerHomePage() {
         gap={2}                // separación cuando haga wrap
         mb={4}
         >
-            {/* saludo */}
-            <Box>
+                {/* saludo */}
+                <Box>
                 <Typography variant="h4" fontWeight={600}>
-                Hola, {user?.firstName ?? "usuario"}
+                    Hola, {profile?.nombres ?? "Usuario"}
                 </Typography>
+
                 <Typography color="text.secondary">
-                Es hora de un nuevo viaje.
+                    Es hora de un nuevo viaje.
                 </Typography>
-            </Box>
+                </Box>
+
                 {/* botón de acción */}
                 <LargeActionButton
                 sx={{ flexShrink: 0 }}
