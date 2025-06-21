@@ -1,8 +1,8 @@
 import React, { useState } from 'react';
 import { Box, Button, Stack, Typography } from '@mui/material';
-import AuthLayout from '../components/layout/AuthLayout';
-import FormCard from '../components/layout/FormCard';        // tu card azul oscuro
-import RoundedTextField from '../components/ui/RoundedTextField';
+import AuthLayout from '../../components/layout/AuthLayout';
+import FormCard from '../../components/ui/FormCard';        // tu card azul oscuro
+import RoundedTextField from '../../components/ui/RoundedTextField';
 
 export default function ForgotPasswordPage() {
   const [email, setEmail] = useState('');
