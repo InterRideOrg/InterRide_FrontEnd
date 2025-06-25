@@ -1,0 +1,129 @@
+.ticket-detail,
+.ticket-detail * {
+  font-size: 1rem !important;
+}
+
+.tittle h1 {
+  margin-left: 4rem;
+  font-size: 2rem;
+  font-weight: 700;
+  color: #222;
+}
+
+.ticket-detail-header {
+  width: 600px;
+  margin: 0 auto 1.2rem auto;
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+}
+
+.ticket-detail-header p {
+  font-weight: 600;
+  font-size: 1.15rem;
+  color: #222;
+}
+
+.ticket-detail {
+  margin: 0 auto;
+  max-width: 600px;
+  background: #38687a;
+  border-radius: 16px;
+  box-shadow: 0 4px 16px rgba(0,0,0,0.07);
+  padding: 2rem 2rem 1.5rem 2rem;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;   /* Cambiado para alinear a la izquierda */
+  gap: 1.2rem;              /* Espacio entre secciones */
+}
+
+.ticket-detail * {
+  color: #fff !important;
+  text-align: left;         /* Asegura alineación a la izquierda */
+}
+
+.ticket-detail-info,
+.ticket-detail-info-driverANDprice,
+.ticket-detail-info-dates,
+.ticket-calification {
+  width: 100%;
+}
+
+.ticket-detail-info-driverANDprice {
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+
+  border-radius: 10px;
+
+  margin-bottom: 1.2rem;
+  box-sizing: border-box;
+}
+
+.ticket-detail-info-driver p,
+.ticket-detail-info-price p {
+  margin: 0.2rem 0;
+}
+
+.ticket-detail-info-price {
+  text-align: right;
+}
+
+.ticket-detail-info-dates {
+  margin-bottom: 1rem;
+}
+
+.ticket-detail-info-dates p {
+  margin: 0.2rem 0;
+}
+
+.ticket-calification {
+  margin-bottom: 1rem;
+}
+
+.ticket-calification-stars {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 100%;
+}
+
+.ticket-calification-stars span {
+  font-weight: 600;
+  font-size: 1rem;
+}
+
+.stars-right {
+  display: flex;
+  align-items: center;
+}
+
+.ticket-calification-comment p {
+  background: #fff;
+  color: #222 !important;
+  border-radius: 10px;
+  padding: 1rem;
+  min-height: 60px;
+  margin-top: 0.5rem;
+}
+
+/* Responsive */
+@media (max-width: 700px) {
+  .tittle h1,
+  .ticket-detail-header,
+  .ticket-detail {
+    max-width: 98vw;
+    padding-left: 0.5rem;
+    padding-right: 0.5rem;
+  }
+  .ticket-detail-info-driverANDprice {
+    flex-direction: column;
+    gap: 0.7rem;
+    align-items: stretch;
+    text-align: left;
+  }
+  .ticket-detail-info-price {
+    text-align: left;
+  }
+}

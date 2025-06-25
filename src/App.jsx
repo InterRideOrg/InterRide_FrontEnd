@@ -11,6 +11,8 @@ import ResetPasswordPage from "./pages/auth/ResetPasswordPage";
 import PassengerHomePage from "./pages/passenger/PassengerHomePage";
 import PassengerProfilePage from "./pages/passenger/PassengerProfilePage";
 import RequestTripPage from "./pages/passenger/RequestTripPage";
+import  HistoryPage  from "./pages/passenger/HistoryPage";
+import TicketDetailPage from "./pages/passenger/TicketDetailPage";
 /* driver   ------------------------------------------------------------ */
 /* (cuando tengas Home + Profile del conductor los importas igual)      */
 
@@ -63,6 +65,25 @@ export default function App() {
           </PrivateRoute>
         }
       />
+
+      <Route
+        path="/passenger/history"
+        element={
+          <PrivateRoute role="PASAJERO">
+            <HistoryPage />
+          </PrivateRoute>
+        }
+      />
+
+      <Route
+        path="/tickets/:pasajeroId/:viajeId"
+        element={
+          <PrivateRoute role="PASAJERO">
+            <TicketDetailPage />
+          </PrivateRoute>
+        }
+      />
+      
 
 
       {/* -------------------------  conductor (placeholder) ------------ */}
