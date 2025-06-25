@@ -2,7 +2,7 @@
 export default {
     PASSENGER: [
       { label: "Inicio",              path: "/home"        },
-      { label: "Historial de viajes", path: "/history"     },
+      { label: "Historial de viajes", path: "/passenger/history"     },
       { label: "Pagos",               path: "/payments"    },
       { label: "Ayuda",               path: "/help"        },
       { label: "Notificaciones",      path: "/notifications"},
