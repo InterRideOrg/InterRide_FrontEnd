@@ -2,6 +2,7 @@ import React from 'react';
 import { useState }            from 'react';
 import { useNavigate }         from 'react-router-dom';
 import axios                   from 'axios';
+import axiosInstancePublic from "../../interceptors/axiosInstancePublic";
 import {
   Typography, Stack, Box, Divider, IconButton, Link,
 } from '@mui/material';
@@ -27,11 +28,10 @@ export default function LoginPage() {
   /*  Submit */
   const handleSubmit = async e => {
     e.preventDefault();
+    setError(null);
     try {
-      const { data } = await axios.post(
-        'http://localhost:8081/api/v1/auth/login',
-        form,
-      );
+      // ⬇️ cliente PÚBLICO
+      const { data } = await axiosInstancePublic.post('/auth/login', form);
 
       // 1️ Guardar token y role
       localStorage.setItem('authToken', data.token);
