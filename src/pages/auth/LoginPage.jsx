@@ -24,7 +24,7 @@ export default function LoginPage() {
   const handleChange = field => e =>
     setForm({ ...form, [field]: e.target.value });
 
-  /* 🚀 Submit */
+  /*  Submit */
   const handleSubmit = async e => {
     e.preventDefault();
     try {
@@ -33,15 +33,15 @@ export default function LoginPage() {
         form,
       );
 
-      // 1️⃣ Guardar token y role
+      // 1️ Guardar token y role
       localStorage.setItem('authToken', data.token);
       localStorage.setItem('userRole', data.role);
 
-      // 2️⃣ Redirigir según el rol
+      // 2️ Redirigir según el rol
       if (data.role === 'PASAJERO') {
-        navigate('/passenger/home', { replace: true });
+        navigate(`/passenger/home/${data.userId}`, { replace: true });
       } else if (data.role === 'CONDUCTOR') {
-        navigate('/driver/home', { replace: true });
+        navigate(`/driver/home/${data.userId}`, { replace: true });
       } else {
         navigate('/'); // fallback
       }
