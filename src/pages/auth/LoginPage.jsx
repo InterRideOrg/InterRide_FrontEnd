@@ -110,7 +110,7 @@ export default function LoginPage() {
           {/* Link a registro */}
           <Typography align="center" color="common.white">
             ¿No tienes una cuenta?{' '}
-            <Link href="/register" underline="hover" color="secondary.light">
+            <Link href="/register-passenger" underline="hover" color="secondary.light">
               Regístrate
             </Link>
           </Typography>

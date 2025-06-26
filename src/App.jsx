@@ -8,7 +8,9 @@ import LandingPage from "./pages/LandingPage";
 
 /* -------------- auth -------------- */
 import LoginPage from "./pages/auth/LoginPage";
-import RegisterPage from "./pages/auth/RegisterPage";
+import RegisterDriverPage from "./pages/auth/RegisterDriverPage";
+import RegisterPassengerPage from "./pages/auth/RegisterPassengerPage";
+import RegisterVehiclePage from "./pages/auth/RegisterVehiclePage";
 import ForgotPasswordPage from "./pages/auth/ForgotPasswordPage";
 import ResetPasswordPage from "./pages/auth/ResetPasswordPage";
 
@@ -36,7 +38,11 @@ export default function App() {
       
       {/* -------------------------  auth públicas  --------------------- */}
       <Route path="/login"           element={<LoginPage />} />
-      <Route path="/register"        element={<RegisterPage />} />
+
+      <Route path="/register-passenger" element={<RegisterPassengerPage />} />
+      <Route path="/register-driver"    element={<RegisterDriverPage />}   />
+      <Route path="/register-vehicle"   element={<RegisterVehiclePage />}  />
+
       <Route path="/forgot-password" element={<ForgotPasswordPage />} />
       <Route path="/reset-password/:token" element={<ResetPasswordPage />} />
 
