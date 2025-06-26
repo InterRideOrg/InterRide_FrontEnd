@@ -5,6 +5,7 @@ import dayjs from "dayjs";
 
 import axiosInstance from "../../interceptors/axiosInstance";
 import Rating from '@mui/material/Rating';
+
 import './styles/TicketDetailPage.css';
 
 
@@ -82,7 +83,7 @@ const TicketDetailPage = () => {
                                     <Rating
                                         readOnly
                                         name="size-small"
-                                        defaultValue={calification ? Math.round(calification.estrellas) : 2}
+                                        value={calification ? Math.round(Number(calification.estrellas)) : 0}
                                         size="small"
                                     />
                                 </span>
