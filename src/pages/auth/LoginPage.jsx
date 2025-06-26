@@ -1,41 +1,102 @@
 import React from 'react';
-import AuthLayout from '../../components/layout/AuthLayout';
-import FormCard from '../../components/ui/FormCard';
-import AuthTextField from '../../components/inputs/AuthTextField';
-import PrimaryButton from '../../components/buttons/PrimaryButton';
+import { useState }            from 'react';
+import { useNavigate }         from 'react-router-dom';
+import axios                   from 'axios';
 import {
   Typography, Stack, Box, Divider, IconButton, Link,
 } from '@mui/material';
-import GoogleIcon from '@mui/icons-material/Google';
-import FacebookIcon from '@mui/icons-material/Facebook';
-import FingerprintIcon from '@mui/icons-material/Fingerprint';
+import GoogleIcon             from '@mui/icons-material/Google';
+import FacebookIcon           from '@mui/icons-material/Facebook';
+import FingerprintIcon        from '@mui/icons-material/Fingerprint';
+
+import AuthLayout       from '../../components/layout/AuthLayout';
+import FormCard         from '../../components/ui/FormCard';
+import AuthTextField    from '../../components/inputs/AuthTextField';
+import PrimaryButton    from '../../components/buttons/PrimaryButton';
 
 export default function LoginPage() {
-  const handleSubmit = e => { e.preventDefault(); /* … */ };
+  const navigate = useNavigate();
+
+  /* 🔐 Campos controlados */
+  const [form, setForm] = useState({ correo: '', password: '' });
+  const [error, setError] = useState(null);
+
+  const handleChange = field => e =>
+    setForm({ ...form, [field]: e.target.value });
+
+  /* 🚀 Submit */
+  const handleSubmit = async e => {
+    e.preventDefault();
+    try {
+      const { data } = await axios.post(
+        'http://localhost:8081/api/v1/auth/login',
+        form,
+      );
+
+      // 1️⃣ Guardar token y role
+      localStorage.setItem('authToken', data.token);
+      localStorage.setItem('userRole', data.role);
+
+      // 2️⃣ Redirigir según el rol
+      if (data.role === 'PASAJERO') {
+        navigate('/passenger/home', { replace: true });
+      } else if (data.role === 'CONDUCTOR') {
+        navigate('/driver/home', { replace: true });
+      } else {
+        navigate('/'); // fallback
+      }
+    } catch (err) {
+      console.error(err);
+      setError('Credenciales incorrectas');
+    }
+  };
 
   return (
     <AuthLayout title="Bienvenido">
       <FormCard onSubmit={handleSubmit}>
         <Stack spacing={4}>
+          {/* Correo */}
           <Box>
-            <Typography variant="subtitle1" color="common.white">Usuario o email</Typography>
-            <AuthTextField placeholder="example@example.com" />
+            <Typography variant="subtitle1" color="common.white">
+              Usuario o email
+            </Typography>
+            <AuthTextField
+              placeholder="example@example.com"
+              value={form.correo}
+              onChange={handleChange('correo')}
+            />
           </Box>
 
+          {/* Password */}
           <Box>
-            <Typography variant="subtitle1" color="common.white">Contraseña</Typography>
-            <AuthTextField type="password" placeholder="************" />
+            <Typography variant="subtitle1" color="common.white">
+              Contraseña
+            </Typography>
+            <AuthTextField
+              type="password"
+              placeholder="************"
+              value={form.password}
+              onChange={handleChange('password')}
+            />
             <Box textAlign="right" mt={1}>
               <Link href="/forgot-password" underline="hover" color="common.white" fontSize={14}>
-                Contraseña Olvidada
+                Contraseña olvidada
               </Link>
             </Box>
           </Box>
 
-          <PrimaryButton>Iniciar Sesión</PrimaryButton>
+          {error && (
+            <Typography color="error.main" align="center">
+              {error}
+            </Typography>
+          )}
 
-          <Divider flexItem sx={{ borderColor: 'primary.light' }}>or sign up with</Divider>
-
+          {/* Submit */}
+          <PrimaryButton type="submit">Iniciar Sesión</PrimaryButton>
+          <Typography align="center" color="common.white">
+            <Divider flexItem sx={{ borderColor: 'primary.light' }}>o ingresa con</Divider>
+          </Typography>
+          {/* Social */}
           <Stack direction="row" spacing={3} justifyContent="center">
             {[GoogleIcon, FacebookIcon, FingerprintIcon].map((Icon, i) => (
               <IconButton key={i} sx={{ backgroundColor: 'common.white' }}>
@@ -44,6 +105,7 @@ export default function LoginPage() {
             ))}
           </Stack>
 
+          {/* Link a registro */}
           <Typography align="center" color="common.white">
             ¿No tienes una cuenta?{' '}
             <Link href="/register" underline="hover" color="secondary.light">
