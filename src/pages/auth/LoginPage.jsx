@@ -98,7 +98,9 @@ export default function LoginPage() {
           </Typography>
           {/* Social */}
           <Stack direction="row" spacing={3} justifyContent="center">
-            {[GoogleIcon, FacebookIcon, FingerprintIcon].map((Icon, i) => (
+            {[GoogleIcon
+            //, FacebookIcon, FingerprintIcon
+            ].map((Icon, i) => (
               <IconButton key={i} sx={{ backgroundColor: 'common.white' }}>
                 <Icon />
               </IconButton>
