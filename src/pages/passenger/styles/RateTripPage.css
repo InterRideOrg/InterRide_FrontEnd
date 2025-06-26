@@ -1,0 +1,54 @@
+/* src/pages/passenger/styles/RateTripPage.css */
+
+.rate-trip-container {
+  max-width: 500px;
+  margin: 3rem auto;
+  padding: 2rem;
+  background: #ffffff;
+  border-radius: 12px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+}
+
+.rate-trip-title {
+  font-size: 1.8rem;
+  font-weight: bold;
+  margin-bottom: 1.5rem;
+  text-align: center;
+  color: #333;
+}
+
+.rate-trip-form {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+.rate-trip-form input,
+.rate-trip-form textarea {
+  padding: 0.75rem;
+  border: 1px solid #ccc;
+  border-radius: 8px;
+  font-size: 1rem;
+  resize: vertical;
+}
+
+.rate-trip-form button {
+  padding: 0.75rem;
+  background-color: #2563eb;
+  color: white;
+  border: none;
+  border-radius: 8px;
+  font-size: 1rem;
+  cursor: pointer;
+  transition: background-color 0.2s ease-in-out;
+}
+
+.rate-trip-form button:hover {
+  background-color: #1d4ed8;
+}
+
+.success-message {
+  color: green;
+  font-weight: bold;
+  text-align: center;
+}
