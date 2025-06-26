@@ -1,0 +1,306 @@
+/* ---------- Variables ---------- */
+:root {
+  --c-bg: #dfeffa;
+  --c-primary: #28a0a9;
+  --c-primary-dark: #274b60;
+  --c-white: #fff;
+}
+
+/* ---------- Reset de página ---------- */
+html,
+body {
+  margin: 0;
+  font-family: "Inter", sans-serif;
+  background: var(--c-bg);
+  scroll-behavior: smooth;
+}
+
+/* ========== NAVBAR ========== */
+.lp-navbar {
+  width: 100%;
+  position: sticky;
+  top: 0;
+  background: var(--c-primary-dark);
+  z-index: 100;
+}
+
+.lp-navbar__inner {
+  max-width: 1280px;      /* margen lateral solo al contenido */
+  margin: 0 auto;
+  padding: 0 24px;
+  height: 72px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.lp-navbar {
+  background: var(--primary-dark, #284B5E);
+  padding-inline: 2rem;
+}
+
+.lp-navbar__inner {
+  max-width: 1280px;
+  margin-inline: auto;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+/* --- LOGO --- */
+.lp-logo {
+  display: flex;
+  align-items: center;
+  gap: .5rem;           /* espacio entre ícono y texto  */
+}
+
+.lp-logo__img {
+  height: 36px;         /* ajusta al tamaño que desees  */
+  width: auto;
+}
+
+.lp-logo__text {
+  height: 32px;         /* igual de alto o un poco menos */
+  width: auto;
+}
+
+.lp-navwrap {
+  margin-left: auto;
+  display: flex;
+  align-items: center;
+  gap: 2rem;
+}
+
+.lp-menu {                    /* la lista horizontal  */
+  list-style: none;           /* ⬅︎ quita los bullets  */
+  margin: 0;
+  padding: 0;
+  display: flex;
+  gap: 3rem;                  /* espacio entre links  */
+}
+
+.lp-menu a {  
+  font-size: 18px;                   /* links normales      */
+  color: var(--c-white);
+  text-decoration: none;      /* ningún subrayado     */
+  position: relative;
+  cursor: pointer;            /* “manito”             */
+  transition: color .2s, text-decoration-color .2s;
+}
+
+.lp-btn {
+  font-size: 0.95rem;
+  font-weight: 600;
+  color: var(--c-white);
+  text-decoration: none;
+}
+
+.lp-menu a:hover,
+.lp-menu .lp-link--active {   /* hover + sección activa */
+  color: var(--c-primary);    /* turquesa              */
+  text-decoration: underline;
+  text-decoration-color: var(--c-primary);
+}
+
+/* Botones reutilizables */
+.lp-btn {
+  display: inline-block;
+  padding: 0.5rem 1.6rem;
+  border-radius: 0.85rem;
+  transition: 150ms;
+}
+
+.lp-btn--solid {
+  background: var(--c-primary);
+}
+
+.lp-btn--solid:hover {
+  opacity: 0.9;
+}
+
+.lp-btn--outline {
+  border: 2px solid var(--c-primary);
+  color: var(--c-primary);
+  background: transparent;
+}
+
+.lp-btn--outline:hover {
+  background: var(--c-primary);
+  color: var(--c-white);
+}
+
+/* ========== HERO ========== */
+.lp-hero {
+  max-width: 1280px;
+  margin: 0 auto;
+  padding: 4.5rem 1.5rem;
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  align-items: center;
+  gap: 3.5rem;
+}
+
+.lp-hero__img {
+  width: 100%;
+  max-width: 420px;
+}
+
+.lp-hero__content h1 {
+  margin: 0 0 1rem;
+  font-size: clamp(2rem, 4vw, 2.75rem);
+  color: var(--c-primary);
+}
+
+.lp-hero__content p {
+  margin: 0 0 2.5rem;
+  max-width: 42ch;
+  line-height: 1.45;
+}
+
+.lp-hero__btns {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  max-width: 260px;
+}
+
+/* ========== ABOUT (full-width fondo azul) ========== */
+.lp-about {
+  background: var(--c-primary-dark);
+  padding: 4rem 1.5rem;
+}
+
+.lp-about__inner {
+  max-width: 900px;
+  margin: 0 auto;
+  text-align: center;
+  color: var(--c-white);
+}
+
+.lp-about__inner h2 {
+  margin: 0 0 1.25rem;
+  font-size: 2rem;
+}
+
+.lp-about__inner p {
+  margin: 0;
+  line-height: 1.55;
+}
+
+/* ========== CONTACT ========== */
+.lp-contact {
+  max-width: 1280px;
+  margin: 0 auto;
+  padding: 4rem 1.5rem;
+}
+
+.lp-contact h2 {
+  margin: 0 0 0.75rem;
+  color: var(--c-primary);
+  font-size: 2rem;
+}
+
+.lp-contact__form {
+  margin-top: 2rem;
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+}
+
+.lp-contact__row {
+  display: flex;
+  gap: 1rem;
+  flex-wrap: wrap;
+}
+
+.lp-contact__row input,
+.lp-contact textarea {
+  flex: 1 1 240px;
+  background: var(--c-white);
+}
+
+.lp-contact input,
+.lp-contact textarea {
+  border: 1px solid #ccc;
+  border-radius: 0.75rem;
+  padding: 0.65rem 1rem;
+  font-size: 1rem;
+}
+
+.lp-contact__submit {
+  align-self: flex-end;
+  width: clamp(180px, 25%, 260px);
+}
+
+/* ========== FOOTER ========== */
+.lp-footer {
+  background: var(--c-primary-dark);
+  color: var(--c-white);
+  padding: 2rem 1.5rem;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 2rem;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.lp-footer__logo {
+  height: 40px;
+}
+
+.lp-footer__center {
+  text-align: center;
+  flex: 1 1 200px;
+}
+
+.lp-social a {
+  display: inline-block;
+  width: 32px;
+  height: 32px;
+  margin-left: 0.6rem;
+  background: var(--c-white);
+  border-radius: 100%;
+  opacity: 0.9;
+}
+
+.lp-social img {
+  width: 20px;
+  height: 20px;
+  filter: invert(1);      /* blancos sobre fondo azul */
+  opacity: .9;
+  transition: 150ms;
+}
+.lp-social a:hover img { opacity: 1; }
+
+
+.lp-footer__right {
+  text-align: right;
+  font-style: normal;
+  line-height: 1.4;
+}
+
+/* =====  enlaces activos de react-scroll  ===== */
+
+.lp-menu .lp-link--active::after {     /* sub-rayado sutil */
+  content: "";
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: -0.25rem;
+  height: 2px;
+  background: var(--c-primary);
+  border-radius: 1px;
+}
+
+
+/* ---------- Responsive tweaks ---------- */
+@media (max-width: 768px) {
+  .lp-hero__btns {
+    flex-direction: column;
+    max-width: unset;
+  }
+  .lp-contact__submit {
+    align-self: stretch;
+    width: 100%;
+  }
+}

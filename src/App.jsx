@@ -2,6 +2,11 @@
 import React from "react";
 import { Routes, Route } from "react-router-dom";
 
+
+/* -------------- landing -------------- */
+import LandingPage from "./pages/LandingPage";
+
+/* -------------- auth -------------- */
 import LoginPage from "./pages/auth/LoginPage";
 import RegisterPage from "./pages/auth/RegisterPage";
 import ForgotPasswordPage from "./pages/auth/ForgotPasswordPage";
@@ -26,6 +31,9 @@ import ProfileRedirect from "./router/bridges/ProfileRedirect";
 export default function App() {
   return (
     <Routes>
+      {/* landing público */}
+      <Route path="/" element={<LandingPage />} />
+      
       {/* -------------------------  auth públicas  --------------------- */}
       <Route path="/login"           element={<LoginPage />} />
       <Route path="/register"        element={<RegisterPage />} />
