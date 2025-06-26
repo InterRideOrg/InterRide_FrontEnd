@@ -18,7 +18,7 @@ import {
 import MenuIcon from "@mui/icons-material/Menu";
 import AccountCircleIcon from "@mui/icons-material/AccountCircle";
 import DriveEtaIcon from "@mui/icons-material/DriveEta";
-import { Link, NavLink, useNavigate } from "react-router-dom";
+import { Link, NavLink, useNavigate, useLocation } from "react-router-dom";
 import { useTheme } from "@mui/material/styles";
 
 import menus from "../../constants/menus";
@@ -30,8 +30,26 @@ export default function MainNavbar() {
   const theme = useTheme();
   const isDesktop = useMediaQuery(theme.breakpoints.up("md"));
 
+  const { pathname } = useLocation();
+  const onLanding = pathname === "/";
+
+  // enlaces para landing (sin auth)
+  const landingLinks = [
+    { label: "Inicio",     target: "hero"    },
+    { label: "Nosotros",   target: "about"   },
+    { label: "Contacto",   target: "contact" },
+    { label: "Registrarte",path: "/register" },
+    { label: "Iniciar Sesión", path: "/login" },
+  ];
+
+
   const links =
     user?.roles.includes("CONDUCTOR") ? menus.DRIVER : menus.PASSENGER;
+    onLanding && !user
+      ? landingLinks
+      : user?.roles.includes("CONDUCTOR")
+        ? menus.DRIVER
+        : menus.PASSENGER;
 
   /* --- Drawer state --- */
   const [open, setOpen] = useState(false);
@@ -67,11 +85,16 @@ export default function MainNavbar() {
           {isDesktop ? (
             /* ------- Desktop (menu inline) ------- */
             <Stack direction="row" spacing={3} sx={{ mr: 2 }}>
-              {links.map(({ label, path }) => (
-                <Typography
-                  key={path}
-                  component={NavLink}
-                  to={path}
+              {links.map(({ label, path, target }) => (
+            <Typography
+              key={label}
+              component={onLanding && target ? "a" : NavLink}
+              {...(onLanding && target
+                ? { href: `#${target}`, onClick: e => {
+                    e.preventDefault();
+                    document.getElementById(target)?.scrollIntoView({ behavior: "smooth" });
+                  } }
+                : { to: path })}
                   sx={{
                     color: "inherit",
                     textDecoration: "none",
