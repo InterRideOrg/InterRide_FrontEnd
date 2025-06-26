@@ -16,7 +16,7 @@ import ResetPasswordPage from "./pages/auth/ResetPasswordPage";
 import PassengerHomePage from "./pages/passenger/PassengerHomePage";
 import PassengerProfilePage from "./pages/passenger/PassengerProfilePage";
 import RequestTripPage from "./pages/passenger/RequestTripPage";
-import  HistoryPage  from "./pages/passenger/HistoryPage";
+import HistoryPage  from "./pages/passenger/HistoryPage";
 import TicketDetailPage from "./pages/passenger/TicketDetailPage";
 /* driver   ------------------------------------------------------------ */
 /* (cuando tengas Home + Profile del conductor los importas igual)      */
@@ -48,7 +48,7 @@ export default function App() {
 
       {/* -------------------------  pasajero --------------------------- */}
       <Route
-        path="/passenger/home"
+        path="/passenger/home/:userId"
         element={
           <PrivateRoute role="PASAJERO">
             <PassengerHomePage />
@@ -97,7 +97,7 @@ export default function App() {
       {/* -------------------------  conductor (placeholder) ------------ */}
       {/* 
       <Route
-        path="/driver/home"
+        path="/driver/home/:userId"
         element={
           <PrivateRoute role="CONDUCTOR">
             <MainLayout>
@@ -108,7 +108,7 @@ export default function App() {
       />
 
       <Route
-        path="/driver/profile"
+        path="/driver/profile/:userId"
         element={
           <PrivateRoute role="CONDUCTOR">
             <MainLayout>
