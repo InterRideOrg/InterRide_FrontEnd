@@ -20,6 +20,8 @@ import PassengerProfilePage from "./pages/passenger/PassengerProfilePage";
 import RequestTripPage from "./pages/passenger/RequestTripPage";
 import HistoryPage  from "./pages/passenger/HistoryPage";
 import TicketDetailPage from "./pages/passenger/TicketDetailPage";
+import AvailableTrips from "./pages/passenger/AvailableTrips";
+import AvailableTripDetails from "./pages/passenger/AvailableTripDetails";
 /* driver   ------------------------------------------------------------ */
 
  import DriverProfilePage from "./pages/driver/DriverProfilePage";
@@ -31,6 +33,7 @@ import MainLayout from "./components/layout/MainLayout";
 /* bridges (redirects) ------------------------------------------------- */
 import HomeRedirect from "./router/bridges/HomeRedirect";
 import ProfileRedirect from "./router/bridges/ProfileRedirect";
+
 
 export default function App() {
   return (
@@ -96,6 +99,24 @@ export default function App() {
         element={
           <PrivateRoute role="PASAJERO">
             <TicketDetailPage />
+          </PrivateRoute>
+        }
+      />
+
+      <Route 
+        path="/passenger/available-trips"
+        element={
+          <PrivateRoute role="PASAJERO">
+              <AvailableTrips />
+          </PrivateRoute>
+        }
+      />
+
+      <Route 
+        path="/passenger/available-trips/:viajeId"
+        element={
+          <PrivateRoute role="PASAJERO">
+              <AvailableTripDetails />
           </PrivateRoute>
         }
       />

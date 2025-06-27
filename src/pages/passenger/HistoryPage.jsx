@@ -29,9 +29,9 @@ const HistoryPage = () => {
     return (
         <>
             <MainNavbar />
-            <section className="sec-history">
-                <div className="principal">
-                    <div className="title">
+            <section className="history-page-sec-history">
+                <div className="history-page-principal">
+                    <div className="history-page-title">
                         <h2>Historial de Viajes</h2>
                         <p>Consulta el historial de viajes realizados.</p>
                     </div>
@@ -51,7 +51,7 @@ const HistoryPage = () => {
 
                     
                 </div>
-                <div className="history">
+                <div className="history-page-history">
                     {tickets && tickets.length > 0 ? (
                         tickets.map(ticket => (
                             <TicketCardHistory key={ticket.boletoId} ticket={ticket} />
