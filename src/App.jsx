@@ -32,7 +32,6 @@ import DriverHelpPortal from "./pages/driver/DriverHelpPortal";
 import DriverHistoryPage from "./pages/driver/DriverHistoryPage";
 import DriverTripCompletedDetails from "./pages/driver/DriverTripCompletedDetails";
 import PassengerCurrentTripPage from "./pages/passenger/PassengerCurrentTripPage";
-import DriverHelpPortal from "./pages/driver/DriverHelpPortal";
 
 /* (cuando tengas Home + Profile del conductor los importas igual)      */
 import PrivateRoute from "./auth/PrivateRoute";
