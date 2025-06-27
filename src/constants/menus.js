@@ -12,6 +12,7 @@ export default {
   
     DRIVER: [
       { label: "Inicio",              path: `/driver/home/${userId}`},
+      { label: "Viajes completados",  path: `/driver/history/${userId}` },
       { label: "Billetera",           path: "/wallet"      },
       { label: "Ayuda",               path: `/helpDriver/${userId}`        },
       { label: "Notificaciones",      path: "/notifications"},

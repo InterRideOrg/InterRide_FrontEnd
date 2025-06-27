@@ -19,7 +19,6 @@ import {
 import { useAuth } from "../../auth/AuthContext";
 import { useNavigate } from "react-router-dom";
 
-// Tarjeta de viaje reutilizable (igual que PassengerHomePage)
 function TripCard({ title, subtitle, onClick, color = "primary.main", actionLabel = "Ver Más", sx = {} }) {
   return (
     <Box
@@ -55,7 +54,6 @@ function TripCard({ title, subtitle, onClick, color = "primary.main", actionLabe
   );
 }
 
-// Tarjeta de viaje completado
 function CompletedTripCard({ date, time, onClick }) {
   return (
     <Box
@@ -188,6 +186,7 @@ export default function DriverHomePage() {
             <Typography fontWeight={700} fontSize={20}>
               Viajes Completados
             </Typography>
+
             <IconButton size="small" onClick={() => alert("Ver todos completados")}>
               <Typography variant="body2" sx={{ textDecoration: "underline" }}>
                 Ver Todos
@@ -204,7 +203,7 @@ export default function DriverHomePage() {
                   year: "numeric",
                 })}
                 time={"15:26"}
-                onClick={() => alert(`Detalle viaje completado ${v.id}`)}
+                onClick={() => navigate(`/driver/trip/${v.id}`)}
               />
             ))}
           </Stack>
