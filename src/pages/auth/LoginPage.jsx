@@ -1,10 +1,12 @@
 import { useState, useMemo } from 'react';
 import { useNavigate }       from 'react-router-dom';
 import axiosInstancePublic   from '../../interceptors/axiosInstancePublic';
+import { useAuth }           from '../../auth/AuthContext';
+
 import {
   Typography, Stack, Box, Divider, IconButton, Link
 } from '@mui/material';
-import GoogleIcon     from '@mui/icons-material/Google';
+import GoogleIcon    from '@mui/icons-material/Google';
 
 import AuthLayout    from '../../components/layout/AuthLayout';
 import FormCard      from '../../components/ui/FormCard';
@@ -14,21 +16,23 @@ import PrimaryButton from '../../components/buttons/PrimaryButton';
 const emailRx = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
 
 export default function LoginPage() {
-  const navigate = useNavigate();
+  const navigate          = useNavigate();
+  const { login: setAuth} = useAuth();
 
-  const [form, setForm]         = useState({ correo: '', password: '' });
-  const [errors, setErr]        = useState({});
-  const [touched, setTouched]   = useState({});
-  const [submitted, setSub]     = useState(false);
-  const [apiError, setApiError] = useState(null);
+  const [form,   setForm]   = useState({ correo: '', password: '' });
+  const [errors, setErr]    = useState({});
+  const [touched,setTouch ] = useState({});
+  const [submitted, setSub] = useState(false);
+  const [apiError,setApiErr]= useState(null);
 
+  /* ---------- handlers ---------- */
   const handleChange = field => e =>
     setForm({ ...form, [field]: e.target.value });
 
-  const handleBlur = field => () =>
-    setTouched({ ...touched, [field]: true });
+  const handleBlur   = field => () =>
+    setTouch({ ...touched, [field]: true });
 
-  /* ─────────────── Validación reactiva ─────────────── */
+  /* ---------- validación rápida ---------- */
   useMemo(() => {
     const e = {};
     if (!emailRx.test(form.correo)) e.correo = 'Correo inválido';
@@ -36,33 +40,47 @@ export default function LoginPage() {
     setErr(e);
   }, [form]);
 
-  /* ─────────────── Submit ─────────────── */
+  /* ---------- submit ---------- */
   const handleSubmit = async e => {
     e.preventDefault();
     setSub(true);
     if (Object.keys(errors).length) return;
 
     try {
-      setApiError(null);
+      setApiErr(null);
+      /* 🔐 llamada al backend */
       const { data } = await axiosInstancePublic.post('/auth/login', form);
+      // data = { token, username, role, userId }
 
+      /* 1) Persistencia básica en localStorage */
       localStorage.setItem('authToken', data.token);
-      localStorage.setItem('userRole', data.role);
+      localStorage.setItem('userRole',  data.role);
+      localStorage.setItem('userId',    data.userId);
 
+      /* 2) Guardamos en contexto */
+      setAuth({
+        token : data.token,
+        role  : data.role,
+        userId: data.userId
+      });
+
+      /* 3) Redirección inteligente */
       navigate(
         data.role === 'PASAJERO'
           ? `/passenger/home/${data.userId}`
           : `/driver/home/${data.userId}`,
         { replace: true }
       );
+
     } catch (err) {
       console.error(err);
-      setApiError('Credenciales incorrectas');
+      setApiErr('Credenciales incorrectas');
     }
   };
 
-  const show = field => submitted || touched[field];
+  const show = f => submitted || touched[f];
 
+  /* ---------- UI ---------- */
   return (
     <AuthLayout title="Bienvenido">
       <FormCard component="form" onSubmit={handleSubmit}>
@@ -82,7 +100,7 @@ export default function LoginPage() {
             />
           </Box>
 
-          {/* Contraseña */}
+          {/* Password */}
           <Box>
             <Typography variant="subtitle1" color="common.white">
               Contraseña
@@ -109,16 +127,12 @@ export default function LoginPage() {
             </Typography>
           )}
 
-          <PrimaryButton type="submit">
-            Iniciar Sesión
-          </PrimaryButton>
+          <PrimaryButton type="submit">Iniciar sesión</PrimaryButton>
 
-          <Typography align="center" color='#FFFFFF'>
-            <Divider sx={{ borderColor: 'primary.light' }}>o ingresa con</Divider>
-          </Typography>
+          <Divider sx={{ borderColor: 'primary.light' }}>o ingresa con</Divider>
 
           <Stack direction="row" spacing={3} justifyContent="center">
-            <IconButton sx={{ backgroundColor: 'common.white' }}>
+            <IconButton sx={{ bgcolor: 'common.white' }}>
               <GoogleIcon />
             </IconButton>
           </Stack>

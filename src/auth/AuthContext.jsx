@@ -3,20 +3,35 @@ import React, { createContext, useContext, useState } from 'react';
 const AuthContext = createContext(null);
 
 export function AuthProvider({ children }) {
-  // Usuario inicia como null
+  /**
+   * Estructura estándar que manejaremos en toda la app ⬇︎
+   * {
+   *   token   : '…JWT…',
+   *   role    : 'PASAJERO' | 'CONDUCTOR' | 'ADMIN',
+   *   roles   : ['PASAJERO']   // siempre array para los guards
+   *   userId  : 23             // opcional - útil para rutas dinámicas
+   * }
+   */
   const [user, setUser] = useState(null);
 
-  // Login real: recibe datos del backend
-  const login = (userData) => {
-    setUser(userData);
-    // Opcional: localStorage.setItem('user', JSON.stringify(userData));
+  /* -------------------------------------------------- */
+  const login = (dataFromApi) => {
+    // Si el backend devuelve sólo «role», lo convertimos a array «roles»
+    const rolesArr = dataFromApi.roles ?? [dataFromApi.role];
+
+    setUser({
+      ...dataFromApi,
+      roles: rolesArr
+    });
   };
 
-  // Logout real
   const logout = () => {
     setUser(null);
-    // Opcional: localStorage.removeItem('user');
+    localStorage.removeItem('authToken');
+    localStorage.removeItem('userRole');
+    localStorage.removeItem('userId');
   };
+  /* -------------------------------------------------- */
 
   return (
     <AuthContext.Provider value={{ user, login, logout }}>
