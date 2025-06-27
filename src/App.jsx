@@ -30,12 +30,10 @@ import DriverProfilePage from "./pages/driver/DriverProfilePage";
 
 import DriverHelpPortal from "./pages/driver/DriverHelpPortal";
 import DriverHistoryPage from "./pages/driver/DriverHistoryPage";
-//import DriverTripCompletedDetails from "./pages/driver/DriverTripCompletedDetails";
+import DriverTripCompletedDetails from "./pages/driver/DriverTripCompletedDetails";
 /* (cuando tengas Home + Profile del conductor los importas igual)      */
-
 import PrivateRoute from "./auth/PrivateRoute";
 import MainLayout from "./components/layout/MainLayout";
-
 
 export default function App() {
   return (
@@ -190,7 +188,6 @@ export default function App() {
         }
       /> 
       
-      {/*}
       <Route
         path="/driver/trip/:id"
         element={
@@ -201,7 +198,7 @@ export default function App() {
           </PrivateRoute>
         }
       /> 
-      */}
+
 
     </Routes>
   );
