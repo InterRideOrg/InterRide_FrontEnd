@@ -121,7 +121,7 @@ export default function App() {
       <Route
         path="/driver/profile/:userId"
         element={
-          <PrivateRoute role="PASAJERO">
+          <PrivateRoute role="CONDUCTOR">
             <MainLayout>
               <DriverProfilePage />
             </MainLayout>
