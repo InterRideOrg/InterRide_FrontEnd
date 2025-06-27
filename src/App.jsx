@@ -48,7 +48,7 @@ export default function App() {
       <Route path="/register-vehicle"   element={<RegisterVehiclePage />}  />
 
       <Route path="/forgot-password" element={<ForgotPasswordPage />} />
-      <Route path="/reset-password/:token" element={<ResetPasswordPage />} />
+      <Route path="/forgot/:token" element={<ResetPasswordPage />} />
 
       {/* -------------------------  alias genéricos -------------------- */}
       {/* /home decide a dónde ir (pasajero o conductor) */}

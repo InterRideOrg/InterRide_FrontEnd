@@ -1,67 +1,84 @@
 import React, { useState } from 'react';
-import { Box, Button, Stack, Typography } from '@mui/material';
+import {
+  Box,
+  Button,
+  Stack,
+  Typography,
+  Alert,
+  CircularProgress,
+} from '@mui/material';
 import AuthLayout from '../../components/layout/AuthLayout';
-import FormCard from '../../components/ui/FormCard';        // tu card azul oscuro
+import FormCard from '../../components/ui/FormCard';
 import RoundedTextField from '../../components/ui/RoundedTextField';
+import axiosPublic from '../../interceptors/axiosInstancePublic';
 
 export default function ForgotPasswordPage() {
-  const [email, setEmail] = useState('');
+  const [email,    setEmail]   = useState('');
+  const [sending,  setSending] = useState(false);
+  const [success,  setSuccess] = useState(false);
+  const [errorMsg, setError]   = useState(null);
 
-  const handleSubmit = e => {
+  /* ───── submit ───── */
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    // 👉 TODO: llamar a /auth/forgot-password
-    console.log('Email enviado:', email);
+    setError(null);
+    setSuccess(false);
+
+    try {
+      setSending(true);
+
+      /** endpoint real => /mail/sendMail */
+      await axiosPublic.post(
+        '/mail/sendMail',
+        email.trim(),
+        { headers: { 'Content-Type': 'text/plain' } }
+      );
+
+      setSuccess(true);
+    } catch (err) {
+      console.error(err);
+      setError('No se pudo enviar el correo. Intenta nuevamente.');
+    } finally {
+      setSending(false);
+    }
   };
 
   return (
-    <AuthLayout title="¿Se Olvidó Su Contraseña?">
-      {/* ---- subtítulo ---- */}
-        <Typography
-        variant="body1"
-        sx={{
-            /** centro y anchura responsiva */
-            textAlign: 'center',
-            maxWidth: { xs: '90%', sm: 460 }, // 90 % en móviles, 460 px en ≥ 600 px
-            mx: 'auto',                       // ←  margen izquierdo y derecho auto
-            mb: 6,
-            lineHeight: 1.35,
-        }}
-        >
-        Ingrese el email con el que creó su cuenta; le enviaremos un correo con
-        los pasos para reiniciar su contraseña.
-        </Typography>
+    <AuthLayout title="¿Olvidaste tu contraseña?">
+      <Typography variant="body1" sx={{ textAlign: 'center', mb: 6 }}>
+        Ingresa el e-mail con el que te registraste; recibirás un enlace para
+        restablecer tu contraseña.
+      </Typography>
 
+      {success && <Alert severity="success" sx={{ mb: 4 }}>¡Correo enviado!</Alert>}
+      {errorMsg && <Alert severity="error"   sx={{ mb: 4 }}>{errorMsg}</Alert>}
 
-      {/* ---- formulario reutilizando FormCard ---- */}
       <FormCard component="form" onSubmit={handleSubmit}>
         <Stack spacing={4}>
           <Box>
             <Typography variant="subtitle1" color="common.white" mb={1}>
-              Usuario o email
+              Correo electrónico
             </Typography>
-
-            {/* Nuestro input reutilizable */}
             <RoundedTextField
               required
               type="email"
-              placeholder="example@example.com"
               value={email}
-              onChange={e => setEmail(e.target.value)}
+              onChange={(e) => setEmail(e.target.value)}
+              placeholder="usuario@email.com"
             />
           </Box>
         </Stack>
       </FormCard>
 
-      {/* ---- botón ---- */}
       <Box textAlign="center" mt={6}>
         <Button
-          type="submit"
-          variant="contained"
-          size="large"
-          sx={{ borderRadius: 9999, width: 200 }}
           onClick={handleSubmit}
+          variant="contained"
+          disabled={sending}
+          endIcon={sending && <CircularProgress size={18} />}
+          sx={{ width: 200, borderRadius: 9999 }}
         >
-          Continuar
+          {sending ? 'Enviando…' : 'Continuar'}
         </Button>
       </Box>
     </AuthLayout>
