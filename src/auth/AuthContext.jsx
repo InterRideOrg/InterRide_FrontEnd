@@ -12,7 +12,23 @@ export function AuthProvider({ children }) {
    *   userId  : 23             // opcional - útil para rutas dinámicas
    * }
    */
-  const [user, setUser] = useState(null);
+const [user, setUser] = useState(() => {
+  const token = localStorage.getItem("authToken");
+  const role = localStorage.getItem("userRole");
+  const userId = localStorage.getItem("userId");
+
+  if (token && role && userId) {
+    return {
+      token,
+      role,
+      roles: [role],
+      userId: parseInt(userId)
+    };
+  }
+
+  return null;
+});
+
 
   /* -------------------------------------------------- */
   const login = (dataFromApi) => {

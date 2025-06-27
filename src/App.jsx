@@ -23,10 +23,14 @@ import TicketDetailPage from "./pages/passenger/TicketDetailPage";
 import RateTripPage from "./pages/passenger/RateTripPage";
 import AvailableTrips from "./pages/passenger/AvailableTrips";
 import AvailableTripDetails from "./pages/passenger/AvailableTripDetails";
+import PassengerHelpPortal from "./pages/passenger/PassengerHelpPortal";
 /* driver   ------------------------------------------------------------ */
 import DriverHomePage from "./pages/driver/DriverHomePage";
 import DriverProfilePage from "./pages/driver/DriverProfilePage";
+
 import PassengerCurrentTripPage from "./pages/passenger/PassengerCurrentTripPage";
+import DriverHelpPortal from "./pages/driver/DriverHelpPortal";
+
 /* (cuando tengas Home + Profile del conductor los importas igual)      */
 
 import PrivateRoute from "./auth/PrivateRoute";
@@ -47,7 +51,7 @@ export default function App() {
       <Route path="/register-vehicle"   element={<RegisterVehiclePage />}  />
 
       <Route path="/forgot-password" element={<ForgotPasswordPage />} />
-      <Route path="/reset-password/:token" element={<ResetPasswordPage />} />
+      <Route path="/forgot/:token" element={<ResetPasswordPage />} />
 
       {/* -------------------------  alias genéricos -------------------- */}
       {/* /home decide a dónde ir (pasajero o conductor) */}
@@ -66,7 +70,7 @@ export default function App() {
       />
 
       <Route
-        path="/passenger/profile"
+        path="/passenger/profile/:userId"
         element={
           <PrivateRoute role="PASAJERO">
             <PassengerProfilePage />
@@ -128,6 +132,18 @@ export default function App() {
         }
       />
 
+      
+      <Route 
+        path="/helpPassenger/:userId"
+        element={
+          <PrivateRoute role="PASAJERO">
+              <PassengerHelpPortal />
+          </PrivateRoute>
+        }
+      />
+
+
+
       <Route
         path="/passenger/current-trip/:pasajeroId/:viajeId"
         element={
@@ -156,6 +172,17 @@ export default function App() {
           <PrivateRoute role="CONDUCTOR">
             <MainLayout>
               <DriverProfilePage />
+            </MainLayout>
+          </PrivateRoute>
+        }
+      /> 
+
+      <Route
+        path="/helpDriver/:userId"
+        element={
+          <PrivateRoute role="CONDUCTOR">
+            <MainLayout>
+              <DriverHelpPortal />
             </MainLayout>
           </PrivateRoute>
         }
