@@ -23,9 +23,11 @@ import TicketDetailPage from "./pages/passenger/TicketDetailPage";
 import RateTripPage from "./pages/passenger/RateTripPage";
 import AvailableTrips from "./pages/passenger/AvailableTrips";
 import AvailableTripDetails from "./pages/passenger/AvailableTripDetails";
+import PassengerHelpPortal from "./pages/passenger/PassengerHelpPortal";
 /* driver   ------------------------------------------------------------ */
 import DriverHomePage from "./pages/driver/DriverHomePage";
 import DriverProfilePage from "./pages/driver/DriverProfilePage";
+import DriverHelpPortal from "./pages/driver/DriverHelpPortal";
 /* (cuando tengas Home + Profile del conductor los importas igual)      */
 
 import PrivateRoute from "./auth/PrivateRoute";
@@ -65,7 +67,7 @@ export default function App() {
       />
 
       <Route
-        path="/passenger/profile"
+        path="/passenger/profile/:userId"
         element={
           <PrivateRoute role="PASAJERO">
             <PassengerProfilePage />
@@ -127,6 +129,15 @@ export default function App() {
         }
       />
       
+      <Route 
+        path="/helpPassenger/:userId"
+        element={
+          <PrivateRoute role="PASAJERO">
+              <PassengerHelpPortal />
+          </PrivateRoute>
+        }
+      />
+
 
 
       {/* -------------------------  conductor (placeholder) ------------ */}
@@ -148,6 +159,17 @@ export default function App() {
           <PrivateRoute role="CONDUCTOR">
             <MainLayout>
               <DriverProfilePage />
+            </MainLayout>
+          </PrivateRoute>
+        }
+      /> 
+
+      <Route
+        path="/helpDriver/:userId"
+        element={
+          <PrivateRoute role="CONDUCTOR">
+            <MainLayout>
+              <DriverHelpPortal />
             </MainLayout>
           </PrivateRoute>
         }
