@@ -53,7 +53,7 @@ export default function LandingNavbar() {
             </ScrollLink>
           </nav>
 
-          <RouterLink to="/register" className="lp-btn lp-btn--outline">
+          <RouterLink to="/register-passenger" className="lp-btn lp-btn--outline">
             Regístrate
           </RouterLink>
 

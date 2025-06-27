@@ -45,7 +45,7 @@ export default function LandingPage() {
 
             <button
               className="lp-btn lp-btn--outline"
-              onClick={() => nav("/driver/register")}
+              onClick={() => nav("/register-driver")}
             >
               Quiero ser conductor
             </button>

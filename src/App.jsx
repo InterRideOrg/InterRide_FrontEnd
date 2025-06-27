@@ -8,7 +8,9 @@ import LandingPage from "./pages/LandingPage";
 
 /* -------------- auth -------------- */
 import LoginPage from "./pages/auth/LoginPage";
-import RegisterPage from "./pages/auth/RegisterPage";
+import RegisterDriverPage from "./pages/auth/RegisterDriverPage";
+import RegisterPassengerPage from "./pages/auth/RegisterPassengerPage";
+import RegisterVehiclePage from "./pages/auth/RegisterVehiclePage";
 import ForgotPasswordPage from "./pages/auth/ForgotPasswordPage";
 import ResetPasswordPage from "./pages/auth/ResetPasswordPage";
 
@@ -16,10 +18,14 @@ import ResetPasswordPage from "./pages/auth/ResetPasswordPage";
 import PassengerHomePage from "./pages/passenger/PassengerHomePage";
 import PassengerProfilePage from "./pages/passenger/PassengerProfilePage";
 import RequestTripPage from "./pages/passenger/RequestTripPage";
-import  HistoryPage  from "./pages/passenger/HistoryPage";
+import HistoryPage  from "./pages/passenger/HistoryPage";
 import TicketDetailPage from "./pages/passenger/TicketDetailPage";
 import RateTripPage from "./pages/passenger/RateTripPage";
+import AvailableTrips from "./pages/passenger/AvailableTrips";
+import AvailableTripDetails from "./pages/passenger/AvailableTripDetails";
 /* driver   ------------------------------------------------------------ */
+
+ import DriverProfilePage from "./pages/driver/DriverProfilePage";
 /* (cuando tengas Home + Profile del conductor los importas igual)      */
 
 import PrivateRoute from "./auth/PrivateRoute";
@@ -29,6 +35,7 @@ import MainLayout from "./components/layout/MainLayout";
 import HomeRedirect from "./router/bridges/HomeRedirect";
 import ProfileRedirect from "./router/bridges/ProfileRedirect";
 
+
 export default function App() {
   return (
     <Routes>
@@ -37,7 +44,11 @@ export default function App() {
       
       {/* -------------------------  auth públicas  --------------------- */}
       <Route path="/login"           element={<LoginPage />} />
-      <Route path="/register"        element={<RegisterPage />} />
+
+      <Route path="/register-passenger" element={<RegisterPassengerPage />} />
+      <Route path="/register-driver"    element={<RegisterDriverPage />}   />
+      <Route path="/register-vehicle"   element={<RegisterVehiclePage />}  />
+
       <Route path="/forgot-password" element={<ForgotPasswordPage />} />
       <Route path="/reset-password/:token" element={<ResetPasswordPage />} />
 
@@ -49,7 +60,7 @@ export default function App() {
 
       {/* -------------------------  pasajero --------------------------- */}
       <Route
-        path="/passenger/home"
+        path="/passenger/home/:userId"
         element={
           <PrivateRoute role="PASAJERO">
             <PassengerHomePage />
@@ -101,13 +112,31 @@ export default function App() {
           </PrivateRoute>
         }
       />
+         
+      <Route 
+        path="/passenger/available-trips"
+        element={
+          <PrivateRoute role="PASAJERO">
+              <AvailableTrips />
+          </PrivateRoute>
+        }
+      />
+
+      <Route 
+        path="/passenger/available-trips/:viajeId"
+        element={
+          <PrivateRoute role="PASAJERO">
+              <AvailableTripDetails />
+          </PrivateRoute>
+        }
+      />
       
 
 
       {/* -------------------------  conductor (placeholder) ------------ */}
       {/* 
       <Route
-        path="/driver/home"
+        path="/driver/home/:userId"
         element={
           <PrivateRoute role="CONDUCTOR">
             <MainLayout>
@@ -117,8 +146,11 @@ export default function App() {
         }
       />
 
+*/
+
+
       <Route
-        path="/driver/profile"
+        path="/driver/profile/:userId"
         element={
           <PrivateRoute role="CONDUCTOR">
             <MainLayout>
@@ -127,7 +159,7 @@ export default function App() {
           </PrivateRoute>
         }
       /> 
-      */}
+      }
     </Routes>
   );
 }
