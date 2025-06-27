@@ -6,7 +6,7 @@ import TicketCardHistory from "../../components/cards/TicketCardHistory"
 import dayjs from "dayjs"
 import './styles/HistoryPage.css'
 
-const HistoryPage = () => {
+const PassengerHistoryPage = () => {
     const [timeFrom, setTimeFrom] = useState(dayjs())
     const [timeTo, setTimeTo] = useState(dayjs())
     const [date, setDate] = useState(dayjs())
@@ -65,4 +65,4 @@ const HistoryPage = () => {
     )
 }
 
-export default HistoryPage
+export default PassengerHistoryPage
