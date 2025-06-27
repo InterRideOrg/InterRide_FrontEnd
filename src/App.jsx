@@ -27,11 +27,10 @@ import PassengerHelpPortal from "./pages/passenger/PassengerHelpPortal";
 /* driver   ------------------------------------------------------------ */
 import DriverHomePage from "./pages/driver/DriverHomePage";
 import DriverProfilePage from "./pages/driver/DriverProfilePage";
-
+import DriverTripCompletedDetails from "./pages/driver/DriverTripCompletedDetails";
 import DriverHelpPortal from "./pages/driver/DriverHelpPortal";
 import DriverHistoryPage from "./pages/driver/DriverHistoryPage";
 
-import DriverTripCompletedDetails from "./pages/driver/DriverTripCompletedDetails";
 /* (cuando tengas Home + Profile del conductor los importas igual)      */
 
 import PrivateRoute from "./auth/PrivateRoute";
