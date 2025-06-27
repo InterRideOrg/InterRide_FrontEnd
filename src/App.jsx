@@ -20,6 +20,7 @@ import PassengerProfilePage from "./pages/passenger/PassengerProfilePage";
 import RequestTripPage from "./pages/passenger/RequestTripPage";
 import HistoryPage  from "./pages/passenger/HistoryPage";
 import TicketDetailPage from "./pages/passenger/TicketDetailPage";
+import RateTripPage from "./pages/passenger/RateTripPage";
 import AvailableTrips from "./pages/passenger/AvailableTrips";
 import AvailableTripDetails from "./pages/passenger/AvailableTripDetails";
 /* driver   ------------------------------------------------------------ */
@@ -103,6 +104,15 @@ export default function App() {
         }
       />
 
+      <Route
+        path="/trip/rate/:pasajeroId/:viajeId/:conductorId"
+        element={
+          <PrivateRoute role="PASAJERO">
+            <RateTripPage />
+          </PrivateRoute>
+        }
+      />
+         
       <Route 
         path="/passenger/available-trips"
         element={
