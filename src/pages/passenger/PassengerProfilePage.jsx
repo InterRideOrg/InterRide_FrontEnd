@@ -1,5 +1,4 @@
-// src/pages/passenger/PassengerProfilePage.jsx
-import React from "react";
+import React, { use } from "react";
 import {
   Avatar,
   Box,
@@ -9,21 +8,51 @@ import {
   Typography,
 } from "@mui/material";
 import EditRoundedIcon from "@mui/icons-material/EditRounded";
-import { useQuery } from "@tanstack/react-query";
-import { fetchPassengerProfile } from "../../services/mockApi";
+import axiosInstance from "../../interceptors/axiosInstance";
 import RoundedTextField from "../../components/ui/RoundedTextField";
 import MainLayout from "../../components/layout/MainLayout";
+import { useState, useEffect } from "react";
+
+/* ────────────── Hook para obtener el id del usuario desde localStorage ────────────── */
+function useUserId() {
+  return localStorage.getItem("userId");
+}
+
+/* ────────────── Fetcher para el perfil privado ────────────── */
 
 export default function PassengerProfilePage() {
-  /* ------------------------------------------------------------------ */
-  /*   DATA                                                             */
-  /* ------------------------------------------------------------------ */
-  const { data, isLoading } = useQuery({
-    queryKey: ["passenger", "profile"],
-    queryFn: fetchPassengerProfile,
-  });
 
-  if (isLoading || !data) {
+  const[passengerId, setPassengerId] = useState(null);
+  const[passengerProfile, setPassengerProfile] = useState(null);
+
+  const userId = useUserId();
+
+  useEffect(() => {
+    
+      axiosInstance.get(`/usuario/profile/PassengerId/${userId}`)
+      .then(response => {
+          setPassengerId(response.data);
+      })
+      .catch(error => {
+          console.error('Error:', error);
+      });
+  }, [userId]);
+
+
+  useEffect(() => {
+  
+    if (!passengerId) return; // Evita hacer la solicitud si passengerId aún no está disponible
+      axiosInstance.get(`/pasajero/priv/${passengerId}`)
+      .then(response => {
+          setPassengerProfile(response.data);
+      })
+      .catch(error => {
+          console.error('Error:', error);
+      });
+  }, [passengerId]);
+
+
+  if (!passengerProfile) {
     return (
       <MainLayout>
         <Box py={10} textAlign="center">
@@ -33,11 +62,8 @@ export default function PassengerProfilePage() {
     );
   }
 
-  const fullName = `${data.nombres} ${data.apellidos}`;
+  const fullName = `${passengerProfile.nombres} ${passengerProfile.apellidos}`;
 
-  /* ------------------------------------------------------------------ */
-  /*   UI                                                               */
-  /* ------------------------------------------------------------------ */
   return (
     <MainLayout>
       {/* ─────────────────────────  encabezado  ─────────────────────── */}
@@ -85,8 +111,9 @@ export default function PassengerProfilePage() {
         >
           <Stack spacing={4}>
             <FieldLine label="NOMBRES" value={fullName} />
-            <FieldLine label="EMAIL" value={data.correo} />
-            <FieldLine label="TELÉFONO" value={data.telefono} />
+            <FieldLine label="EMAIL" value={passengerProfile.correo} />
+            <FieldLine label="TELÉFONO" value={passengerProfile.telefono} />
+            <FieldLineNoIcon label="USERNAME" value={passengerProfile.username} />
           </Stack>
         </Box>
       </Box>
@@ -118,6 +145,26 @@ function FieldLine({ label, value }) {
             />
           ),
         }}
+      />
+    </Box>
+  );
+}
+
+/* ────────────── Campo sin ícono de lápiz ────────────── */
+function FieldLineNoIcon({ label, value }) {
+  return (
+    <Box>
+      <Typography
+        variant="subtitle2"
+        sx={{ mb: 0.5, fontWeight: 600, color: "common.black" }}
+      >
+        {label}
+      </Typography>
+      <RoundedTextField
+        fullWidth
+        size="small"
+        value={value}
+        disabled
       />
     </Box>
   );
