@@ -1,7 +1,8 @@
 // src/constants/menus.js
+const userId = localStorage.getItem('userId');
 export default {
     PASSENGER: [
-      { label: "Inicio",              path: "/home"        },
+      { label: "Inicio",              path: `/passenger/home/${userId}`},
       { label: "Historial de viajes", path: "/passenger/history"     },
       { label: "Pagos",               path: "/payments"    },
       { label: "Ayuda",               path: "/help"        },

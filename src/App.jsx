@@ -31,10 +31,6 @@ import AvailableTripDetails from "./pages/passenger/AvailableTripDetails";
 import PrivateRoute from "./auth/PrivateRoute";
 import MainLayout from "./components/layout/MainLayout";
 
-/* bridges (redirects) ------------------------------------------------- */
-import HomeRedirect from "./router/bridges/HomeRedirect";
-import ProfileRedirect from "./router/bridges/ProfileRedirect";
-
 
 export default function App() {
   return (
@@ -54,9 +50,9 @@ export default function App() {
 
       {/* -------------------------  alias genéricos -------------------- */}
       {/* /home decide a dónde ir (pasajero o conductor) */}
-      <Route path="/home"    element={<HomeRedirect />} />
+       {/*<Route path="/home"    element={<HomeRedirect />} />
       {/* /profile decide el perfil correcto */}
-      <Route path="/profile" element={<ProfileRedirect />} />
+       {/*<Route path="/profile" element={<ProfileRedirect />} />
 
       {/* -------------------------  pasajero --------------------------- */}
       <Route
