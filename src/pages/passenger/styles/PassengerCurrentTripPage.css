@@ -1,0 +1,153 @@
+.current-trip-page-sec-current-trip {
+    min-height: 100vh;
+    padding: 20px;
+    font-family: 'Arial', sans-serif;
+}
+
+.current-trip-page-title {
+    text-align: left;
+    margin-bottom: 30px;
+    padding: 0 20px;
+}
+
+.current-trip-page-title h1 {
+    font-size: 28px;
+    font-weight: bold;
+    margin: 0;
+}
+
+.current-trip-page-principal {
+    display: flex;
+    gap: 20px;
+    max-width: 1200px;
+    margin: 0 auto;
+    align-items: flex-start;
+}
+
+.current-trip-page-info {
+    background: #32586B;
+    border-radius: 12px;
+    padding-bottom: 2rem;
+    flex: 0 0 350px;
+    overflow: hidden;
+
+}
+
+/* Estilos para cada sección */
+.current-trip-page-info-driver,
+.current-trip-page-info-arrival,
+.current-trip-page-info-origin,
+.current-trip-page-info-destination {
+    border-bottom: 1px solid rgba(255,255,255,0.1);
+}
+
+.current-trip-page-info-destination {
+    border-bottom: none;
+}
+
+
+
+.current-trip-page-info-driver-title h4,
+.current-trip-page-info-arrival-title h4,
+.current-trip-page-info-origin-title h4,
+.current-trip-page-info-destination-title h4 {
+    color: white;
+    margin: 0;
+    padding: 15px 20px;
+    font-size: 14px;
+    font-weight: 600;
+    letter-spacing: 0.5px;
+    text-transform: capitalize;
+}
+
+/* Contenido de cada sección */
+.current-trip-page-info-driver-text,
+.current-trip-page-info-arrival-text,
+.current-trip-page-info-origin-text,
+.current-trip-page-info-destination-text {
+    background: #4db6ac;
+    padding: 15px 20px;
+    min-height: 40px;
+    display: flex;
+    align-items: center;
+    margin-left: 1rem;
+    margin-right: 1rem;
+}
+
+.current-trip-page-info-driver-text p,
+.current-trip-page-info-arrival-text p,
+.current-trip-page-info-origin-text p,
+.current-trip-page-info-destination-text p {
+    color: white;
+    margin: 0;
+    font-size: 16px;
+    font-weight: 500;
+    line-height: 1.4;
+}
+
+.current-trip-page-map {
+  flex: 1;
+  height: 400px;
+  border-radius: 12px;
+  overflow: hidden;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.15);
+  margin-top: rem;
+}
+
+
+
+/* Responsive Design */
+@media (max-width: 768px) {
+  .current-trip-page-principal {
+    flex-direction: column;
+    gap: 20px;
+  }
+
+  .current-trip-page-info {
+    flex: none;
+    width: 100%;
+  }
+
+  .current-trip-page-map {
+    height: 300px;
+    width: 100%;
+  }
+
+  .current-trip-page-title h1 {
+    font-size: 24px;
+    text-align: center;
+  }
+
+  .current-trip-page-sec-current-trip {
+    padding: 15px;
+  }
+}
+
+@media (max-width: 480px) {
+  .current-trip-page-info-driver-title h4,
+  .current-trip-page-info-arrival-title h4,
+  .current-trip-page-info-origin-title h4,
+  .current-trip-page-info-destination-title h4 {
+    font-size: 12px;
+    padding: 12px 15px;
+  }
+
+  .current-trip-page-info-driver-text,
+  .current-trip-page-info-arrival-text,
+  .current-trip-page-info-origin-text,
+  .current-trip-page-info-destination-text {
+    padding: 12px 15px;
+    min-height: 35px;
+  }
+
+  .current-trip-page-info-driver-text p,
+  .current-trip-page-info-arrival-text p,
+  .current-trip-page-info-origin-text p,
+  .current-trip-page-info-destination-text p {
+    font-size: 14px;
+  }
+
+  .current-trip-page-map {
+    height: 250px;
+  }
+}
