@@ -23,6 +23,8 @@ import TicketDetailPage from "./pages/passenger/TicketDetailPage";
 import AvailableTrips from "./pages/passenger/AvailableTrips";
 import AvailableTripDetails from "./pages/passenger/AvailableTripDetails";
 /* driver   ------------------------------------------------------------ */
+
+ import DriverProfilePage from "./pages/driver/DriverProfilePage";
 /* (cuando tengas Home + Profile del conductor los importas igual)      */
 
 import PrivateRoute from "./auth/PrivateRoute";
@@ -134,6 +136,9 @@ export default function App() {
         }
       />
 
+*/
+
+
       <Route
         path="/driver/profile/:userId"
         element={
@@ -144,7 +149,7 @@ export default function App() {
           </PrivateRoute>
         }
       /> 
-      */}
+      }
     </Routes>
   );
 }

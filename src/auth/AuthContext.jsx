@@ -1,22 +1,22 @@
-// src/auth/AuthContext.jsx
 import React, { createContext, useContext, useState } from 'react';
 
 const AuthContext = createContext(null);
 
 export function AuthProvider({ children }) {
-  //const [user, setUser] = useState(null);   // { id, name, roles: [] }
+  // Usuario inicia como null
+  const [user, setUser] = useState(null);
 
-//-->>QUITAR CUANDO SE PRUEBE CON BACKEND USUARIO DE PRUEBA
-  const [user, setUser] = useState(() => ({
-    id: 1,
-    name: 'Juan',
-    roles: ['PASAJERO']
-  }));
-//--->QUITAR CUANDO SE PRUEBE CON BACKEND
+  // Login real: recibe datos del backend
+  const login = (userData) => {
+    setUser(userData);
+    // Opcional: localStorage.setItem('user', JSON.stringify(userData));
+  };
 
-  /* mocks de login/logout */
-  const login  = (u) => setUser(u);
-  const logout = () => setUser(null);
+  // Logout real
+  const logout = () => {
+    setUser(null);
+    // Opcional: localStorage.removeItem('user');
+  };
 
   return (
     <AuthContext.Provider value={{ user, login, logout }}>
@@ -25,5 +25,4 @@ export function AuthProvider({ children }) {
   );
 }
 
-/* 🔑 named export */
 export const useAuth = () => useContext(AuthContext);
