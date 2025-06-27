@@ -13,6 +13,13 @@ export const theme = createTheme({
     secondary: {
       main: '#80BEC5',   // gris azulado guía
     },
+    /* 🔵 Color de error sobrescrito */
+    error: {
+      main:  '#80BEC5',   // azul claro
+      light: '#B0D9DE',
+      dark:  '#4f7c82',
+      contrastText: '#FFFFFF',
+    },
   },
   typography: {
     fontFamily: 'Inter, sans-serif',
@@ -48,6 +55,27 @@ export const theme = createTheme({
         },
         input: {
           padding: '14px 20px',       // un poco más de aire
+        },
+      },
+    },
+    /* 👉 color del helper-text en error */
+    MuiFormHelperText: {
+      styleOverrides: {
+        root: {
+          '&.Mui-error': {
+            color: '#80BEC5',
+          },
+        },
+      },
+    },
+
+    /* 👉 color del label en error */
+    MuiInputLabel: {
+      styleOverrides: {
+        root: {
+          '&.Mui-error': {
+            color: '#80BEC5',
+          },
         },
       },
     },

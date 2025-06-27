@@ -1,51 +1,112 @@
-import { useState } from 'react';
+import { useState, useMemo } from 'react';
 import { Box, Stack, Typography } from '@mui/material';
-import AuthLayout from '../../components/layout/AuthLayout';
-import FormCard from '../../components/ui/FormCard';
-import AuthTextField from '../../components/inputs/AuthTextField';
-import PrimaryButton from '../../components/buttons/PrimaryButton';
-import axiosInstancePublic from "../../interceptors/axiosInstancePublic";
+import AuthLayout          from '../../components/layout/AuthLayout';
+import FormCard            from '../../components/ui/FormCard';
+import AuthTextField       from '../../components/inputs/AuthTextField';
+import PrimaryButton       from '../../components/buttons/PrimaryButton';
+import axiosInstancePublic from '../../interceptors/axiosInstancePublic';
 
-import './styles/RegisterPassenger.css';   //  ➜ sin prefijo
+import './styles/RegisterPassenger.css';     // recuerda el prefijo rp- en las clases
+
+/* ────── expresiones regulares ────── */
+const emailRx  = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+const phoneRx  = /^\d{7,15}$/;
+const userRx   = /^[a-zA-Z0-9_]{3,20}$/;
 
 export default function RegisterPassengerPage() {
-  const [form, setForm] = useState({
-    nombre: '',
-    correo: '',
-    telefono: '',
-    password: '',
-    confirm: ''
+  /* ────── estado ────── */
+  const [form, setForm]  = useState({
+    nombre    : '',
+    apellidos : '',
+    correo    : '',
+    telefono  : '',
+    username  : '',
+    password  : '',
+    confirm   : '',
   });
-  const handle = field => e => setForm({ ...form, [field]: e.target.value });
+  const [errors,   setErr]  = useState({});
+  const [touched,  setT  ]  = useState({});
+  const [submitted,setSub]  = useState(false);
+  const [msg,      setMsg]  = useState(null);
 
-  const submit = async e => {
-    e.preventDefault();
-    /** Enviar con instancia pública */
-    await axiosInstancePublic.post('/auth/register-passenger', form);
-    /* TODO: mostrar toast / redirigir */
+  /* ────── manejadores de input ────── */
+  const handle     = f => e => setForm({ ...form, [f]: e.target.value });
+  const markBlur   = f => () => setT ({ ...touched, [f]: true });
+
+  /* ────── validación reactiva ────── */
+  useMemo(() => {
+    const e = {};
+    if (!form.nombre.trim())         e.nombre    = 'Requerido';
+    if (!form.apellidos.trim())      e.apellidos = 'Requerido';
+    if (!emailRx.test(form.correo))  e.correo    = 'Correo inválido';
+    if (!phoneRx.test(form.telefono))e.telefono  = 'Sólo dígitos (7-15)';
+    if (!userRx.test(form.username)) e.username  = '3-20 letras, números o _';
+    if (form.password.length < 6)    e.password  = 'Mínimo 6 caracteres';
+    if (form.confirm !== form.password) e.confirm = 'No coincide';
+    setErr(e);
+  }, [form]);
+
+  /* ────── envío ────── */
+  const submit = async ev => {
+    ev.preventDefault();
+    setSub(true);
+    if (Object.keys(errors).length) return;      // aún hay errores
+
+    try {
+      await axiosInstancePublic.post('/auth/register/pasajero', {
+        nombre   : form.nombre.trim(),
+        apellidos: form.apellidos.trim(),
+        correo   : form.correo.trim(),
+        password : form.password,
+        telefono : form.telefono.trim(),
+        username : form.username.trim(),
+      });
+      setMsg('¡Registro exitoso!');
+    } catch (e) {
+      console.error(e);
+      setMsg('Error al registrar');
+    }
   };
+
+  /* ────── helpers de UI ────── */
+  const showErr = f => (submitted || touched[f]) && errors[f];
+  const bind    = f => ({
+    value       : form[f],
+    onChange    : handle(f),
+    onBlur      : markBlur(f),
+    error       : !!showErr(f),
+    helperText  : showErr(f) || ' ',
+  });
 
   return (
     <AuthLayout title="Empecemos">
-      <FormCard onSubmit={submit}>
+      <FormCard component="form" onSubmit={submit}>
         <Stack spacing={3}>
+
+          {/* campos */}
           {[
-            ['Nombre completo', 'nombre'],
-            ['Email', 'correo', 'email'],
-            ['Número de teléfono', 'telefono', 'tel'],
-            ['Contraseña', 'password', 'password'],
-            ['Confirmar contraseña', 'confirm', 'password']
+            ['Nombre completo',          'nombre'   ],
+            ['Apellidos',                'apellidos'],
+            ['Email',                    'correo',   'email'],
+            ['Número de teléfono',       'telefono', 'tel'  ],
+            ['Nombre de usuario',        'username' ],
+            ['Contraseña',               'password', 'password'],
+            ['Confirmar contraseña',     'confirm',  'password'],
           ].map(([label, field, type = 'text']) => (
             <Box key={field}>
               <Typography className="rp-label">{label}</Typography>
-              <AuthTextField
-                type={type}
-                value={form[field]}
-                onChange={handle(field)}
-              />
+              <AuthTextField type={type} {...bind(field)} />
             </Box>
           ))}
-          <PrimaryButton>Registrarse</PrimaryButton>
+
+          {/* mensaje resultado */}
+          {msg && (
+            <Typography color="secondary.light" align="center">
+              {msg}
+            </Typography>
+          )}
+
+          <PrimaryButton type="submit">Registrarse</PrimaryButton>
         </Stack>
       </FormCard>
     </AuthLayout>
