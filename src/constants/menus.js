@@ -11,11 +11,11 @@ export default {
     ],
   
     DRIVER: [
-      { label: "Inicio",              path: "/home"        },
+      { label: "Inicio",              path: `/driver/home/${userId}`},
       { label: "Billetera",           path: "/wallet"      },
       { label: "Ayuda",               path: "/help"        },
       { label: "Notificaciones",      path: "/notifications"},
-      { label: "Perfil",              path: "/profile"     }   // 👈 NUEVO
+      { label: "Perfil",              path: `/driver/profile/${userId}`}   // 👈 NUEVO
     ]
   };
   

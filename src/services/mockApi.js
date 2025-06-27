@@ -32,6 +32,44 @@ export function fetchPassengerHome() {
     });
   }
   
+/* HOME – conductor -------------------------------------------------------- */
+export function fetchDriverHome() {
+    return Promise.resolve({
+      InProgress: {
+        id: 1,
+        destination: "Yauyos",
+        driver: "Pedro Rojas",
+      },
+      Requests: [
+        { id: 2, destination: "Huaral", seats: 3 },
+        { id: 3, destination: "Barranca", seats: 1 },
+      ],
+      Completed: [
+        { id: 4, destination: "Chosica", date: "2023-10-01" },
+        { id: 5, destination: "Canta", date: "2023-09-15" },
+      ],
+    });
+  }
+  
+  /* PERFIL – conductor ------------------------------------------------------ */
+  export function fetchDriverProfile() {
+    return Promise.resolve({
+      Driver: {
+        id: 42,
+        nombreCompleto: "Luis Grace",
+        correo: "example@example.com",
+        telefono: "987654321",
+      },
+      Vehicle: {
+        placa: "ABC-1234",
+        marca: "Toyota",
+        modelo: "Corolla",
+        anio: "2020",
+      }
+    });
+  }
+
+
 
   export async function requestTrip(payload) {
     console.log("🛫 Mock -> requestTrip", payload);

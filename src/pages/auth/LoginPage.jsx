@@ -68,7 +68,7 @@ export default function LoginPage() {
       navigate(
         data.role === 'PASAJERO'
           ? `/passenger/home/${data.userId}`
-          : `/driver/profile/${data.userId}`,
+          : `/driver/home/${data.userId}`,
         { replace: true }
       );
 
