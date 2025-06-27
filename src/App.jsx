@@ -27,7 +27,7 @@ import PassengerHelpPortal from "./pages/passenger/PassengerHelpPortal";
 /* driver   ------------------------------------------------------------ */
 import DriverHomePage from "./pages/driver/DriverHomePage";
 import DriverProfilePage from "./pages/driver/DriverProfilePage";
-import DriverTripCompletedDetails from "./pages/driver/DriverTripCompletedDetails";
+
 import DriverHelpPortal from "./pages/driver/DriverHelpPortal";
 import DriverHistoryPage from "./pages/driver/DriverHistoryPage";
 
