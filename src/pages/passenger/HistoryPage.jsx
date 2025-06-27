@@ -6,6 +6,9 @@ import TicketCardHistory from "../../components/cards/TicketCardHistory"
 import dayjs from "dayjs"
 import './styles/HistoryPage.css'
 
+import InteractiveMap from "../../components/maps/InteractiveMap"
+import OnlyViewMap from "../../components/maps/OnlyViewMap"
+
 const HistoryPage = () => {
     const [timeFrom, setTimeFrom] = useState(dayjs())
     const [timeTo, setTimeTo] = useState(dayjs())
