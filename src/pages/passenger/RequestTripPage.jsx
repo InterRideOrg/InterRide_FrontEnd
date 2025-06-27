@@ -88,10 +88,9 @@ export default function RequestTripPage() {
         [field]: value?.$d ? value : value.target.value,
       });
 
-  const submit = async (e) => {
+  const RequestTripsubmit = async (e) => {
     e.preventDefault();
-
-    // Validaciones
+    console.log("entro a submit");
     if (!form.fromCoords || !form.toCoords) {
       alert("Por favor, selecciona ubicaciones válidas desde el autocompletado.");
       return;
@@ -109,11 +108,13 @@ export default function RequestTripPage() {
 
     try {
       const userId = localStorage.getItem("userId");
-      const profileRes = await axiosInstance.get(`/usuario/profile/${userId}`);
-      const pasajeroId = profileRes.data.id;
+      const profileRes = await axiosInstance.get(`/usuario/profile/PassengerId/${userId}`);
+      // the response it's just an integer with the passenger ID
+      const pasajeroId = profileRes.data;
+      console.log("Pasajero ID:", pasajeroId);
 
       const requestData = {
-        fechaHoraPartida: form.date.toISOString(),
+        fechaHoraPartida: dayjs(form.date).format("YYYY-MM-DD HH:mm:ss.SSS") + "000",
         asientosReservados: parseInt(form.qty),
         latitudOrigen: form.fromCoords.lat,
         longitudOrigen: form.fromCoords.lng,
@@ -141,107 +142,107 @@ export default function RequestTripPage() {
       <Typography variant="h4" fontWeight={700} mb={4}>
         Solicitar Nuevo Viaje
       </Typography>
+      <FormCard
+        component="form"
+        onSubmit={RequestTripsubmit}
+        sx={{
+          width: 1,
+          p: { xs: 3, md: 4 },
+          maxWidth: 870,
+          bgcolor: "primary.dark",
+        }}
+      >
+        <Grid container spacing={6}>
+          {/* Columna izquierda */}
+          <Grid item xs={12} md={6}>
+            <Typography variant="h6" color="common.white" mb={3}>
+              Ingresa Las Direcciones
+            </Typography>
 
-      <form onSubmit={submit}>
-        <FormCard
-          sx={{
-            width: 1,
-            p: { xs: 3, md: 4 },
-            maxWidth: 870,
-            bgcolor: "primary.dark",
-          }}
-        >
-          <Grid container spacing={6}>
-            {/* Columna izquierda */}
-            <Grid item xs={12} md={6}>
-              <Typography variant="h6" color="common.white" mb={3}>
-                Ingresa Las Direcciones
-              </Typography>
+            {/* Desde */}
+            <Typography color="common.white" mb={1}>
+              Desde:
+            </Typography>
+            <TextField
+              fullWidth
+              inputRef={fromInput}
+              value={form.from}
+              onChange={handle("from")}
+              sx={{ bgcolor: "#fff", borderRadius: 2, mb: 4 }}
+            />
 
-              {/* Desde */}
+            {/* Mapa */}
+            <Typography color="common.white" mb={1}>
+              Ajusta La Dirección En El Mapa
+            </Typography>
+            <Box sx={{ width: 1, aspectRatio: "1 / 1", borderRadius: 2, overflow: "hidden" }}>
+              {isLoaded && form.fromCoords && (
+                <GoogleMap
+                  mapContainerStyle={containerStyle}
+                  center={form.fromCoords}
+                  zoom={13}
+                >
+                  <Marker position={form.fromCoords} />
+                  {form.toCoords && <Marker position={form.toCoords} />}
+                </GoogleMap>
+              )}
+            </Box>
+          </Grid>
+
+          {/* Columna derecha */}
+          <Grid item xs={12} md={6} display="flex" flexDirection="column" mt={{ xs: 0, md: 7 }}>
+            <Box>
+              {/* Hasta */}
               <Typography color="common.white" mb={1}>
-                Desde:
+                Hasta:
               </Typography>
               <TextField
                 fullWidth
-                inputRef={fromInput}
-                value={form.from}
-                onChange={handle("from")}
+                inputRef={toInput}
+                value={form.to}
+                onChange={handle("to")}
                 sx={{ bgcolor: "#fff", borderRadius: 2, mb: 4 }}
               />
 
-              {/* Mapa */}
+              {/* Cantidad */}
               <Typography color="common.white" mb={1}>
-                Ajusta La Dirección En El Mapa
+                Ingresa Cantidad De Personas
               </Typography>
-              <Box sx={{ width: 1, aspectRatio: "1 / 1", borderRadius: 2, overflow: "hidden" }}>
-                {isLoaded && form.fromCoords && (
-                  <GoogleMap
-                    mapContainerStyle={containerStyle}
-                    center={form.fromCoords}
-                    zoom={13}
-                  >
-                    <Marker position={form.fromCoords} />
-                    {form.toCoords && <Marker position={form.toCoords} />}
-                  </GoogleMap>
-                )}
-              </Box>
-            </Grid>
+              <TextField
+                type="number"
+                fullWidth
+                value={form.qty}
+                onChange={handle("qty")}
+                inputProps={{ min: 1 }}
+                sx={{ bgcolor: "#fff", borderRadius: 2, mb: 4 }}
+              />
 
-            {/* Columna derecha */}
-            <Grid item xs={12} md={6} display="flex" flexDirection="column" mt={{ xs: 0, md: 7 }}>
-              <Box>
-                {/* Hasta */}
-                <Typography color="common.white" mb={1}>
-                  Hasta:
-                </Typography>
-                <TextField
-                  fullWidth
-                  inputRef={toInput}
-                  value={form.to}
-                  onChange={handle("to")}
-                  sx={{ bgcolor: "#fff", borderRadius: 2, mb: 4 }}
+              {/* Fecha */}
+              <Typography color="common.white" mb={1}>
+                Ingresa La Fecha Del Viaje
+              </Typography>
+              <LocalizationProvider dateAdapter={AdapterDayjs}>
+                <DatePicker
+                  disablePast
+                  value={form.date}
+                  onChange={handle("date")}
+                  slotProps={{
+                    textField: {
+                      fullWidth: true,
+                      sx: { bgcolor: "#fff", borderRadius: 2 },
+                    },
+                  }}
                 />
+              </LocalizationProvider>
+            </Box>
 
-                {/* Cantidad */}
-                <Typography color="common.white" mb={1}>
-                  Ingresa Cantidad De Personas
-                </Typography>
-                <TextField
-                  type="number"
-                  fullWidth
-                  value={form.qty}
-                  onChange={handle("qty")}
-                  inputProps={{ min: 1 }}
-                  sx={{ bgcolor: "#fff", borderRadius: 2, mb: 4 }}
-                />
+            <LargeActionButton type="submit" fullWidth sx={{ mt: 13 }}>
+              Solicitar Viaje
+            </LargeActionButton>  
 
-                {/* Fecha */}
-                <Typography color="common.white" mb={1}>
-                  Ingresa La Fecha Del Viaje
-                </Typography>
-                <LocalizationProvider dateAdapter={AdapterDayjs}>
-                  <DatePicker
-                    disablePast
-                    value={form.date}
-                    onChange={handle("date")}
-                    slotProps={{
-                      textField: {
-                        fullWidth: true,
-                        sx: { bgcolor: "#fff", borderRadius: 2 },
-                      },
-                    }}
-                  />
-                </LocalizationProvider>
-              </Box>
-
-              <LargeActionButton type="submit" fullWidth sx={{ mt: 13 }}>
-                Solicitar Viaje
-              </LargeActionButton>
-            </Grid>
           </Grid>
-        </FormCard>
-      </form>
+        </Grid>
+      </FormCard>
     </MainLayout>
   );
 }
