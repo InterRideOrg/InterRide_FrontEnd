@@ -1,6 +1,6 @@
 // src/pages/passenger/RateTripPage.jsx
 import React, { useState, useEffect } from "react";
-import { useParams } from "react-router-dom";
+import { useParams, useNavigate } from "react-router-dom";
 import { FaStar } from "react-icons/fa";
 import axiosInstance from "../../interceptors/axiosInstance";
 import MainNavbar from "../../components/navigation/MainNavbar";
@@ -8,29 +8,39 @@ import "./styles/RateTripPage.css";
 
 export default function RateTripPage() {
   const { pasajeroId, viajeId, conductorId } = useParams();
+  const navigate = useNavigate();
 
   const [comentario, setComentario] = useState("");
   const [rating, setRating] = useState(0);
   const [hovered, setHovered] = useState(0);
   const [success, setSuccess] = useState(false);
   const [boletoData, setBoletoData] = useState(null);
+  const [conductorName, setConductorName] = useState("");
   const [loading, setLoading] = useState(true);
 
+  // Load trip and conductor info
   useEffect(() => {
-    const fetchBoleto = async () => {
+    const fetchTripAndConductor = async () => {
       try {
-        const res = await axiosInstance.get(`/boletos/${pasajeroId}/${viajeId}`);
-        setBoletoData(res.data);
+        const [boletoRes, conductorRes] = await Promise.all([
+          axiosInstance.get(`/boletos/${pasajeroId}/${viajeId}`),
+          axiosInstance.get(`/perfil-publico/${viajeId}`)
+        ]);
+        setBoletoData(boletoRes.data);
+        const { nombres, apellidos } = conductorRes.data;
+        setConductorName(`${nombres} ${apellidos}`);
       } catch (err) {
-        console.error("Error fetching boleto info", err);
-        alert("No se pudo cargar la información del viaje.");
+        console.error("Error fetching trip or conductor data", err);
+        alert("No se pudo cargar la información del viaje o del conductor.");
       } finally {
         setLoading(false);
       }
     };
-    fetchBoleto();
+
+    fetchTripAndConductor();
   }, [pasajeroId, viajeId]);
 
+  // Submit rating
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
@@ -41,9 +51,15 @@ export default function RateTripPage() {
         conductorId: parseInt(conductorId),
         pasajeroId: parseInt(pasajeroId),
       });
+
       setSuccess(true);
       setComentario("");
       setRating(0);
+/*
+      // Redirect after a short delay
+      setTimeout(() => {
+        navigate(`/passenger/home/${pasajeroId}`);
+      }, 1500);*/
     } catch (err) {
       console.error("Error submitting rating", err);
       alert("Error al enviar la calificación.");
@@ -64,12 +80,12 @@ export default function RateTripPage() {
             <span>Información Del Viaje</span>
           </div>
 
-          <div className="RateTrip-trip-info">
+          <div className="trip-info">
             <div>
               <strong>CONDUCTOR</strong>
-              <p>Jose Perez</p> {/* Replace with dynamic conductor name if available */}
+              <p>{conductorName}</p>
             </div>
-            <div className="RateTrip-price">
+            <div className="price">
               <strong>PRECIO</strong>
               <p>{boletoData.costo?.toFixed(2)} PEN</p>
             </div>
