@@ -18,6 +18,7 @@ import PassengerProfilePage from "./pages/passenger/PassengerProfilePage";
 import RequestTripPage from "./pages/passenger/RequestTripPage";
 import  HistoryPage  from "./pages/passenger/HistoryPage";
 import TicketDetailPage from "./pages/passenger/TicketDetailPage";
+import RateTripPage from "./pages/passenger/RateTripPage";
 /* driver   ------------------------------------------------------------ */
 /* (cuando tengas Home + Profile del conductor los importas igual)      */
 
@@ -88,6 +89,15 @@ export default function App() {
         element={
           <PrivateRoute role="PASAJERO">
             <TicketDetailPage />
+          </PrivateRoute>
+        }
+      />
+
+      <Route
+        path="/trip/rate/:pasajeroId/:viajeId/:conductorId"
+        element={
+          <PrivateRoute role="PASAJERO">
+            <RateTripPage />
           </PrivateRoute>
         }
       />
