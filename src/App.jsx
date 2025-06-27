@@ -26,6 +26,7 @@ import AvailableTripDetails from "./pages/passenger/AvailableTripDetails";
 /* driver   ------------------------------------------------------------ */
 import DriverHomePage from "./pages/driver/DriverHomePage";
 import DriverProfilePage from "./pages/driver/DriverProfilePage";
+import PassengerCurrentTripPage from "./pages/passenger/PassengerCurrentTripPage";
 /* (cuando tengas Home + Profile del conductor los importas igual)      */
 
 import PrivateRoute from "./auth/PrivateRoute";
@@ -126,8 +127,15 @@ export default function App() {
           </PrivateRoute>
         }
       />
-      
 
+      <Route
+        path="/passenger/current-trip/:pasajeroId/:viajeId"
+        element={
+         <PrivateRoute role="PASAJERO">
+              <PassengerCurrentTripPage />
+          </PrivateRoute>         
+        }
+      />  
 
       {/* -------------------------  conductor (placeholder) ------------ */}
 
