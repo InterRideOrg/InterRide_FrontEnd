@@ -1,59 +1,71 @@
-import React from 'react';
-import { useState }            from 'react';
-import { useNavigate }         from 'react-router-dom';
-import axios                   from 'axios';
-import axiosInstancePublic from "../../interceptors/axiosInstancePublic";
+import { useState, useMemo } from 'react';
+import { useNavigate }       from 'react-router-dom';
+import axiosInstancePublic   from '../../interceptors/axiosInstancePublic';
 import {
-  Typography, Stack, Box, Divider, IconButton, Link,
+  Typography, Stack, Box, Divider, IconButton, Link
 } from '@mui/material';
-import GoogleIcon             from '@mui/icons-material/Google';
-import FacebookIcon           from '@mui/icons-material/Facebook';
-import FingerprintIcon        from '@mui/icons-material/Fingerprint';
+import GoogleIcon     from '@mui/icons-material/Google';
 
-import AuthLayout       from '../../components/layout/AuthLayout';
-import FormCard         from '../../components/ui/FormCard';
-import AuthTextField    from '../../components/inputs/AuthTextField';
-import PrimaryButton    from '../../components/buttons/PrimaryButton';
+import AuthLayout    from '../../components/layout/AuthLayout';
+import FormCard      from '../../components/ui/FormCard';
+import AuthTextField from '../../components/inputs/AuthTextField';
+import PrimaryButton from '../../components/buttons/PrimaryButton';
+
+const emailRx = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
 
 export default function LoginPage() {
   const navigate = useNavigate();
 
-  /* 🔐 Campos controlados */
-  const [form, setForm] = useState({ correo: '', password: '' });
-  const [error, setError] = useState(null);
+  const [form, setForm]         = useState({ correo: '', password: '' });
+  const [errors, setErr]        = useState({});
+  const [touched, setTouched]   = useState({});
+  const [submitted, setSub]     = useState(false);
+  const [apiError, setApiError] = useState(null);
 
   const handleChange = field => e =>
     setForm({ ...form, [field]: e.target.value });
 
-  /*  Submit */
+  const handleBlur = field => () =>
+    setTouched({ ...touched, [field]: true });
+
+  /* ─────────────── Validación reactiva ─────────────── */
+  useMemo(() => {
+    const e = {};
+    if (!emailRx.test(form.correo)) e.correo = 'Correo inválido';
+    if (!form.password.trim())      e.password = 'Contraseña requerida';
+    setErr(e);
+  }, [form]);
+
+  /* ─────────────── Submit ─────────────── */
   const handleSubmit = async e => {
     e.preventDefault();
-    setError(null);
+    setSub(true);
+    if (Object.keys(errors).length) return;
+
     try {
-      // ⬇️ cliente PÚBLICO
+      setApiError(null);
       const { data } = await axiosInstancePublic.post('/auth/login', form);
 
-      // 1️ Guardar token y role
       localStorage.setItem('authToken', data.token);
       localStorage.setItem('userRole', data.role);
 
-      // 2️ Redirigir según el rol
-      if (data.role === 'PASAJERO') {
-        navigate(`/passenger/home/${data.userId}`, { replace: true });
-      } else if (data.role === 'CONDUCTOR') {
-        navigate(`/driver/home/${data.userId}`, { replace: true });
-      } else {
-        navigate('/'); // fallback
-      }
+      navigate(
+        data.role === 'PASAJERO'
+          ? `/passenger/home/${data.userId}`
+          : `/driver/home/${data.userId}`,
+        { replace: true }
+      );
     } catch (err) {
       console.error(err);
-      setError('Credenciales incorrectas');
+      setApiError('Credenciales incorrectas');
     }
   };
 
+  const show = field => submitted || touched[field];
+
   return (
     <AuthLayout title="Bienvenido">
-      <FormCard onSubmit={handleSubmit}>
+      <FormCard component="form" onSubmit={handleSubmit}>
         <Stack spacing={4}>
           {/* Correo */}
           <Box>
@@ -64,10 +76,13 @@ export default function LoginPage() {
               placeholder="example@example.com"
               value={form.correo}
               onChange={handleChange('correo')}
+              onBlur={handleBlur('correo')}
+              error={show('correo') && !!errors.correo}
+              helperText={show('correo') && errors.correo}
             />
           </Box>
 
-          {/* Password */}
+          {/* Contraseña */}
           <Box>
             <Typography variant="subtitle1" color="common.white">
               Contraseña
@@ -77,6 +92,9 @@ export default function LoginPage() {
               placeholder="************"
               value={form.password}
               onChange={handleChange('password')}
+              onBlur={handleBlur('password')}
+              error={show('password') && !!errors.password}
+              helperText={show('password') && errors.password}
             />
             <Box textAlign="right" mt={1}>
               <Link href="/forgot-password" underline="hover" color="common.white" fontSize={14}>
@@ -85,29 +103,26 @@ export default function LoginPage() {
             </Box>
           </Box>
 
-          {error && (
+          {apiError && (
             <Typography color="error.main" align="center">
-              {error}
+              {apiError}
             </Typography>
           )}
 
-          {/* Submit */}
-          <PrimaryButton type="submit">Iniciar Sesión</PrimaryButton>
-          <Typography align="center" color="common.white">
-            <Divider flexItem sx={{ borderColor: 'primary.light' }}>o ingresa con</Divider>
+          <PrimaryButton type="submit">
+            Iniciar Sesión
+          </PrimaryButton>
+
+          <Typography align="center" color='#FFFFFF'>
+            <Divider sx={{ borderColor: 'primary.light' }}>o ingresa con</Divider>
           </Typography>
-          {/* Social */}
+
           <Stack direction="row" spacing={3} justifyContent="center">
-            {[GoogleIcon
-            //, FacebookIcon, FingerprintIcon
-            ].map((Icon, i) => (
-              <IconButton key={i} sx={{ backgroundColor: 'common.white' }}>
-                <Icon />
-              </IconButton>
-            ))}
+            <IconButton sx={{ backgroundColor: 'common.white' }}>
+              <GoogleIcon />
+            </IconButton>
           </Stack>
 
-          {/* Link a registro */}
           <Typography align="center" color="common.white">
             ¿No tienes una cuenta?{' '}
             <Link href="/register-passenger" underline="hover" color="secondary.light">
