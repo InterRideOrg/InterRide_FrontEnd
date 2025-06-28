@@ -7,7 +7,7 @@ import {
 import dayjs from "dayjs";
 import { useEffect, useState, useRef } from "react";
 import { LocalizationProvider } from "@mui/x-date-pickers";
-import { DatePicker } from "@mui/x-date-pickers/DatePicker";
+import { DateTimePicker } from "@mui/x-date-pickers/DateTimePicker";
 import { AdapterDayjs } from "@mui/x-date-pickers/AdapterDayjs";
 import { GoogleMap, useJsApiLoader, Marker } from "@react-google-maps/api";
 
@@ -222,10 +222,11 @@ export default function RequestTripPage() {
                 Ingresa La Fecha Del Viaje
               </Typography>
               <LocalizationProvider dateAdapter={AdapterDayjs}>
-                <DatePicker
+                <DateTimePicker
                   disablePast
                   value={form.date}
                   onChange={handle("date")}
+                  format="YYYY-MM-DD HH:mm"
                   slotProps={{
                     textField: {
                       fullWidth: true,
