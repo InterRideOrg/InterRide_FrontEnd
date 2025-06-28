@@ -1,0 +1,45 @@
+.payments-page-sec {
+    display: flex;
+    gap: 20px; 
+    padding: 20px;
+    max-width: 1200px;
+    margin: 0 auto;
+}
+
+.payments-page-pending-payments {
+    flex: 1; 
+    background: #f5f5f5;
+    border-radius: 8px;
+    padding: 20px;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+}
+
+.payments-page-methods-payments {
+    flex: 1; /* Toma el mismo espacio que el otro */
+    background: #f5f5f5;
+    border-radius: 8px;
+    padding: 20px;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+}
+
+.payments-page-pending-payments-title h4,
+.payments-page-methods-payments-title h4 {
+    margin: 0 0 15px 0;
+    color: #333;
+    font-size: 18px;
+    font-weight: 600;
+}
+
+.payments-page-pending-payments-list {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+/* Responsive - En móviles se apilan verticalmente */
+@media (max-width: 768px) {
+    .payments-page-sec {
+        flex-direction: column;
+        padding: 15px;
+    }
+}

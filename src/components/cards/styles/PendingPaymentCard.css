@@ -1,0 +1,73 @@
+.pending-payment-card {
+    background: #256F68;
+    border-radius: 8px;
+    padding: 16px 20px;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+    border: 1px solid #e0e0e0;
+    margin-bottom: 10px;
+    transition: box-shadow 0.3s ease;
+}
+
+.pending-payment-card:hover {
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+}
+
+.pending-payment-card-details {
+    display: flex;
+    justify-content: space-between; /* Extremo a extremo */
+    align-items: center; /* Centrado verticalmente */
+    width: 100%;
+}
+
+.pending-payment-card-details p {
+    margin: 0;
+    font-size: 18px;
+    font-weight: 600;
+    color: white;
+    flex: 0 0 auto; /* No se expande */
+}
+
+.pending-payment-card-btn {
+    background: #256F68;
+    color: white;
+    border: none;
+    border-radius: 6px;
+    padding: 8px 16px;
+    font-size: 14px;
+    font-weight: 500;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    transition: background-color 0.3s ease;
+    flex: 0 0 auto; /* No se expande */
+}
+
+.pending-payment-card-btn:hover {
+    background: #256F68;
+}
+
+.arrow-large {
+    font-size: 16px;
+    transition: transform 0.3s ease;
+}
+
+.pending-payment-card-btn:hover .arrow-large {
+    transform: translateX(2px);
+}
+
+/* Responsive */
+@media (max-width: 480px) {
+    .pending-payment-card {
+        padding: 12px 16px;
+    }
+    
+    .pending-payment-card-details p {
+        font-size: 16px;
+    }
+    
+    .pending-payment-card-btn {
+        padding: 6px 12px;
+        font-size: 12px;
+    }
+}

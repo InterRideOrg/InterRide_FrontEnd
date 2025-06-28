@@ -11,7 +11,7 @@ const PassengerCurrentTripPage = () => {
     
 
     const [ticket, setTicket] = useState(null);
-const [driver, setDriver] = useState(null);
+    const [driver, setDriver] = useState(null);
 
 useEffect(() => {
     const fetchTicket = async () => {
