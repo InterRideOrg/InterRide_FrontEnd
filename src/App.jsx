@@ -182,9 +182,7 @@ export default function App() {
         path="/driver/home/:userId"
         element={
           <PrivateRoute role="CONDUCTOR">
-            <MainLayout>
-              <DriverHomePage />
-            </MainLayout>
+            <DriverHomePage />
           </PrivateRoute>
         }
       />
