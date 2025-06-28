@@ -33,10 +33,11 @@ import AbordTripPage from "./pages/passenger/AbordTripPage";
 /* driver   ------------------------------------------------------------ */
 import DriverHomePage from "./pages/driver/DriverHomePage";
 import DriverProfilePage from "./pages/driver/DriverProfilePage";
-
+import DriverAcceptedTrips from "./pages/driver/DriverAcceptedTrips";
 import DriverHelpPortal from "./pages/driver/DriverHelpPortal";
 import RequestsPage from "./pages/driver/RequestsPage"; 
 import RequestDetailsPage from "./pages/driver/RequestDetailsPage";
+import DriverAcceptedTripDetails from "./pages/driver/DriverAcceptedTripDetails";
 /* (cuando tengas Home + Profile del conductor los importas igual)      */
 import DriverHistoryPage from "./pages/driver/DriverHistoryPage";
 import DriverTripCompletedDetails from "./pages/driver/DriverTripCompletedDetails";
@@ -293,6 +294,25 @@ export default function App() {
           </PrivateRoute>
         }
       /> 
+
+
+      <Route
+        path="/driver/:driverId/accepted-trips"
+        element={
+          <PrivateRoute role="CONDUCTOR">
+              <DriverAcceptedTrips />
+          </PrivateRoute>
+        }
+      /> 
+
+      <Route
+        path="/driver/:driverId/accepted-trips/:viajeId"
+        element={
+          <PrivateRoute role="CONDUCTOR">
+            <DriverAcceptedTripDetails />
+          </PrivateRoute>
+        }
+      />
 
 
     </Routes>

@@ -85,13 +85,13 @@ export default function DriverHomePage() {
     staleTime: 30_000,
   });
 
-  /* 5️⃣ Viajes completados */
-  const { data: finishedTrips = [] } = useQuery({
+  /* 5️⃣ Viajes proximos */
+  const { data: upcomingTrips = [] } = useQuery({
     enabled  : !!driverId,
-    queryKey : ["viajesCompletados", driverId],
+    queryKey : ["viajesProximos", driverId],
     queryFn  : () =>
       axiosInstance
-        .get(`/trips/viajesCompletados/${driverId}`)
+        .get(`/trips/viajesAceptados/${driverId}`)
         .then(r => r.data)
         .catch(err => {
           if (err.response?.status === 404) return [];
@@ -189,35 +189,35 @@ export default function DriverHomePage() {
             )}
           </Stack>
 
-          {/* Viajes completados */}
+          {/* Próximos viajes */}
           <Stack spacing={1.5}>
             <Box className="dh-section-bar">
-              <Typography fontWeight={700}>Viajes completados</Typography>
+              <Typography fontWeight={700}>Próximos viajes</Typography>
 
               <Typography
                 variant="body2"
                 className="dh-link"
-                onClick={() => navigate(`/driver/history/${driverId}`)}
+                onClick={() => navigate(`/driver/${driverId}/accepted-trips`)}
               >
                 Ver todos
               </Typography>
             </Box>
 
-            {finishedTrips.length ? (
+            {upcomingTrips.length ? (
               <Stack spacing={2}>
-                {finishedTrips.map(v => (
+                {upcomingTrips.map(v => (
                   <TripCard
                     key={v.id}
-                    title={new Date(v.fechaHoraPartida).toLocaleDateString()}
-                    subtitle={`${v.provinciaOrigen} → ${v.provinciaDestino}`}
+                    title={v.provinciaDestino}
+                    subtitle={`${v.asientosDisponibles} asientos disponibles`}
                     color="var(--clr-gray)"
-                    onClick={() => navigate(`/driver/history/${driverId}`)}
+                    onClick={() => navigate(`/driver/${driverId}/accepted-trips/${v.idViaje}`)}
                   />
                 ))}
               </Stack>
             ) : (
               <Typography className="dh-muted">
-                Aún no has completado viajes
+                No tienes viajes por completar.
               </Typography>
             )}
           </Stack>
