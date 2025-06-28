@@ -1,0 +1,91 @@
+/*  Passenger Home
+    ------------------------------------------------------------------------ */
+
+    :root {
+        --clr-primary   : #154e68;   /* azul base tarjetas */
+        --clr-secondary : #005b79;   /* azul viaje en curso */
+        --clr-success   : #70c33f;
+        --clr-error     : #e43e3e;
+      }
+      
+      /* ---------- contenedores principales ---------- */
+      
+      .ph-header{
+        display:flex;
+        justify-content:space-between;
+        align-items:center;
+        flex-wrap:wrap;
+        gap:1.5rem;
+      }
+      
+      .ph-section-bar{
+        display:flex;
+        justify-content:space-between;
+        align-items:center;
+      }
+      
+      .ph-section-title{
+        display:flex;
+        align-items:center;
+      }
+      
+      /* ---------- tarjeta de viaje ---------- */
+      
+      .ph-trip-card,
+      .ph-card{
+        width:100%;
+        color:#fff;
+        display:flex;
+        justify-content:space-between;
+        align-items:center;
+        padding:1rem 1.25rem;
+        border-radius:8px;
+        cursor:pointer;
+        transition:filter .15s;
+      }
+      
+      .ph-trip-card:hover,
+      .ph-card:hover{
+        filter:brightness(1.07);
+      }
+      
+      /* ---------- texto auxiliar ---------- */
+      
+      .ph-muted{
+        margin-left:1.9rem;
+        font-size:.9rem;
+        opacity:.65;
+      }
+      
+      /* ---------- enlaces ---------- */
+      
+      .ph-link{
+        font-weight:500;
+        text-decoration:underline;
+      }
+      
+      .ph-link:hover{
+        opacity:.7;
+      }
+      
+
+    /* alineación título / link "Ver todos" */
+    .ph-section-bar {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+    }
+    
+    /* texto gris claro reutilizado */
+    .ph-muted {
+        color: var(--clr-muted);
+    }
+    
+    /* enlace subrayado hover */
+    .ph-link {
+        font-weight: 500;
+        color: var(--clr-primary-dark);
+        text-decoration: underline;
+        cursor: pointer;
+    }
+    

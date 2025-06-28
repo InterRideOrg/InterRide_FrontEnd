@@ -31,6 +31,9 @@ import DriverHomePage from "./pages/driver/DriverHomePage";
 import DriverProfilePage from "./pages/driver/DriverProfilePage";
 
 import DriverHelpPortal from "./pages/driver/DriverHelpPortal";
+import RequestsPage from "./pages/driver/RequestsPage"; 
+import RequestDetailsPage from "./pages/driver/RequestDetailsPage";
+/* (cuando tengas Home + Profile del conductor los importas igual)      */
 import DriverHistoryPage from "./pages/driver/DriverHistoryPage";
 import DriverTripCompletedDetails from "./pages/driver/DriverTripCompletedDetails";
 import PassengerCurrentTripPage from "./pages/passenger/PassengerCurrentTripPage";
@@ -90,7 +93,7 @@ export default function App() {
       />
 
       <Route
-        path="/passenger/history"
+        path="/passenger/history/:userId"
         element={
           <PrivateRoute role="PASAJERO">
             <PassengerHistoryPage />
@@ -208,6 +211,27 @@ export default function App() {
         }
       /> 
 
+      <Route
+        path="/driver/requests"
+        element={
+          <PrivateRoute role="CONDUCTOR">
+            <MainLayout>
+              <RequestsPage />
+            </MainLayout>
+          </PrivateRoute>
+        }
+      />
+
+      <Route
+        path="/driver/requests/:viajeId"
+        element={
+          <PrivateRoute role="CONDUCTOR">
+            <MainLayout>
+              <RequestDetailsPage />
+            </MainLayout>
+          </PrivateRoute>
+        }
+      />
       
       <Route
         path="/driver/history/:userId"
