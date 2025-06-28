@@ -28,6 +28,8 @@ import PassengerHelpPortal from "./pages/passenger/PassengerHelpPortal";
 import DriverHomePage from "./pages/driver/DriverHomePage";
 import DriverProfilePage from "./pages/driver/DriverProfilePage";
 import DriverHelpPortal from "./pages/driver/DriverHelpPortal";
+import RequestsPage from "./pages/driver/RequestsPage"; 
+import RequestDetailsPage from "./pages/driver/RequestDetailsPage";
 /* (cuando tengas Home + Profile del conductor los importas igual)      */
 
 import PrivateRoute from "./auth/PrivateRoute";
@@ -174,6 +176,28 @@ export default function App() {
           </PrivateRoute>
         }
       /> 
+
+      <Route
+        path="/driver/requests"
+        element={
+          <PrivateRoute role="CONDUCTOR">
+            <MainLayout>
+              <RequestsPage />
+            </MainLayout>
+          </PrivateRoute>
+        }
+      />
+
+      <Route
+        path="/driver/requests/:viajeId"
+        element={
+          <PrivateRoute role="CONDUCTOR">
+            <MainLayout>
+              <RequestDetailsPage />
+            </MainLayout>
+          </PrivateRoute>
+        }
+      />
 
     </Routes>
   );
