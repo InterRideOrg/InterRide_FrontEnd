@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import {
   Box,
   Typography,
@@ -7,6 +7,8 @@ import {
   TextField,
   InputAdornment,
   IconButton,
+  Button,
+  Alert,
 } from "@mui/material";
 import EmailIcon from "@mui/icons-material/Email";
 import PhoneIcon from "@mui/icons-material/Phone";
@@ -15,8 +17,44 @@ import TwitterIcon from "@mui/icons-material/Twitter";
 import HeadsetMicIcon from "@mui/icons-material/HeadsetMic";
 import SendIcon from "@mui/icons-material/Send";
 import MainLayout from "../../components/layout/MainLayout";
+import axiosInstance from "../../interceptors/axiosInstance";
+
+function useUserId() {
+  return localStorage.getItem("userId");
+}
 
 export default function PassengerHelpPortal() {
+  const [mensaje, setMensaje] = useState("");
+  const [idPasajero, setIdPasajero] = useState(null);
+  const [success, setSuccess] = useState(false);
+  const [error, setError] = useState("");
+  const userId = useUserId();
+
+  useEffect(() => {
+    if (!userId) return;
+    axiosInstance
+      .get(`/usuario/profile/PassengerId/${userId}`)
+      .then((res) => setIdPasajero(res.data))
+      .catch(() => setError("No se pudo obtener tu ID de pasajero."));
+  }, [userId]);
+
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    setSuccess(false);
+    setError("");
+    try {
+      await axiosInstance.post("/reclamo/enviar", {
+        mensaje,
+        idPasajero,
+        idConductor: null,
+      });
+      setSuccess(true);
+      setMensaje("");
+    } catch {
+      setError("No se pudo enviar el reclamo.");
+    }
+  };
+
   return (
     <MainLayout>
       <Box sx={{ bgcolor: "#e3f2fd", minHeight: "100vh", px: 0, py: 4 }}>
@@ -32,36 +70,60 @@ export default function PassengerHelpPortal() {
             mb={3}
             mt={2}
           >
-            Hola! Como Podemos Ayudarte?
+            Hola! Cómo podemos ayudarte?
           </Typography>
 
-          {/* Buscador */}
-          <Box display="flex" justifyContent="center" mb={4}>
-            <TextField
-              placeholder="Escribe tu pregunta..."
-              variant="outlined"
-              fullWidth
-              sx={{
-                maxWidth: 700,
-                bgcolor: "white",
-                borderRadius: 2,
-                "& .MuiOutlinedInput-root": {
+          {/* Buscador + Reclamo */}
+          <Box display="flex" flexDirection="column" alignItems="center" mb={4}>
+            <form
+              style={{ width: "100%", maxWidth: 700 }}
+              onSubmit={handleSubmit}
+              autoComplete="off"
+            >
+              <TextField
+                placeholder="Escribe tu pregunta..."
+                variant="outlined"
+                value={mensaje}
+                onChange={(e) => setMensaje(e.target.value)}
+                fullWidth
+                sx={{
+                  bgcolor: "white",
                   borderRadius: 2,
-                  fontSize: 18,
-                  px: 2,
-                  py: 1,
-                },
-              }}
-              InputProps={{
-                endAdornment: (
-                  <InputAdornment position="end">
-                    <IconButton>
-                      <SendIcon />
-                    </IconButton>
-                  </InputAdornment>
-                ),
-              }}
-            />
+                  "& .MuiOutlinedInput-root": {
+                    borderRadius: 2,
+                    fontSize: 18,
+                    px: 2,
+                    py: 1,
+                  },
+                }}
+                InputProps={{
+                  endAdornment: (
+                    <InputAdornment position="end">
+                      <IconButton
+                        type="submit"
+                        color="primary"
+                        disabled={!mensaje || !idPasajero}
+                      >
+                        <SendIcon />
+                      </IconButton>
+                    </InputAdornment>
+                  ),
+                }}
+              />
+            </form>
+            {/* Mensajes de éxito y error */}
+            <Box width="100%" maxWidth={700} mt={2}>
+              {success && (
+                <Alert severity="success" sx={{ mt: 1 }}>
+                  Reclamo enviado correctamente.
+                </Alert>
+              )}
+              {error && (
+                <Alert severity="error" sx={{ mt: 1 }}>
+                  {error}
+                </Alert>
+              )}
+            </Box>
           </Box>
 
           {/* Cuerpo */}

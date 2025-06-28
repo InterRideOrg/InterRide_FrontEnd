@@ -1,0 +1,75 @@
+/* Contenedor principal */
+.reserved-trips-page {
+  padding: 1rem;
+  display: flex;
+  flex-direction: column;
+  gap: 2rem;
+  background-color: #E3F2FD;
+  min-height: 100vh;
+  margin: 2rem;
+}
+
+/* Título */
+.reserved-trips-page-title {
+  min-width: 200px;
+}
+
+.reserved-trips-page-title h2 {
+  font-size: 2rem;
+  font-weight: 600;
+}
+
+/* Contenido principal - UNA COLUMNA */
+.reserved-trips-page-content {
+  display: flex;
+  flex-direction: column; /* UNA debajo de la otra */
+  gap: 1.5rem;
+  width: 100%; /* Ocupa todo el ancho disponible */
+}
+
+/* Mensaje cuando no hay viajes */
+.reserved-trips-page-content p {
+  text-align: center;
+  font-size: 1.1rem;
+  background: #39A6AC; /* Fondo celeste */
+  padding: 2rem;
+  margin: 0;
+}
+
+/* Cada tarjeta individual */
+.reserved-trips-page-content > * {
+  background: #39A6AC; /* Fondo celeste */
+  border-radius: 10px;
+  padding: 1rem;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+  width: 100%; /* Ocupa todo el ancho disponible */
+}
+
+.reserved-trips-page-content > *:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.1);
+  background: #39A6AC; /* Celeste más oscuro al hover */
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+  .reserved-trips-page {
+    padding: 0.5rem;
+  }
+  
+  .reserved-trips-page-title {
+    padding: 1rem;
+  }
+  
+  .reserved-trips-page-title h1 {
+    font-size: 1.5rem;
+    text-align: center;
+  }
+  
+  .reserved-trips-page-content {
+    gap: 1rem;
+    padding: 0.5rem 1rem;
+    max-width: 100%;
+  }
+}

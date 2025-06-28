@@ -23,7 +23,7 @@ export default function useMenus() {
     return [
       { label: "Inicio",              path: `/passenger/home/${userId}` },
       { label: "Historial de viajes", path: `/passenger/history/${passengerId}`},
-      { label: "Pagos",               path: "/payments" },
+      { label: "Pagos",               path: `/passenger/payments/${passengerId}` },
       { label: "Ayuda",               path: `/helpPassenger/${userId}` },
       { label: "Notificaciones",      path: "/notifications" },
       { label: "Perfil",              path: `/passenger/profile/${userId}` },

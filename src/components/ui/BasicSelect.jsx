@@ -12,6 +12,7 @@ export default function BasicSelect({
   options = [],
   valueKey = 'value',
   labelKey = 'label',
+  format = (value) => value
 }) {
   return (
     <Box sx={{ minWidth: 120 }}>
@@ -26,7 +27,7 @@ export default function BasicSelect({
         >
           {options.map((option, index) => (
             <MenuItem key={index} value={option[valueKey]}>
-              {option[labelKey]}
+              {option[labelKey] != "Efectivo" ? format(option[labelKey]) : option[labelKey]}
             </MenuItem>
           ))}
         </Select>
