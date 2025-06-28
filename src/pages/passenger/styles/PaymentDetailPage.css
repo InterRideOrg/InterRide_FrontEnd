@@ -1,0 +1,162 @@
+.payment-detail-page-sec {
+    min-height: 100vh;
+    padding: 50px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    
+}
+
+.payment-detail-page-sec h1 {
+    font-size: 28px;
+    font-weight: bold;
+    margin-bottom: 30px;
+    text-align: center;
+    text-shadow: 0 2px 4px rgba(0,0,0,0.1);
+}
+
+.payment-detail-page-content {
+    background: #455a64;
+    border-radius: 12px;
+    padding-bottom: 20px;
+    box-shadow: 0 8px 24px rgba(0,0,0,0.15);
+    width: 100%;
+    max-width: 500px;
+    overflow: hidden;
+    margin-bottom: 20px;
+}
+
+/* Estilos para cada sección */
+.payment-detail-page-driver,
+.payment-detail-page-origin,
+.payment-detail-page-destination,
+.payment-detail-page-amount,
+.payment-detail-page-payment-method {
+    border-bottom: 1px solid rgba(255,255,255,0.1);
+}
+
+.payment-detail-page-payment-method {
+    border-bottom: none;
+}
+
+
+
+.payment-detail-page-driver-title h5,
+.payment-detail-page-origin-title h5,
+.payment-detail-page-destination-title h5,
+.payment-detail-page-amount-title h5,
+.payment-detail-page-payment-method-title h5 {
+    color: white; /* Títulos blancos */
+    margin: 0;
+    padding: 15px 20px;
+    font-size: 16px;
+    font-weight: 600;
+    letter-spacing: 0.5px;
+}
+
+/* Contenido - Fondo celeste y texto negro */
+.payment-detail-page-driver-text,
+.payment-detail-page-origin-text,
+.payment-detail-page-destination-text,
+.payment-detail-page-amount-text,
+.payment-detail-page-payment-method-text {
+    background: #4db6ac; /* Fondo celeste */
+    padding: 15px 20px;
+    min-height: 40px;
+    border-radius: 12px;
+    display: flex;
+    align-items: center;
+    margin-left: 1rem;
+    margin-right: 1rem;
+}
+
+.payment-detail-page-driver-text p,
+.payment-detail-page-origin-text p,
+.payment-detail-page-destination-text p,
+.payment-detail-page-amount-text p,
+.payment-detail-page-payment-method-text p {
+    color: black; /* Texto negro */
+    margin: 0;
+    font-size: 16px;
+    font-weight: 500;
+    line-height: 1.4;
+}
+
+.payment-detail-page-payment-method-select {
+    width: 100%;
+}
+
+
+.payment-detail-page-button {
+    width: 100%;
+    max-width: 500px;
+    display: flex;
+    justify-content: center;
+}
+
+.payment-detail-page-button-pay {
+    background: #2e7d32;
+    color: white;
+    border: none;
+    border-radius: 8px;
+    padding: 15px 40px;
+    font-size: 18px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+    box-shadow: 0 4px 12px rgba(46, 125, 50, 0.3);
+}
+
+.payment-detail-page-button-pay:hover {
+    background: #1b5e20;
+    transform: translateY(-1px);
+    box-shadow: 0 6px 16px rgba(46, 125, 50, 0.4);
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+    .payment-detail-page-sec {
+        padding: 15px;
+    }
+    
+    .payment-detail-page-content {
+        max-width: 100%;
+    }
+    
+    .payment-detail-page-sec h1 {
+        font-size: 24px;
+    }
+}
+
+@media (max-width: 480px) {
+    .payment-detail-page-driver-title h5,
+    .payment-detail-page-origin-title h5,
+    .payment-detail-page-destination-title h5,
+    .payment-detail-page-amount-title h5,
+    .payment-detail-page-payment-method-title h5 {
+        font-size: 14px;
+        padding: 12px 15px;
+    }
+    
+    .payment-detail-page-driver-text,
+    .payment-detail-page-origin-text,
+    .payment-detail-page-destination-text,
+    .payment-detail-page-amount-text,
+    .payment-detail-page-payment-method-text {
+        padding: 12px 15px;
+        min-height: 35px;
+    }
+    
+    .payment-detail-page-driver-text p,
+    .payment-detail-page-origin-text p,
+    .payment-detail-page-destination-text p,
+    .payment-detail-page-amount-text p,
+    .payment-detail-page-payment-method-text p {
+        font-size: 14px;
+    }
+    
+    .payment-detail-page-button-pay {
+        padding: 12px 30px;
+        font-size: 16px;
+    }
+}
