@@ -27,6 +27,8 @@ import PassengerHelpPortal from "./pages/passenger/PassengerHelpPortal";
 import PaymentsPages from "./pages/passenger/PaymentsPage";
 import PaymentDetailPage from "./pages/passenger/PaymentDetailPage";
 import AddPaymentMethodPage from "./pages/passenger/AddPaymentMethodPage";
+import ReservedTripDetailPage from "./pages/passenger/ReservedTripDetailPage";
+import ReservedTripsPage from "./pages/passenger/ReservedTripsPage";
 /* driver   ------------------------------------------------------------ */
 import DriverHomePage from "./pages/driver/DriverHomePage";
 import DriverProfilePage from "./pages/driver/DriverProfilePage";
@@ -185,6 +187,26 @@ export default function App() {
           </PrivateRoute>
         }
       />
+
+      <Route
+        path="/passenger/requested-trips/:pasajeroId/"
+        element={
+          <PrivateRoute role="PASAJERO">
+            <ReservedTripsPage />
+          </PrivateRoute>
+        }
+      />
+
+      <Route
+        path="/passenger/requested-trips/:pasajeroId/:boletoId"
+        element={
+          <PrivateRoute role="PASAJERO">
+            <ReservedTripDetailPage />
+          </PrivateRoute>
+        }
+      />
+
+
 
       {/* -------------------------  conductor (placeholder) ------------ */}
 

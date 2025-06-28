@@ -69,6 +69,22 @@ export default function PassengerHomePage() {
     staleTime: 30_000,
   });
 
+  /* 4️⃣ Viajes reservados (SOLICITADO Y ACEPTADOS) */
+  const { data: reservados = [] } = useQuery({
+    enabled : !!passengerId,
+    queryKey: ["viajesReservados", passengerId],
+    queryFn : async () => {
+      const [completados, solicitados] = await Promise.all([
+        axiosInstance.get(`/boletos/${passengerId}?state=ACEPTADO`).then(r => r.data),
+        axiosInstance.get(`/boletos/${passengerId}?state=SOLICITADO`).then(r => r.data),
+      ]);
+      
+      return [...completados, ...solicitados];
+    },
+    staleTime: 30_000,
+});
+
+
 /* 4️⃣ Viaje en curso  –– usa ahora /trips/{id_pasajero}/current
    ────────────────────────────────────────────────────────── */
    const { data: viajeActual } = useQuery({
@@ -136,6 +152,44 @@ export default function PassengerHomePage() {
               <Typography className="ph-muted">No tienes viajes activos</Typography>
             )}
           </Stack>
+
+          {/* VIAJES RESERVADOS */}
+          <Stack spacing={1.5}>
+            <Box className="ph-section-bar">
+              <Box className="ph-section-title">
+                <FiberManualRecordIcon
+                  sx={{ fontSize: 12, color: "var(--clr-success)", mr: 1 }}
+                />
+                <Typography fontWeight={700}>Viajes solicitados</Typography>
+              </Box>
+
+              <Typography
+                variant="body2"
+                className="ph-link"
+                onClick={() => navigate(`/passenger/requested-trips/${passengerId}`)}
+              >
+                Ver todos
+              </Typography>
+            </Box>
+
+            {reservados.length ? (
+              <Stack spacing={2}>
+                {reservados.map(ticket => (
+                  <TripCard
+                    key={ticket.boletoId}
+                    title={ticket.provinciaDestino}
+                    subtitle={`ESTADO: ${ticket.estado} `}
+                    onClick={() => navigate(`/passenger/requested-trips/${passengerId}/${ticket.boletoId}`)}
+                  />
+                ))}
+              </Stack>
+            ) : (
+              <Typography className="ph-muted">
+                No hay viajes disponibles por ahora
+              </Typography>
+            )}
+          </Stack>
+        
 
           {/* VIAJES DISPONIBLES */}
           <Stack spacing={1.5}>
