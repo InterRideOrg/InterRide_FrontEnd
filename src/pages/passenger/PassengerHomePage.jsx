@@ -163,7 +163,7 @@ export default function PassengerHomePage() {
                     key={v.viajeId}
                     title={v.provinciaDestino}
                     subtitle={`${v.asientosDisponibles} asientos disponibles`}
-                    onClick={() => navigate(`/trip/${v.viajeId}`)}
+                    onClick={() => navigate(`/passenger/available-trips/${v.viajeId}`)}
                   />
                 ))}
               </Stack>
