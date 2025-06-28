@@ -196,19 +196,24 @@ export default function PassengerProfilePage() {
 /* ───────────────────────── componente campo ───────────────────────── */
 function FieldLine({ label, value, onChange, disabled }) {
   return (
-    <Box>
+    <Box sx={{ mb: 0 }}>
       <Typography
         variant="subtitle2"
-        sx={{ mb: 0.5, fontWeight: 600, color: "common.black" }}
+        sx={{ mb: 0.2, mt: -1.2, fontWeight: 600, color: "common.black" }}
       >
         {label}
       </Typography>
       <RoundedTextField
+        value={value}
         fullWidth
         size="small"
-        value={value}
         onChange={onChange}
         disabled={disabled}
+        sx={{
+          bgcolor: "white",
+          borderRadius: 2,
+          "& .Mui-disabled": { color: "black" },
+        }}
       />
     </Box>
   );
