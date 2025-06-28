@@ -18,6 +18,12 @@ const PaymentDetailPage = () => {
     const [ticket, setTicket] = useState(null);
     const navigate = useNavigate();
 
+    const formatCardNumber = (cardNumber) => {
+        if (!cardNumber) return '**** **** **** ****';
+        const last4 = cardNumber.slice(-4);
+        return `**** **** **** ${last4}`;
+    };
+
     const handlePagar = () => {
         
         if (metodoSeleccionado < 0 || metodoSeleccionado === '') {
@@ -138,17 +144,18 @@ const PaymentDetailPage = () => {
                     </div>
                     <div className="payment-detail-page-payment-method">
                         <div className="payment-detail-page-payment-method-title">
-                            <h5>Método de pago</h5> 
+                            <h5>Medio de pago</h5> 
                         </div>
                         <div className="payment-detail-page-payment-method-text">
                             <div className="payment-detail-page-payment-method-select">
                                 <BasicSelect
                                     target={metodoSeleccionado}
                                     setTarget={setMetodoSeleccionado}
-                                    targetLabel="Método"
+                                    targetLabel="SELECCIONE"
                                     options={cards}
                                     valueKey="id"
                                     labelKey="numeroTarjeta"
+                                    format={formatCardNumber}
                                 />
                             </div>
                             
