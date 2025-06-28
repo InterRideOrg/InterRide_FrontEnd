@@ -29,6 +29,7 @@ import PaymentDetailPage from "./pages/passenger/PaymentDetailPage";
 import AddPaymentMethodPage from "./pages/passenger/AddPaymentMethodPage";
 import ReservedTripDetailPage from "./pages/passenger/ReservedTripDetailPage";
 import ReservedTripsPage from "./pages/passenger/ReservedTripsPage";
+import AbordTripPage from "./pages/passenger/AbordTripPage";
 /* driver   ------------------------------------------------------------ */
 import DriverHomePage from "./pages/driver/DriverHomePage";
 import DriverProfilePage from "./pages/driver/DriverProfilePage";
@@ -178,7 +179,7 @@ export default function App() {
           </PrivateRoute>
         }
       />
-
+      
       <Route
         path="/passenger/payments/:pasajeroId/add-method"
         element={
@@ -206,6 +207,14 @@ export default function App() {
         }
       />
 
+      <Route
+        path="/passenger/abord-trip"
+        element={
+          <PrivateRoute role="PASAJERO">
+            <AbordTripPage />
+          </PrivateRoute>
+        }
+      />
 
 
       {/* -------------------------  conductor (placeholder) ------------ */}
