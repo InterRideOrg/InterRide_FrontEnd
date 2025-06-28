@@ -1,0 +1,42 @@
+/* src/pages/driver/styles/RequestDetailsPage.css */
+
+.page-container {
+  background-color: #e3f2fd;
+  min-height: 100vh;
+  padding: 2rem;
+}
+
+.trip-details-card {
+  background-color: #ffffff;
+  max-width: 600px;
+  margin: 2rem auto;
+  padding: 2rem;
+  border-radius: 16px;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+}
+
+.trip-details-card h2 {
+  margin-bottom: 1.5rem;
+  color: #0d47a1;
+}
+
+.trip-details-card p {
+  margin: 0.5rem 0;
+  font-size: 1rem;
+}
+
+.accept-button {
+  margin-top: 2rem;
+  background-color: #1976d2;
+  color: white;
+  border: none;
+  padding: 0.75rem 1.5rem;
+  border-radius: 12px;
+  font-size: 1rem;
+  cursor: pointer;
+  transition: background-color 0.3s;
+}
+
+.accept-button:hover {
+  background-color: #1565c0;
+}
