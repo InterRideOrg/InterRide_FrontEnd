@@ -1,0 +1,187 @@
+.add-payment-method-sec {
+    min-height: 100vh;
+    padding: 20px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.add-payment-method-container {
+    background: white;
+    border-radius: 16px;
+    padding: 40px;
+    box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1);
+    max-width: 500px;
+    width: 100%;
+}
+
+.add-payment-method-container h1 {
+    text-align: center;
+    color: #333;
+    margin-bottom: 30px;
+    font-size: 28px;
+}
+
+/* Vista previa de la tarjeta */
+.add-payment-method-credit-card-preview {
+    margin-bottom: 30px;
+    display: flex;
+    justify-content: center;
+}
+
+.add-payment-method-credit-card {
+    width: 350px;
+    height: 220px;
+    border-radius: 16px;
+    padding: 24px;
+    color: white;
+    position: relative;
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.15);
+    font-family: 'Courier New', monospace;
+}
+
+.add-payment-method-credit-card.visa {
+    background: linear-gradient(135deg, #1e3c72 0%, #2a5298 100%);
+}
+
+.add-payment-method-credit-card.mastercard {
+    background: linear-gradient(135deg, #ff512f 0%, #dd2476 100%);
+}
+
+.add-payment-method-credit-card.amex {
+    background: linear-gradient(135deg, #2c3e50 0%, #34495e 100%);
+}
+
+.add-payment-method-card-number {
+    font-size: 24px;
+    font-weight: 600;
+    letter-spacing: 4px;
+    margin: 40px 0 30px 0;
+    text-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
+}
+
+.add-payment-method-card-info {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 20px;
+}
+
+.add-payment-method-card-holder, .add-payment-method-card-expiry {
+    font-size: 12px;
+}
+
+.add-payment-method-label {
+    display: block;
+    opacity: 0.7;
+    margin-bottom: 4px;
+}
+
+.add-payment-method-card-type {
+    position: absolute;
+    top: 24px;
+    right: 24px;
+    font-weight: bold;
+    font-size: 14px;
+}
+
+/* Formulario */
+.add-payment-method-payment-form {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
+.add-payment-method-form-group {
+    
+    display: flex;
+    flex-direction: column;
+}
+
+.add-payment-method-form-row {
+    display: flex;
+    gap: 20px;
+    flex-wrap: wrap;
+}
+
+.add-payment-method-form-row .add-payment-method-form-group {
+    flex: 1;
+}
+
+label {
+    margin-bottom: 8px;
+    font-weight: 600;
+    color: #333;
+    font-size: 16px;
+}
+
+input {
+    padding: 12px 16px;
+    border: 2px solid #e1e5e9;
+    border-radius: 8px;
+    font-size: 16px;
+    transition: border-color 0.3s ease;
+}
+
+input:focus {
+    outline: none;
+    border-color: #667eea;
+    box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.1);
+}
+
+input.error {
+    border-color: #e74c3c;
+}
+
+.add-payment-method-error-message {
+    color: #e74c3c;
+    font-size: 14px;
+    margin-top: 4px;
+}
+
+.add-payment-method-submit-btn {
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    color: white;
+    border: none;
+    border-radius: 8px;
+    padding: 16px;
+    font-size: 18px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: transform 0.3s ease;
+    margin-top: 20px;
+}
+
+.add-payment-method-submit-btn:hover:not(:disabled) {
+    transform: translateY(-2px);
+    box-shadow: 0 8px 24px rgba(102, 126, 234, 0.4);
+}
+
+.add-payment-method-submit-btn:disabled {
+    opacity: 0.7;
+    cursor: not-allowed;
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+    .add-payment-method-container {
+        padding: 20px;
+        margin: 20px;
+    }
+    
+    .add-payment-method-credit-card {
+        width: 300px;
+        height: 190px;
+        padding: 20px;
+    }
+    
+    .add-payment-method-card-number {
+        font-size: 20px;
+        margin: 30px 0 20px 0;
+    }
+
+    .add-payment-method-form-row {
+        flex-direction: column;
+        gap: 20px;
+    }
+}
