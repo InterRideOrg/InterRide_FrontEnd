@@ -1,4 +1,4 @@
-/* InteractiveMap.css */
+/* === Estructura principal del mapa === */
 
 .map-container {
   position: relative;
@@ -6,14 +6,13 @@
   flex-direction: column;
   align-items: center;
   height: auto;
-  width: 80%;
+  width: 100%;
+  min-height: 300px;
 }
 
 .map-wrapper {
-  position: absolute;
-  left: 0;
-  top: 0;
-  height: 100%;
+  position: absolute; /* Antes estaba en absolute */
+  height: 400px;
   width: 100%;
 }
 
@@ -41,17 +40,22 @@
   100% { transform: rotate(360deg); }
 }
 
+
+/* === Panel de controles === */
+
 .controls-panel {
   background: white;
   border-radius: 12px;
   box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
   padding: 20px;
-  margin: 16px;
-  min-width: 90%;
+  margin-top: 20px;
+  width: 90%;
   max-width: 600px;
-  z-index: 1000;
-  position: relative;
+  z-index: 10;
 }
+
+
+/* === Inputs y botones === */
 
 .input-group {
   display: flex;
@@ -152,51 +156,66 @@
   font-weight: 500;
 }
 
-/* Responsive Design */
+
+/* === Responsive Design === */
+
 @media (max-width: 768px) {
-  .controls-panel {
-    margin: 8px;
-    padding: 16px;
-    min-width: 95%;
+  .map-wrapper {
+    height: 300px;
+    position: relative; 
+     /* menor altura para pantallas pequeñas */
   }
-  
+
+  .controls-panel {
+    position: static;
+    margin-top: 16px;
+    padding: 16px;
+    width: 95%;
+    box-shadow: none;
+    border-radius: 8px;
+  }
+
   .input-row {
     flex-direction: column;
     align-items: stretch;
   }
-  
+
   .map-input {
     min-width: auto;
     width: 100%;
   }
-  
+
   .button-group {
     justify-content: center;
     width: 100%;
   }
-  
+
   .info-row {
     flex-direction: column;
     gap: 8px;
     text-align: center;
   }
-  
+
   .btn {
     flex: 1;
   }
 }
 
 @media (max-width: 480px) {
+  .map-wrapper {
+    height: 250px;
+    position: relative; 
+  }
+
   .controls-panel {
-    margin: 4px;
     padding: 12px;
   }
-  
+
   .btn {
     font-size: 12px;
     padding: 8px 16px;
   }
-  
+
   .map-input {
     padding: 10px 12px;
     font-size: 13px;

@@ -18,7 +18,7 @@ import ResetPasswordPage from "./pages/auth/ResetPasswordPage";
 import PassengerHomePage from "./pages/passenger/PassengerHomePage";
 import PassengerProfilePage from "./pages/passenger/PassengerProfilePage";
 import RequestTripPage from "./pages/passenger/RequestTripPage";
-import HistoryPage  from "./pages/passenger/HistoryPage";
+import PassengerHistoryPage  from "./pages/passenger/PassengerHistoryPage";
 import TicketDetailPage from "./pages/passenger/TicketDetailPage";
 import RateTripPage from "./pages/passenger/RateTripPage";
 import AvailableTrips from "./pages/passenger/AvailableTrips";
@@ -27,14 +27,18 @@ import PassengerHelpPortal from "./pages/passenger/PassengerHelpPortal";
 /* driver   ------------------------------------------------------------ */
 import DriverHomePage from "./pages/driver/DriverHomePage";
 import DriverProfilePage from "./pages/driver/DriverProfilePage";
+
 import DriverHelpPortal from "./pages/driver/DriverHelpPortal";
 import RequestsPage from "./pages/driver/RequestsPage"; 
 import RequestDetailsPage from "./pages/driver/RequestDetailsPage";
 /* (cuando tengas Home + Profile del conductor los importas igual)      */
+import DriverHistoryPage from "./pages/driver/DriverHistoryPage";
+import DriverTripCompletedDetails from "./pages/driver/DriverTripCompletedDetails";
+import PassengerCurrentTripPage from "./pages/passenger/PassengerCurrentTripPage";
 
+/* (cuando tengas Home + Profile del conductor los importas igual)      */
 import PrivateRoute from "./auth/PrivateRoute";
 import MainLayout from "./components/layout/MainLayout";
-
 
 export default function App() {
   return (
@@ -87,10 +91,10 @@ export default function App() {
       />
 
       <Route
-        path="/passenger/history"
+        path="/passenger/history:userId"
         element={
           <PrivateRoute role="PASAJERO">
-            <HistoryPage />
+            <PassengerHistoryPage />
           </PrivateRoute>
         }
       />
@@ -130,6 +134,7 @@ export default function App() {
           </PrivateRoute>
         }
       />
+
       
       <Route 
         path="/helpPassenger/:userId"
@@ -141,6 +146,15 @@ export default function App() {
       />
 
 
+
+      <Route
+        path="/passenger/current-trip/:pasajeroId/:viajeId"
+        element={
+         <PrivateRoute role="PASAJERO">
+              <PassengerCurrentTripPage />
+          </PrivateRoute>         
+        }
+      />  
 
       {/* -------------------------  conductor (placeholder) ------------ */}
 
@@ -198,6 +212,29 @@ export default function App() {
           </PrivateRoute>
         }
       />
+      
+      <Route
+        path="/driver/history/:userId"
+        element={
+          <PrivateRoute role="CONDUCTOR">
+            <MainLayout>
+              <DriverHistoryPage />
+            </MainLayout>
+          </PrivateRoute>
+        }
+      /> 
+      
+      <Route
+        path="/driver/trip/:id"
+        element={
+          <PrivateRoute role="CONDUCTOR">
+            <MainLayout>
+              <DriverTripCompletedDetails />
+            </MainLayout>
+          </PrivateRoute>
+        }
+      /> 
+
 
     </Routes>
   );
