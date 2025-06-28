@@ -2,28 +2,18 @@ import MainNavbar from "../../components/navigation/MainNavbar";
 import { useEffect, useState } from "react";
 import axiosInstance from "../../interceptors/axiosInstance";
 import PendingPaymentCard from "../../components/cards/PendingPaymentCard";
+import { useParams } from "react-router-dom";
 import './styles/PaymentsPage.css';
 
 const PaymentsPages = () => {
-
-    const userId = localStorage.getItem("userId");
-
     
     const [pendingPayments, setPendingPayments] = useState([]);
     const [paymentMethods, setPaymentMethods] = useState([]);
-    const [pasajeroId, setPasajeroId] = useState(userId);
 
-    useEffect(() => { 
-        const fetchPasajeroId = async () => {
-            try {
-                const response = await axiosInstance.get(`/PassengerId/${userId}`);
-                setPasajeroId(response.data);
-            } catch (error) {
-                console.error("Error fetching pasajero ID:", error);
-            }
-        };
-        fetchPasajeroId();
-    }, [userId]); 
+
+    const { pasajeroId } = useParams();
+
+    console.log("Pasajero ID:", pasajeroId);
 
     useEffect(() => {
         const fetchData = async () => {
