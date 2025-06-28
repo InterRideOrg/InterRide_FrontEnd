@@ -12,7 +12,6 @@ import {
 import EditRoundedIcon from "@mui/icons-material/EditRounded";
 import AccountCircleIcon from "@mui/icons-material/AccountCircle";
 import DirectionsCarIcon from "@mui/icons-material/DirectionsCar";
-import MainLayout from "../../components/layout/MainLayout";
 import RoundedTextField from "../../components/ui/RoundedTextField";
 import axiosInstance from "../../interceptors/axiosInstance";
 
@@ -25,6 +24,7 @@ export default function DriverProfilePage() {
   // Datos personales
   const [profile, setProfile] = useState(null);
   const [editMode, setEditMode] = useState(false);
+  const [driverId, setDriverId] = useState(null);
   const [editValues, setEditValues] = useState({
     nombre: "",
     apellidos: "",
@@ -69,12 +69,23 @@ export default function DriverProfilePage() {
       .catch((err) => {
         console.error("Error:", err);
       });
+
+    // Obtener driverId
+    axiosInstance
+      .get(`/usuario/profile/DriverId/${userId}`)
+      .then((res) => {
+        setDriverId(res.data);
+      })
+      .catch((err) => {
+        console.error("Error obteniendo driverId:", err);
+      });
   }, [userId]);
 
+
   // Vehículo
-  const fetchVehicle = () => {
+  const fetchVehicle = (driverId) => {
     axiosInstance
-      .get(`/vehiculo/${userId}`)
+      .get(`/vehiculo/${driverId}`)
       .then((res) => {
         setVehicle(res.data);
         setVehicleEditValues({
@@ -108,10 +119,10 @@ export default function DriverProfilePage() {
   };
 
   useEffect(() => {
-    if (!userId) return;
-    fetchVehicle();
+    if (!driverId) return;
+    fetchVehicle(driverId);
     // eslint-disable-next-line
-  }, [userId]);
+  }, [driverId]);
 
   // Handlers datos personales
   const handleChange = (field) => (e) => {
@@ -151,7 +162,7 @@ export default function DriverProfilePage() {
         anio: vehicleEditValues.anio,
         cantidadAsientos: vehicleEditValues.cantidadAsientos,
       });
-      fetchVehicle(); // Refresca datos y cambia la vista
+      fetchVehicle(driverId); // Refresca datos y cambia la vista
     } catch (error) {
       console.error("Error al registrar vehículo:", error);
     }
@@ -159,15 +170,16 @@ export default function DriverProfilePage() {
 
   const handleVehicleUpdate = async () => {
     try {
-      await axiosInstance.put(`/vehiculo/actualizar/${userId}`, {
+      await axiosInstance.put(`/vehiculo/actualizar/${driverId}`, {
         marca: vehicleEditValues.marca,
         modelo: vehicleEditValues.modelo,
         placa: vehicleEditValues.placa,
         anio: vehicleEditValues.anio,
         cantidadAsientos: vehicleEditValues.cantidadAsientos,
       });
-      fetchVehicle(); // Refresca datos y cambia la vista
+      fetchVehicle(driverId); // Refresca datos y cambia la vista
     } catch (error) {
+      console.log("Response error:", error.response);
       console.error("Error al actualizar vehículo:", error);
     }
   };
@@ -225,7 +237,7 @@ export default function DriverProfilePage() {
                 mb: { xs: 1, md: 0 },
               }}
             >
-              <DirectionsCarIcon sx={{ fontSize: 120, color: "black" }} />
+              <DirectionsCarIcon sx={{ fontSize: 120, color: "white" }} />
             </Avatar>
           </Box>
           {/* Datos personales y vehículo */}
@@ -264,7 +276,7 @@ export default function DriverProfilePage() {
                   </Button>
                 )}
               </Box>
-              <Typography variant="h6" fontWeight={700} mb={2}>
+              <Typography variant="h6" fontWeight={700} mb={2} align="center">
                 Mis Datos Personales
               </Typography>
               <Stack spacing={2}>
@@ -352,46 +364,35 @@ export default function DriverProfilePage() {
               <Typography variant="h6" fontWeight={700} mb={2} textAlign="center">
                 Vehículo
               </Typography>
-              <Divider sx={{ mb: 2 }} />
               <Stack spacing={2}>
-                <RoundedTextField
+                <FieldLine
                   label="Marca"
                   value={vehicleEditValues.marca}
                   onChange={handleVehicleChange("marca")}
-                  fullWidth
-                  size="small"
                   disabled={!vehicleEditMode}
                 />
-                <RoundedTextField
+                <FieldLine
                   label="Modelo"
                   value={vehicleEditValues.modelo}
                   onChange={handleVehicleChange("modelo")}
-                  fullWidth
-                  size="small"
                   disabled={!vehicleEditMode}
                 />
-                <RoundedTextField
+                <FieldLine
                   label="Placa"
                   value={vehicleEditValues.placa}
                   onChange={handleVehicleChange("placa")}
-                  fullWidth
-                  size="small"
                   disabled={!vehicleEditMode}
                 />
-                <RoundedTextField
+                <FieldLine
                   label="Año"
                   value={vehicleEditValues.anio}
                   onChange={handleVehicleChange("anio")}
-                  fullWidth
-                  size="small"
                   disabled={!vehicleEditMode}
                 />
-                <RoundedTextField
+                <FieldLine
                   label="Cantidad de Asientos"
                   value={vehicleEditValues.cantidadAsientos}
                   onChange={handleVehicleChange("cantidadAsientos")}
-                  fullWidth
-                  size="small"
                   disabled={!vehicleEditMode}
                 />
               </Stack>
@@ -409,35 +410,49 @@ export default function DriverProfilePage() {
 
 function FieldLine({ label, value, onChange, disabled }) {
   return (
-    <RoundedTextField
-      label={label}
-      value={value}
-      fullWidth
-      size="small"
-      onChange={onChange}
-      disabled={disabled}
-      sx={{
-        bgcolor: "white",
-        borderRadius: 2,
-        "& .Mui-disabled": { color: "black" },
-      }}
-    />
+    <Box sx={{ mb: 0 }}>
+      <Typography
+        variant="subtitle2"
+        sx={{ mb: 0.2, mt: -1.2, fontWeight: 600, color: "common.black" }}
+      >
+        {label}
+      </Typography>
+      <RoundedTextField
+        value={value}
+        fullWidth
+        size="small"
+        onChange={onChange}
+        disabled={disabled}
+        sx={{
+          bgcolor: "white",
+          borderRadius: 2,
+          "& .Mui-disabled": { color: "black" },
+        }}
+      />
+    </Box>
   );
 }
 
 function FieldLineNoEdit({ label, value }) {
   return (
-    <RoundedTextField
-      label={label}
-      value={value}
-      fullWidth
-      size="small"
-      disabled
-      sx={{
-        bgcolor: "white",
-        borderRadius: 2,
-        "& .Mui-disabled": { color: "black" },
-      }}
-    />
+    <Box sx={{ mb: 0 }}>
+      <Typography
+        variant="subtitle2"
+        sx={{ mb: 0.2, mt: -1.2, fontWeight: 600, color: "common.black" }}
+      >
+        {label}
+      </Typography>
+      <RoundedTextField
+        value={value}
+        fullWidth
+        size="small"
+        disabled
+        sx={{
+          bgcolor: "white",
+          borderRadius: 2,
+          "& .Mui-disabled": { color: "black" },
+        }}
+      />
+    </Box>
   );
 }
