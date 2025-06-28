@@ -91,7 +91,7 @@ export default function App() {
       />
 
       <Route
-        path="/passenger/history:userId"
+        path="/passenger/history/:userId"
         element={
           <PrivateRoute role="PASAJERO">
             <PassengerHistoryPage />
