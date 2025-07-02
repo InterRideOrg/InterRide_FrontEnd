@@ -57,7 +57,7 @@ export default function RegisterVehiclePage() {
     if (!driverId || Object.keys(err).length) return;
 
     try {
-      await axiosProtected.put(
+      await axiosProtected.post(
         `/vehiculo/registrar/${driverId}`,
         {
           placa            : veh.placa.trim().toUpperCase(),
