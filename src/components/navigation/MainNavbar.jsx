@@ -49,6 +49,10 @@ export default function MainNavbar() {
 
   const links = onLanding ? landingLinks : userLinks;
 
+  // Obtener userId y userRole del contexto de autenticación o localStorage
+  const userId = user?.userId || localStorage.getItem("userId");
+  const userRole = user?.userRole || localStorage.getItem("userRole");
+
   /* Drawer móvil */
   const [open, setOpen] = useState(false);
   const toggleDrawer = () => setOpen(p => !p);
@@ -121,13 +125,34 @@ export default function MainNavbar() {
           )}
 
           {/* Ícono perfil (no en landing) */}
-          {!onLanding && (
+
+          {/*!onLanding && (
             <Tooltip title="Perfil">
-              <IconButton color="inherit" onClick={() => navigate("/profile")}>
+              <IconButton color="inherit" onClick={() => navigate("/profile/")}>
                 <AccountCircleIcon />
               </IconButton>
             </Tooltip>
+          )*/}
+
+
+          {!onLanding && (
+            <Tooltip title="Perfil">
+              <IconButton
+                color="inherit"
+                onClick={() => {
+                  if (userRole === "PASAJERO") {
+                    navigate(`/passenger/profile/${userId}`);
+                  } else if (userRole === "CONDUCTOR") {
+                    navigate(`/driver/profile/${userId}`);
+                  } else {
+                    navigate("/profile/");
+                  }
+              }}>
+              <AccountCircleIcon />
+              </IconButton>
+            </Tooltip>
           )}
+          
         </Toolbar>
       </AppBar>
 
