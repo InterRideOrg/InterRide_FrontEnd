@@ -3,17 +3,18 @@ import {
   Avatar,
   Box,
   Button,
-  IconButton,
+  CircularProgress,
   Stack,
   Typography,
+  IconButton,
   Paper,
-  Divider,
 } from "@mui/material";
 import EditRoundedIcon from "@mui/icons-material/EditRounded";
-import AccountCircleIcon from "@mui/icons-material/AccountCircle";
 import DirectionsCarIcon from "@mui/icons-material/DirectionsCar";
-import RoundedTextField from "../../components/ui/RoundedTextField";
+import AccountCircleIcon from "@mui/icons-material/AccountCircle";
 import axiosInstance from "../../interceptors/axiosInstance";
+import RoundedTextField from "../../components/ui/RoundedTextField";
+import { useNavigate } from "react-router-dom";
 
 /* ────────────── Hook para obtener el id del usuario desde localStorage ────────────── */
 function useUserId() {
@@ -21,27 +22,21 @@ function useUserId() {
 }
 
 export default function DriverProfilePage() {
-  // Datos personales
+  const navigate = useNavigate();
+  const userId = useUserId();
+
+  const [driverId, setDriverId] = useState(null);
   const [profile, setProfile] = useState(null);
   const [editMode, setEditMode] = useState(false);
-  const [driverId, setDriverId] = useState(null);
   const [editValues, setEditValues] = useState({
-    nombre: "",
+    nombres: "",
     apellidos: "",
     correo: "",
     telefono: "",
+    username: "",
   });
 
-  // Vehículo
-  const [vehicle, setVehicle] = useState({
-    marca: "",
-    modelo: "",
-    placa: "",
-    anio: "",
-    cantidadAsientos: "",
-  });
-  const [vehicleEditMode, setVehicleEditMode] = useState(false);
-  const [vehicleExists, setVehicleExists] = useState(false);
+  const [vehicle, setVehicle] = useState(null);
   const [vehicleEditValues, setVehicleEditValues] = useState({
     marca: "",
     modelo: "",
@@ -49,10 +44,17 @@ export default function DriverProfilePage() {
     anio: "",
     cantidadAsientos: "",
   });
+  const [vehicleEditMode, setVehicleEditMode] = useState(false);
 
-  const userId = useUserId();
+  // Redirigir si no hay sesión
+  useEffect(() => {
+    const authToken = localStorage.getItem("authToken");
+    if (!userId || !authToken) {
+      navigate("/login");
+    }
+  }, [userId, navigate]);
 
-  // Datos personales
+  // Obtener datos personales
   useEffect(() => {
     if (!userId) return;
     axiosInstance
@@ -60,52 +62,39 @@ export default function DriverProfilePage() {
       .then((res) => {
         setProfile(res.data);
         setEditValues({
-          nombre: res.data.nombre,
+          nombres: res.data.nombre,
           apellidos: res.data.apellidos,
           correo: res.data.correo,
           telefono: res.data.telefono,
+          username: res.data.username,
         });
       })
       .catch((err) => {
-        console.error("Error:", err);
+        console.error("Error al obtener perfil:", err);
       });
 
-    // Obtener driverId
     axiosInstance
       .get(`/usuario/profile/DriverId/${userId}`)
       .then((res) => {
         setDriverId(res.data);
       })
       .catch((err) => {
-        console.error("Error obteniendo driverId:", err);
+        console.error("Error al obtener driverId:", err);
       });
   }, [userId]);
 
-
-  // Vehículo
-  const fetchVehicle = (driverId) => {
+  // Obtener vehículo
+  useEffect(() => {
+    if (!driverId) return;
     axiosInstance
       .get(`/vehiculo/${driverId}`)
       .then((res) => {
         setVehicle(res.data);
-        setVehicleEditValues({
-          marca: res.data.marca,
-          modelo: res.data.modelo,
-          placa: res.data.placa,
-          anio: res.data.anio,
-          cantidadAsientos: res.data.cantidadAsientos,
-        });
-        setVehicleExists(true);
+        setVehicleEditValues(res.data);
         setVehicleEditMode(false);
       })
-      .catch((err) => {
-        setVehicle({
-          marca: "",
-          modelo: "",
-          placa: "",
-          anio: "",
-          cantidadAsientos: "",
-        });
+      .catch(() => {
+        setVehicle(null); // No hay vehículo
         setVehicleEditValues({
           marca: "",
           modelo: "",
@@ -113,56 +102,50 @@ export default function DriverProfilePage() {
           anio: "",
           cantidadAsientos: "",
         });
-        setVehicleExists(false);
-        setVehicleEditMode(false);
       });
-  };
-
-  useEffect(() => {
-    if (!driverId) return;
-    fetchVehicle(driverId);
-    // eslint-disable-next-line
   }, [driverId]);
 
-  // Handlers datos personales
-  const handleChange = (field) => (e) => {
-    setEditValues({ ...editValues, [field]: e.target.value });
-  };
+  // Mostrar loader mientras se cargan los datos
+  if (!profile) {
+    return (
+      <Box py={10} textAlign="center">
+        <CircularProgress />
+      </Box>
+    );
+  }
 
+  // Handlers perfil
   const handleEdit = () => setEditMode(true);
-
+  const handleChange = (field) => (e) =>
+    setEditValues({ ...editValues, [field]: e.target.value });
   const handleFinish = async () => {
     setEditMode(false);
-    setProfile({ ...profile, ...editValues });
     try {
+      // Solo enviar los campos editables
+      const { nombres, apellidos, correo, telefono } = editValues;
       await axiosInstance.put(`/usuario/profile/${userId}`, {
-        nombre: editValues.nombre,
-        apellidos: editValues.apellidos,
-        correo: editValues.correo,
-        telefono: editValues.telefono,
+        nombres,
+        apellidos,
+        correo,
+        telefono,
       });
-    } catch (error) {
-      console.error("Error al actualizar el perfil:", error);
+      setProfile({ ...profile, nombres, apellidos, correo, telefono });
+    } catch (err) {
+      console.error("Error al actualizar el perfil:", err);
     }
   };
 
   // Handlers vehículo
-  const handleVehicleChange = (field) => (e) => {
+  const handleVehicleChange = (field) => (e) =>
     setVehicleEditValues({ ...vehicleEditValues, [field]: e.target.value });
-  };
-
-  const handleVehicleEdit = () => setVehicleEditMode(true);
 
   const handleVehicleRegister = async () => {
     try {
-      await axiosInstance.post(`/vehiculo/registrar/${userId}`, {
-        marca: vehicleEditValues.marca,
-        modelo: vehicleEditValues.modelo,
-        placa: vehicleEditValues.placa,
-        anio: vehicleEditValues.anio,
-        cantidadAsientos: vehicleEditValues.cantidadAsientos,
-      });
-      fetchVehicle(driverId); // Refresca datos y cambia la vista
+      await axiosInstance.post(`/vehiculo/registrar/${userId}`, vehicleEditValues);
+      const res = await axiosInstance.get(`/vehiculo/${driverId}`);
+      setVehicle(res.data);
+      setVehicleEditValues(res.data);
+      setVehicleEditMode(false);
     } catch (error) {
       console.error("Error al registrar vehículo:", error);
     }
@@ -170,45 +153,36 @@ export default function DriverProfilePage() {
 
   const handleVehicleUpdate = async () => {
     try {
-      await axiosInstance.put(`/vehiculo/actualizar/${driverId}`, {
-        marca: vehicleEditValues.marca,
-        modelo: vehicleEditValues.modelo,
-        placa: vehicleEditValues.placa,
-        anio: vehicleEditValues.anio,
-        cantidadAsientos: vehicleEditValues.cantidadAsientos,
-      });
-      fetchVehicle(driverId); // Refresca datos y cambia la vista
+      await axiosInstance.put(`/vehiculo/actualizar/${driverId}`, vehicleEditValues);
+      setVehicle({ ...vehicleEditValues });
+      setVehicleEditMode(false);
     } catch (error) {
-      console.log("Response error:", error.response);
       console.error("Error al actualizar vehículo:", error);
     }
   };
 
-  // Render
+  // Cerrar sesión
+  const handleLogout = () => {
+    localStorage.removeItem("userId");
+    localStorage.removeItem("authToken");
+    localStorage.removeItem("userRole");
+    navigate("/login");
+  };
+
   return (
-      <Box sx={{ bgcolor: "#e3f2fd", minHeight: "100vh", px: 0, py: 4 }}>
-        <Box px={{ xs: 2, md: 8 }}>
-          {/* Encabezado */}
-          <Box display="flex" justifyContent="space-between" alignItems="center" mb={2}>
-            <Typography variant="h5" fontWeight={700}>
-              Mi Cuenta De Usuario
-            </Typography>
-            <Button
-              variant="outlined"
-              sx={{
-                bgcolor: "white",
-                borderRadius: 3,
-                boxShadow: 1,
-                fontWeight: 600,
-                px: 3,
-                py: 1,
-                ":hover": { bgcolor: "#f5f5f5" },
-              }}
-            >
-              Cerrar sesión
-            </Button>
-          </Box>
-          {/* Iconos de usuario y vehículo al mismo nivel */}
+    <Box sx={{ bgcolor: "#e3f2fd", minHeight: "100vh", px: 0, py: 4 }}>
+      <Box px={{ xs: 2, md: 8 }}>
+        {/* Encabezado */}
+        <Box display="flex" justifyContent="space-between" alignItems="center" mb={2}>
+          <Typography variant="h5" fontWeight={700}>
+            Mi Cuenta De Usuario
+          </Typography>
+          <Button variant="outlined" size="small" onClick={handleLogout}>
+            Cerrar&nbsp;sesión
+          </Button>
+        </Box>
+
+        {/* ───────────── Avatares de usuario y vehículo centrados ───────────── */}
           <Box
             display="flex"
             flexDirection={{ xs: "column", md: "row" }}
@@ -240,177 +214,164 @@ export default function DriverProfilePage() {
               <DirectionsCarIcon sx={{ fontSize: 120, color: "white" }} />
             </Avatar>
           </Box>
-          {/* Datos personales y vehículo */}
-          <Box
-            display="flex"
-            flexDirection={{ xs: "column", md: "row" }}
-            gap={4}
-            mt={2}
-            justifyContent="center"
+
+        {/* Información */}
+        <Box
+          display="flex"
+          flexDirection={{ xs: "column", md: "row" }}
+          gap={4}
+          justifyContent="center"
+        >
+          {/* Datos personales */}
+          <Paper
+            elevation={0}
+            sx={{
+              flex: 1,
+              bgcolor: "#36a3ad",
+              borderRadius: 3,
+              p: 3,
+              minWidth: 320,
+              position: "relative",
+            }}
           >
-            {/* Datos personales */}
-            <Paper
-              elevation={0}
-              sx={{
-                flex: 1,
-                bgcolor: "#36a3ad",
-                borderRadius: 3,
-                p: 3,
-                minWidth: 320,
-                position: "relative",
-              }}
-            >
-              <Box sx={{ position: "absolute", top: 16, right: 16 }}>
-                {!editMode ? (
-                  <IconButton onClick={handleEdit} aria-label="Editar perfil">
-                    <EditRoundedIcon />
-                  </IconButton>
-                ) : (
-                  <Button
-                    variant="contained"
-                    size="small"
-                    onClick={handleFinish}
-                    sx={{ fontWeight: 600 }}
-                  >
-                    Finalizar
-                  </Button>
-                )}
-              </Box>
-              <Typography variant="h6" fontWeight={700} mb={2} align="center">
-                Mis Datos Personales
-              </Typography>
-              <Stack spacing={2}>
-                <FieldLine
-                  label="Nombre"
-                  value={editValues.nombre}
-                  onChange={handleChange("nombre")}
-                  disabled={!editMode}
-                />
-                <FieldLine
-                  label="Apellidos"
-                  value={editValues.apellidos}
-                  onChange={handleChange("apellidos")}
-                  disabled={!editMode}
-                />
-                <FieldLine
-                  label="Email"
-                  value={editValues.correo}
-                  onChange={handleChange("correo")}
-                  disabled={!editMode}
-                />
-                <FieldLine
-                  label="Teléfono"
-                  value={editValues.telefono}
-                  onChange={handleChange("telefono")}
-                  disabled={!editMode}
-                />
-                <FieldLineNoEdit
-                  label="Username"
-                  value={profile?.username || ""}
-                />
-              </Stack>
-            </Paper>
-            {/* Vehículo */}
-            <Paper
-              elevation={0}
-              sx={{
-                flex: 1,
-                bgcolor: "#36a3ad",
-                borderRadius: 3,
-                p: 3,
-                minWidth: 320,
-                position: "relative",
-                mt: { xs: 4, md: 0 },
-              }}
-            >
-              <Box sx={{ position: "absolute", top: 16, right: 16 }}>
-                {!vehicleExists ? (
-                  !vehicleEditMode ? (
-                    <Button
-                      variant="contained"
-                      size="small"
-                      onClick={() => setVehicleEditMode(true)}
-                      sx={{ fontWeight: 600 }}
-                    >
-                      Registrar
-                    </Button>
-                  ) : (
-                    <Button
-                      variant="contained"
-                      size="small"
-                      color="success"
-                      onClick={handleVehicleRegister}
-                      sx={{ fontWeight: 600 }}
-                    >
-                      Finalizar
-                    </Button>
-                  )
-                ) : !vehicleEditMode ? (
-                  <IconButton onClick={handleVehicleEdit} aria-label="Editar vehículo">
-                    <EditRoundedIcon />
-                  </IconButton>
-                ) : (
-                  <Button
-                    variant="contained"
-                    size="small"
-                    color="success"
-                    onClick={handleVehicleUpdate}
-                    sx={{ fontWeight: 600 }}
-                  >
-                    Finalizar
-                  </Button>
-                )}
-              </Box>
-              <Typography variant="h6" fontWeight={700} mb={2} textAlign="center">
-                Vehículo
-              </Typography>
-              <Stack spacing={2}>
-                <FieldLine
-                  label="Marca"
-                  value={vehicleEditValues.marca}
-                  onChange={handleVehicleChange("marca")}
-                  disabled={!vehicleEditMode}
-                />
-                <FieldLine
-                  label="Modelo"
-                  value={vehicleEditValues.modelo}
-                  onChange={handleVehicleChange("modelo")}
-                  disabled={!vehicleEditMode}
-                />
-                <FieldLine
-                  label="Placa"
-                  value={vehicleEditValues.placa}
-                  onChange={handleVehicleChange("placa")}
-                  disabled={!vehicleEditMode}
-                />
-                <FieldLine
-                  label="Año"
-                  value={vehicleEditValues.anio}
-                  onChange={handleVehicleChange("anio")}
-                  disabled={!vehicleEditMode}
-                />
-                <FieldLine
-                  label="Cantidad de Asientos"
-                  value={vehicleEditValues.cantidadAsientos}
-                  onChange={handleVehicleChange("cantidadAsientos")}
-                  disabled={!vehicleEditMode}
-                />
-              </Stack>
-              {!vehicleExists && (
-                <Typography variant="body2" color="text.secondary" mt={2}>
-                  * No tienes un vehículo registrado. Completa los campos y presiona Registrar.
-                </Typography>
+            <Box sx={{ position: "absolute", top: 16, right: 16 }}>
+              {!editMode ? (
+                <IconButton onClick={handleEdit}>
+                  <EditRoundedIcon />
+                </IconButton>
+              ) : (
+                <Button variant="contained" size="small" onClick={handleFinish}>
+                  Finalizar
+                </Button>
               )}
-            </Paper>
-          </Box>
+            </Box>
+            <Typography variant="h6" fontWeight={700} mb={2} align="center">
+              Mis Datos Personales
+            </Typography>
+            <Stack spacing={2}>
+              <FieldLine
+                label="Nombre"
+                value={editValues.nombres}
+                onChange={handleChange("nombres")}
+                disabled={!editMode}
+              />
+              <FieldLine
+                label="Apellidos"
+                value={editValues.apellidos}
+                onChange={handleChange("apellidos")}
+                disabled={!editMode}
+              />
+              <FieldLine
+                label="Email"
+                value={editValues.correo}
+                onChange={handleChange("correo")}
+                disabled={!editMode}
+              />
+              <FieldLine
+                label="Teléfono"
+                value={editValues.telefono}
+                onChange={handleChange("telefono")}
+                disabled={!editMode}
+              />
+              <FieldLineNoEdit
+                label="Nombre de usuario"
+                value={editValues.username}
+              />
+            </Stack>
+          </Paper>
+
+          {/* Vehículo */}
+          <Paper
+            elevation={0}
+            sx={{
+              flex: 1,
+              bgcolor: "#36a3ad",
+              borderRadius: 3,
+              p: 3,
+              minWidth: 320,
+              position: "relative",
+            }}
+          >
+            <Box sx={{ position: "absolute", top: 16, right: 16 }}>
+              {!vehicle ? (
+                vehicleEditMode ? (
+                  <Button
+                    variant="contained"
+                    size="small"
+                    onClick={handleVehicleRegister}
+                  >
+                    Finalizar
+                  </Button>
+                ) : (
+                  <Button
+                    variant="contained"
+                    size="small"
+                    onClick={() => setVehicleEditMode(true)}
+                  >
+                    Registrar
+                  </Button>
+                )
+              ) : vehicleEditMode ? (
+                <Button
+                  variant="contained"
+                  size="small"
+                  color="success"
+                  onClick={handleVehicleUpdate}
+                >
+                  Guardar
+                </Button>
+              ) : (
+                <IconButton onClick={() => setVehicleEditMode(true)}>
+                  <EditRoundedIcon />
+                </IconButton>
+              )}
+            </Box>
+            <Typography variant="h6" fontWeight={700} mb={2} align="center">
+              Datos del Vehículo
+            </Typography>
+            <Stack spacing={2}>
+              <FieldLine
+                label="Marca"
+                value={vehicleEditValues.marca}
+                onChange={handleVehicleChange("marca")}
+                disabled={!vehicleEditMode}
+              />
+              <FieldLine
+                label="Modelo"
+                value={vehicleEditValues.modelo}
+                onChange={handleVehicleChange("modelo")}
+                disabled={!vehicleEditMode}
+              />
+              <FieldLine
+                label="Placa"
+                value={vehicleEditValues.placa}
+                onChange={handleVehicleChange("placa")}
+                disabled={!vehicleEditMode}
+              />
+              <FieldLine
+                label="Año"
+                value={vehicleEditValues.anio}
+                onChange={handleVehicleChange("anio")}
+                disabled={!vehicleEditMode}
+              />
+              <FieldLine
+                label="Asientos"
+                value={vehicleEditValues.cantidadAsientos}
+                onChange={handleVehicleChange("cantidadAsientos")}
+                disabled={!vehicleEditMode}
+              />
+            </Stack>
+          </Paper>
         </Box>
       </Box>
+    </Box>
   );
 }
 
+/* ─────────────── Componente para campos de texto ─────────────── */
 function FieldLine({ label, value, onChange, disabled }) {
   return (
-    <Box sx={{ mb: 0 }}>
+    <Box>
       <Typography
         variant="subtitle2"
         sx={{ mb: 0.2, mt: -1.2, fontWeight: 600, color: "common.black" }}
@@ -435,7 +396,7 @@ function FieldLine({ label, value, onChange, disabled }) {
 
 function FieldLineNoEdit({ label, value }) {
   return (
-    <Box sx={{ mb: 0 }}>
+    <Box>
       <Typography
         variant="subtitle2"
         sx={{ mb: 0.2, mt: -1.2, fontWeight: 600, color: "common.black" }}

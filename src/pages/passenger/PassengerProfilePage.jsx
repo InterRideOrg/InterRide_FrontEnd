@@ -12,6 +12,7 @@ import EditRoundedIcon from "@mui/icons-material/EditRounded";
 import axiosInstance from "../../interceptors/axiosInstance";
 import RoundedTextField from "../../components/ui/RoundedTextField";
 import MainLayout from "../../components/layout/MainLayout";
+import { useNavigate } from "react-router-dom";
 
 /* ────────────── Hook para obtener el id del usuario desde localStorage ────────────── */
 function useUserId() {
@@ -29,6 +30,7 @@ export default function PassengerProfilePage() {
     telefono: "",
   });
   const userId = useUserId();
+  const navigate = useNavigate();
 
   // 1. Obtener el passengerId a partir del userId
   useEffect(() => {
@@ -109,7 +111,12 @@ export default function PassengerProfilePage() {
         <Button
           variant="outlined"
           size="small"
-          onClick={() => alert("👋 Cerrando sesión…")}
+          onClick={() => {
+            localStorage.removeItem("userId");
+            localStorage.removeItem("userRole");
+            localStorage.removeItem("authToken");
+            navigate("/login");
+          }}
         >
           Cerrar&nbsp;sesión
         </Button>
