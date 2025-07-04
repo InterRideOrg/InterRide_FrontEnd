@@ -1,0 +1,203 @@
+.payment-history-detail-page-sec {
+    min-height: 100vh;
+    padding: 40px 20px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.payment-history-detail-page-header {
+    width: 100%;
+    max-width: 550px;
+    margin-bottom: 30px;
+}
+
+.payment-history-detail-page-back-btn {
+    background: #39A6AC;
+    color: white;
+    border: none;
+    border-radius: 8px;
+    padding: 10px 20px;
+    font-size: 14px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    margin-bottom: 20px;
+}
+
+.payment-history-detail-page-back-btn:hover {
+    background: #2e8b8b;
+    transform: translateY(-2px);
+}
+
+.payment-history-detail-page-header h1 {
+    font-size: 32px;
+    font-weight: 700;
+    text-align: center;
+    color: #2c3e50;
+    margin: 0;
+    text-shadow: 0 2px 4px rgba(0,0,0,0.1);
+}
+
+.payment-history-detail-page-content {
+    background: linear-gradient(145deg, #455a64 0%, #37474f 100%);
+    border-radius: 16px;
+    padding-bottom: 25px;
+    box-shadow: 0 12px 30px rgba(0,0,0,0.2);
+    width: 100%;
+    max-width: 550px;
+    overflow: hidden;
+    border: 2px solid #39A6AC;
+}
+
+.payment-history-detail-page-section {
+    border-bottom: 2px solid #39A6AC;
+    transition: all 0.3s ease;
+}
+
+.payment-history-detail-page-section:last-child {
+    border-bottom: none;
+}
+
+.payment-history-detail-page-section:hover {
+    background: linear-gradient(90deg, rgba(57, 166, 172, 0.1) 0%, rgba(57, 166, 172, 0.05) 100%);
+    transform: translateX(3px);
+}
+
+.payment-history-detail-page-section-title h5 {
+    color: #39A6AC;
+    margin: 0;
+    padding: 18px 24px 5px 24px;
+    font-size: 14px;
+    font-weight: 700;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+    text-shadow: 0 1px 3px rgba(0,0,0,0.3);
+}
+
+.payment-history-detail-page-section-text {
+    background: linear-gradient(90deg, #4db6ac 0%, #26a69a 100%);
+    padding: 16px 24px;
+    margin: 5px 16px 16px 16px;
+    border-radius: 12px;
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+    border: 1px solid #39A6AC;
+    transition: transform 0.2s ease;
+}
+
+.payment-history-detail-page-section-text:hover {
+    transform: scale(1.02);
+}
+
+.payment-history-detail-page-section-text p {
+    color: #1a1a1a;
+    margin: 0;
+    font-size: 17px;
+    font-weight: 600;
+    line-height: 1.4;
+    text-shadow: 0 1px 2px rgba(255,255,255,0.2);
+}
+
+.payment-history-detail-page-driver-contact {
+    font-size: 14px !important;
+    font-weight: 500 !important;
+    opacity: 0.8;
+}
+
+/* Estado del pago */
+.payment-history-detail-page-status {
+    display: inline-block;
+    padding: 8px 16px;
+    border-radius: 20px;
+    font-size: 14px;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+}
+
+.payment-history-detail-page-status.completado {
+    background: #4caf50;
+    color: white;
+}
+
+.payment-history-detail-page-status.pendiente {
+    background: #ff9800;
+    color: white;
+}
+
+.payment-history-detail-page-status.cancelado {
+    background: #f44336;
+    color: white;
+}
+
+/* Sección del monto */
+.payment-history-detail-page-amount-section .payment-history-detail-page-section-text {
+    background: linear-gradient(90deg, #ff6b35 0%, #f7931e 100%);
+    border: 2px solid #ff6b35;
+}
+
+.payment-history-detail-page-amount {
+    font-size: 24px !important;
+    font-weight: 800 !important;
+    color: white !important;
+    text-shadow: 0 2px 4px rgba(0,0,0,0.3) !important;
+    text-align: center;
+}
+
+.payment-history-detail-page-loading {
+    text-align: center;
+    font-size: 18px;
+    color: #666;
+    padding: 50px;
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+    .payment-history-detail-page-sec {
+        padding: 30px 15px;
+    }
+    
+    .payment-history-detail-page-content {
+        max-width: 100%;
+    }
+    
+    .payment-history-detail-page-header h1 {
+        font-size: 28px;
+    }
+}
+
+@media (max-width: 480px) {
+    .payment-history-detail-page-sec {
+        padding: 20px 10px;
+    }
+
+    .payment-history-detail-page-header h1 {
+        font-size: 24px;
+    }
+
+    .payment-history-detail-page-section-title h5 {
+        font-size: 12px;
+        padding: 14px 20px 4px 20px;
+    }
+    
+    .payment-history-detail-page-section-text {
+        padding: 14px 20px;
+        margin: 4px 12px 14px 12px;
+    }
+    
+    .payment-history-detail-page-section-text p {
+        font-size: 16px;
+    }
+
+    .payment-history-detail-page-amount {
+        font-size: 20px !important;
+    }
+
+    .payment-history-detail-page-back-btn {
+        padding: 8px 16px;
+        font-size: 12px;
+    }
+}
