@@ -142,7 +142,7 @@ export default function PassengerHomePage() {
             {viajeActual ? (
               <TripCard
                 title={viajeActual.destinoProvincia}
-                subtitle={`Conductor: ${viajeActual.nombreConductor}`}
+                subtitle={`Conductor: ${viajeActual.nombreConductor} ${viajeActual.apellidoConductor}`}
                 color="var(--clr-secondary)"
                 onClick={() =>
                   navigate(`/passenger/current-trip/${passengerId}/${viajeActual.id}`)
@@ -160,7 +160,7 @@ export default function PassengerHomePage() {
                 <FiberManualRecordIcon
                   sx={{ fontSize: 12, color: "var(--clr-success)", mr: 1 }}
                 />
-                <Typography fontWeight={700}>Viajes solicitados</Typography>
+                <Typography fontWeight={700}>Viajes que solicitaste</Typography>
               </Box>
 
               <Typography

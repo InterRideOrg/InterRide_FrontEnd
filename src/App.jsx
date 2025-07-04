@@ -31,6 +31,8 @@ import ReservedTripDetailPage from "./pages/passenger/ReservedTripDetailPage";
 import ReservedTripsPage from "./pages/passenger/ReservedTripsPage";
 import AbordTripPage from "./pages/passenger/AbordTripPage";
 import PassengerNotificationsPage from "./pages/passenger/NotificationsPage";
+import PaymentHistoryPage from "./pages/passenger/PaymentHistoryPage";
+import PaymentHistoryDetailPage from "./pages/passenger/PaymentHistoryDetailPage";
 /* driver   ------------------------------------------------------------ */
 import DriverHomePage from "./pages/driver/DriverHomePage";
 import DriverProfilePage from "./pages/driver/DriverProfilePage";
@@ -219,14 +221,6 @@ export default function App() {
         }
       />
 
-      <Route
-        path="/passenger/notifications"
-        element={
-          <PrivateRoute role="PASAJERO">
-            <PassengerNotificationsPage />
-          </PrivateRoute>
-        }
-      />
 
       {/* -------------------------  conductor (placeholder) ------------ */}
 

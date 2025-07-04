@@ -52,9 +52,25 @@ const ReservedTripDetailPage = () => {
       // Aquí podrías redirigir al usuario a otra página, por ejemplo, la lista de viajes reservados
     } catch (error) {
       console.error('Error canceling reservation:', error);
-      alert("Error al cancelar la reserva. Inténtalo de nuevo más tarde.");
+      alert(error.response?.data?.detail || "Error al cancelar la reserva. Inténtalo de nuevo.");
     }
   };
+
+  const handleBoardReservation = async () => {
+    try {
+      const confirm = window.confirm("¿Estás seguro de que desea abordar?");
+      if (!confirm) return;
+
+      await axiosInstance.put(`/boletos/${pasajeroId}/${ticket.viajeId}/abordar`);
+      alert("Ya estas listo para tu viaje!");
+      navigate(`/passenger/home/${pasajeroId}`);
+
+    } catch (error) {
+      console.error('Error boarding trip:', error);
+      alert(error.response?.data?.detail || "Error al abordar el viaje. Inténtalo de nuevo.");
+    }
+
+  }
 
 
   return (
@@ -87,6 +103,7 @@ const ReservedTripDetailPage = () => {
         </div>
         <div className="reserved-trip-detail-page-actions">
           <button className="btn-cancel" onClick={handleCancelReservation}>Cancelar Reserva</button>
+          <button className="btn-board" onClick={handleBoardReservation}>Abordar Viaje</button>
         </div>
       </section>
     </>

@@ -150,6 +150,32 @@
   box-shadow: 0 4px 16px rgba(244, 67, 54, 0.3);
 }
 
+
+.btn-board {
+  background: linear-gradient(135deg, #39A6AC 0%, #39A6AC 100%);
+  color: white;
+  border: none;
+  border-radius: 12px;
+  padding: 1rem 2rem;
+  font-size: 1.1rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  min-width: 200px;
+}
+
+.btn-board:hover {
+  transform: translateY(-2px);
+  background: linear-gradient(135deg, #38dce4 0%, #38dce4 100%);
+}
+
+.btn-board:active {
+  transform: translateY(0);
+  box-shadow: 0 4px 16px rgba(244, 67, 54, 0.3);
+}
+
 /* Responsive */
 @media (max-width: 768px) {
   .reserved-trip-detail-page {
@@ -198,6 +224,12 @@
     font-size: 1rem;
     min-width: 180px;
   }
+
+  .btn-board {
+    padding: 0.8rem 1.5rem;
+    font-size: 1rem;
+    min-width: 180px;
+  }
 }
 
 @media (max-width: 480px) {
@@ -218,6 +250,13 @@
   }
   
   .btn-cancel {
+    width: 100%;
+    min-width: auto;
+    padding: 1rem;
+    font-size: 1rem;
+  }
+
+  .btn-board {
     width: 100%;
     min-width: auto;
     padding: 1rem;
