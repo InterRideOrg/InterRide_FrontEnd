@@ -53,19 +53,7 @@ const PaymentHistoryDetailPage = () => {
         fetchDriverDetails();
     }, [paymentDetails]);
 
-    useEffect(() => {
-        const fetchPaymentDetails = async () => {
-            try {
-                const response = await axiosInstance.get(`/pagos/${paymentId}`);
-                setPaymentDetails(response.data);
-            } catch (error) {
-                console.error("Error fetching payment details:", error);
-                alert("Error al obtener los detalles del pago. Inténtalo de nuevo.");
-            }
-        };
-
-        fetchPaymentDetails();
-    }, [paymentId]);
+    
 
     if (!paymentDetails) {
         return (

@@ -221,6 +221,24 @@ export default function App() {
         }
       />
 
+      <Route
+        path="/passenger/payments/:pasajeroId/history"
+        element={
+          <PrivateRoute role="PASAJERO">
+            <PaymentHistoryPage />
+          </PrivateRoute>
+        }
+      />
+
+      <Route
+        path="/passenger/payments/:pasajeroId/details/:paymentId/completed"
+        element={
+          <PrivateRoute role="PASAJERO">
+            <PaymentHistoryDetailPage />
+          </PrivateRoute>
+        }
+      />
+
 
       {/* -------------------------  conductor (placeholder) ------------ */}
 
