@@ -18,6 +18,17 @@ export default function useMenus() {
     staleTime: 5 * 60_000,
   });
 
+  /* Obtener id de conductor solo si el rol es CONDUCTOR */
+  const { data: driverId } = useQuery({
+    enabled : !!userId && user?.role === "CONDUCTOR",
+    queryKey: ["driverId", userId],
+    queryFn : () =>
+      axiosInstance
+        .get(`/usuario/profile/DriverId/${userId}`)
+        .then(r => r.data),
+    staleTime: 5 * 60_000,
+  });
+
   /* Enlaces comunes por rol */
   if (user?.role === "PASAJERO") {
     return [
@@ -34,7 +45,7 @@ export default function useMenus() {
     return [
       { label: "Inicio",              path: `/driver/home/${userId}` },
       { label: "Viajes completados",  path: `/driver/history/${userId}` },
-      { label: "Billetera",           path: "/wallet" },
+      { label: "Finanzas",           path: `/driver/wallet/${driverId}` },
       { label: "Ayuda",               path: `/helpDriver/${userId}` },
       { label: "Notificaciones",      path: "/driver/notifications" }
 //      { label: "Perfil",              path: `/driver/profile/${userId}` },
