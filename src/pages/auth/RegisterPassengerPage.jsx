@@ -81,11 +81,11 @@ export default function RegisterPassengerPage() {
   return (
     <AuthLayout title="Empecemos">
       <FormCard component="form" onSubmit={submit}>
-        <Stack spacing={3}>
+        <Stack spacing={0}>
 
           {/* campos */}
           {[
-            ['Nombre completo',          'nombre'   ],
+            ['Nombres',          'nombre'   ],
             ['Apellidos',                'apellidos'],
             ['Email',                    'correo',   'email'],
             ['Número de teléfono',       'telefono', 'tel'  ],
@@ -94,14 +94,28 @@ export default function RegisterPassengerPage() {
             ['Confirmar contraseña',     'confirm',  'password'],
           ].map(([label, field, type = 'text']) => (
             <Box key={field}>
-              <Typography className="rp-label">{label}</Typography>
-              <AuthTextField type={type} {...bind(field)} />
+              <Typography
+                className="rp-label"
+                variant="body2"
+                sx={{ mb: 0.5 }}
+              >
+                {label}
+              </Typography>
+              <AuthTextField
+                type={type}
+                {...bind(field)}
+                size="small"
+              />
             </Box>
           ))}
 
           {/* mensaje resultado */}
           {msg && (
-            <Typography color="secondary.light" align="center">
+            <Typography 
+              color="secondary.light" 
+              align="center"
+              variant="body2"  // Texto más pequeño
+            >
               {msg}
             </Typography>
           )}

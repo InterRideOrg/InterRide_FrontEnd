@@ -86,7 +86,7 @@ export default function RegisterVehiclePage() {
   return (
     <AuthLayout title="Datos De Tu Vehículo">
       <FormCard component="form" onSubmit={submit}>
-        <Stack spacing={3}>
+        <Stack spacing={0}>
           {[
             ['Placa'                       , 'placa'    ],
             ['Marca'                       , 'marca'    ],
@@ -95,8 +95,18 @@ export default function RegisterVehiclePage() {
             ['Cantidad máxima de pasajeros', 'capacidad', 'number'],
           ].map(([lbl, key, type='text']) => (
             <Box key={key}>
-              <Typography className="rv-label">{lbl}</Typography>
-              <AuthTextField type={type} {...bind(key)} />
+              <Typography 
+                className="rp-label" 
+                variant="body2"  // Tamaño más pequeño
+                sx={{ mb: 0.5 }} // Margen inferior reducido
+              >
+                {lbl}
+              </Typography>
+              <AuthTextField 
+                type={type} 
+                {...bind(key)} 
+                size="small"  // Campo más pequeño
+              />
             </Box>
           ))}
 

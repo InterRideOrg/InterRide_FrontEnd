@@ -84,7 +84,7 @@ export default function LoginPage() {
   return (
     <AuthLayout title="Bienvenido">
       <FormCard component="form" onSubmit={handleSubmit}>
-        <Stack spacing={4}>
+        <Stack spacing={1}>
           {/* Correo */}
           <Box>
             <Typography variant="subtitle1" color="common.white">
