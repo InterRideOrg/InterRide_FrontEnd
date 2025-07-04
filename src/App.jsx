@@ -30,6 +30,8 @@ import AddPaymentMethodPage from "./pages/passenger/AddPaymentMethodPage";
 import ReservedTripDetailPage from "./pages/passenger/ReservedTripDetailPage";
 import ReservedTripsPage from "./pages/passenger/ReservedTripsPage";
 import AbordTripPage from "./pages/passenger/AbordTripPage";
+import PaymentHistoryPage from "./pages/passenger/PaymentHistoryPage";
+import PaymentHistoryDetailPage from "./pages/passenger/PaymentHistoryDetailPage";
 /* driver   ------------------------------------------------------------ */
 import DriverHomePage from "./pages/driver/DriverHomePage";
 import DriverProfilePage from "./pages/driver/DriverProfilePage";
@@ -216,6 +218,25 @@ export default function App() {
           </PrivateRoute>
         }
       />
+
+      <Route
+        path="/passenger/payments/:pasajeroId/history"
+        element={
+          <PrivateRoute role="PASAJERO">
+            <PaymentHistoryPage />
+          </PrivateRoute>
+        }
+      />
+
+      <Route
+        path="/passenger/payments/:pasajeroId/details/:paymentId/completed"
+        element={
+          <PrivateRoute role="PASAJERO">
+            <PaymentHistoryDetailPage />
+          </PrivateRoute>
+        }
+      />
+      
 
 
       {/* -------------------------  conductor (placeholder) ------------ */}

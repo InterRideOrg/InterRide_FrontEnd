@@ -192,7 +192,7 @@ export default function DriverHomePage() {
           {/* Próximos viajes */}
           <Stack spacing={1.5}>
             <Box className="dh-section-bar">
-              <Typography fontWeight={700}>Próximos viajes</Typography>
+              <Typography fontWeight={700}>Viajes programados</Typography>
 
               <Typography
                 variant="body2"

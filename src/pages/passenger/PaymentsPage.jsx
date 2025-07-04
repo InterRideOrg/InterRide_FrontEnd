@@ -6,23 +6,27 @@ import PaymentMethodCard from "../../components/cards/PaymentMethodCard";
 import { useNavigate } from "react-router-dom";
 import { useParams } from "react-router-dom";
 import './styles/PaymentsPage.css';
+import CompletePaymentCard from "../../components/cards/CompletePaymentCard";
 
 const PaymentsPages = () => {
     const navigate = useNavigate();
     const [pendingPayments, setPendingPayments] = useState([]);
     const [paymentMethods, setPaymentMethods] = useState([]);
+    const [historyPayments, setHistoryPayments] = useState([]);
 
     const { pasajeroId } = useParams();
 
     useEffect(() => {
         const fetchData = async () => {
             try {
-                const [paymentsResponse, methodsResponse] = await Promise.all([
+                const [paymentsResponse, methodsResponse, historyResponse] = await Promise.all([
                     axiosInstance.get(`/pagos/pendientes/pasajero/${pasajeroId}`),
                     axiosInstance.get(`/tarjetas/${pasajeroId}`),
+                    axiosInstance.get(`/pagos/completados/pasajero/${pasajeroId}`)
                 ]);
                 setPendingPayments(paymentsResponse.data);
                 setPaymentMethods(methodsResponse.data);
+                setHistoryPayments(historyResponse.data);
             } catch (error) {
                 console.error("Error fetching payment data:", error);
             }
@@ -62,6 +66,21 @@ const PaymentsPages = () => {
                             ))
                         ) : (
                             <p>No se encontraron pagos pendientes en este momento.</p>
+                        )}
+                    </div>
+                </div>
+                <div className="payments-page-history-payments">
+                    <div className="payments-page-history-payments-title">
+                        <h4>Historial de Pagos</h4>
+                        <button onClick={() => navigate(`/passenger/payments/${pasajeroId}/history`)}>Ver todos</button>
+                    </div>
+                    <div className="payments-page-history-payments-list">
+                        {historyPayments && historyPayments.length > 0 ? (
+                            historyPayments.slice(0, 5).map(payment => (
+                                <CompletePaymentCard key={payment.id} payment={payment} />
+                            ))      
+                        ) : (
+                            <p>No se encontraron pagos en el historial.</p>
                         )}
                     </div>
                 </div>
