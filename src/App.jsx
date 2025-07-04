@@ -30,6 +30,7 @@ import AddPaymentMethodPage from "./pages/passenger/AddPaymentMethodPage";
 import ReservedTripDetailPage from "./pages/passenger/ReservedTripDetailPage";
 import ReservedTripsPage from "./pages/passenger/ReservedTripsPage";
 import AbordTripPage from "./pages/passenger/AbordTripPage";
+import PassengerNotificationsPage from "./pages/passenger/NotificationsPage";
 /* driver   ------------------------------------------------------------ */
 import DriverHomePage from "./pages/driver/DriverHomePage";
 import DriverProfilePage from "./pages/driver/DriverProfilePage";
@@ -38,6 +39,7 @@ import DriverHelpPortal from "./pages/driver/DriverHelpPortal";
 import RequestsPage from "./pages/driver/RequestsPage"; 
 import RequestDetailsPage from "./pages/driver/RequestDetailsPage";
 import DriverAcceptedTripDetails from "./pages/driver/DriverAcceptedTripDetails";
+import DriverNotificationsPage from "./pages/driver/NotificationsPage";
 /* (cuando tengas Home + Profile del conductor los importas igual)      */
 import DriverHistoryPage from "./pages/driver/DriverHistoryPage";
 import DriverTripCompletedDetails from "./pages/driver/DriverTripCompletedDetails";
@@ -217,6 +219,14 @@ export default function App() {
         }
       />
 
+      <Route
+        path="/passenger/notifications"
+        element={
+          <PrivateRoute role="PASAJERO">
+            <PassengerNotificationsPage />
+          </PrivateRoute>
+        }
+      />
 
       {/* -------------------------  conductor (placeholder) ------------ */}
 
@@ -313,7 +323,15 @@ export default function App() {
           </PrivateRoute>
         }
       />
-
+      
+      <Route
+        path="/driver/notifications"
+        element={
+          <PrivateRoute role="CONDUCTOR">
+            <DriverNotificationsPage />
+          </PrivateRoute>
+        }
+      />
 
     </Routes>
   );

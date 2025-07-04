@@ -25,7 +25,7 @@ export default function useMenus() {
       { label: "Historial de viajes", path: `/passenger/history/${passengerId}`},
       { label: "Pagos",               path: `/passenger/payments/${passengerId}` },
       { label: "Ayuda",               path: `/helpPassenger/${userId}` },
-      { label: "Notificaciones",      path: "/notifications" }
+      { label: "Notificaciones",      path: "/passenger/notifications" }
 //      { label: "Perfil",              path: `/passenger/profile/${userId}` },
     ];
   }
@@ -36,7 +36,7 @@ export default function useMenus() {
       { label: "Viajes completados",  path: `/driver/history/${userId}` },
       { label: "Billetera",           path: "/wallet" },
       { label: "Ayuda",               path: `/helpDriver/${userId}` },
-      { label: "Notificaciones",      path: "/notifications" }
+      { label: "Notificaciones",      path: "/driver/notifications" }
 //      { label: "Perfil",              path: `/driver/profile/${userId}` },
     ];
   }

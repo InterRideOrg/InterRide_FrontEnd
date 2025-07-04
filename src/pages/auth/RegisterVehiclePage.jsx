@@ -36,8 +36,9 @@ export default function RegisterVehiclePage() {
     if (!plateRx.test(veh.placa)) e.placa = '5-8 letras/números';
     ['marca','modelo'].forEach(k => { if (!veh[k].trim()) e[k]='Requerido'; });
     if (!/^\d{4}$/.test(veh.anio))            e.anio      = 'Año (4 dígitos)';
-    if (!/^\d+$/.test(veh.capacidad) || +veh.capacidad < 1)
-                                             e.capacidad = 'Número válido';
+    if (!/^\d+$/.test(veh.capacidad) || +veh.capacidad < 1 || +veh.capacidad > 8)
+      e.capacidad = 'Debe ser un número entre 1 y 8';
+
     setErr(e);
   }, [veh]);
 
