@@ -67,7 +67,7 @@ export default function DriverHomePage() {
     queryKey: ["driverCurrentTrip", driverId],
     queryFn : () =>
       axiosInstance
-        .get(`/trips/${driverId}/current`)
+        .get(`/trips/conductor/${driverId}/current`)
         .then(r => r.data)
         .catch(err => {
           if (err.response?.status === 404) return null; // sin viaje activo

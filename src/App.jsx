@@ -45,7 +45,9 @@ import DriverNotificationsPage from "./pages/driver/NotificationsPage";
 import DriverHistoryPage from "./pages/driver/DriverHistoryPage";
 import DriverTripCompletedDetails from "./pages/driver/DriverTripCompletedDetails";
 import PassengerCurrentTripPage from "./pages/passenger/PassengerCurrentTripPage";
-import DriverWalletPage from "./pages/driver/DriverWalletPage"; // ✅  Asegúrate de que este componente exista
+import DriverWalletPage from "./pages/driver/DriverWalletPage";
+import DriverCurrentTripPage from "./pages/driver/DriverCurrentTripPage";
+import TicketCurrentTripPage from "./pages/driver/TicketCurrentTripPage";
 
 /* (cuando tengas Home + Profile del conductor los importas igual)      */
 import PrivateRoute from "./auth/PrivateRoute";
@@ -350,6 +352,24 @@ export default function App() {
         element={
           <PrivateRoute role="CONDUCTOR">
             <DriverWalletPage />
+          </PrivateRoute>
+        }
+      />
+
+      <Route
+        path="/driver/current-trip/:conductorId/:viajeId"
+        element={
+          <PrivateRoute role="CONDUCTOR">
+            <DriverCurrentTripPage />
+          </PrivateRoute>
+        }
+      />
+
+      <Route
+        path="/driver/current-trip/:conductorId/:pasajeroId/:viajeId"
+        element={
+          <PrivateRoute role="CONDUCTOR">
+            <TicketCurrentTripPage />
           </PrivateRoute>
         }
       />

@@ -15,6 +15,8 @@ const MainFilter = ({
 }) => {
     const provinces = getProvinces()
 
+    
+
     return (
         <form className="sec-filter">
             <div className="filter-icon">
