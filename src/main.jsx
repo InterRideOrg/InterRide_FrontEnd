@@ -12,10 +12,13 @@ import { AuthProvider } from './auth/AuthContext';      // <-- nuevo
 import App   from './App.jsx';
 import { theme } from './theme';
 
+import { GoogleOAuthProvider } from '@react-oauth/google';
+
 const queryClient = new QueryClient();
 
 ReactDOM.createRoot(document.getElementById('root')).render(
   <React.StrictMode>
+    <GoogleOAuthProvider clientId="28514232653-fq5odneto4ej1furuqkvhmqj6abb9vv9.apps.googleusercontent.com">
       <ThemeProvider theme={theme}>
         <CssBaseline />
         <QueryClientProvider client={queryClient}>
@@ -27,5 +30,6 @@ ReactDOM.createRoot(document.getElementById('root')).render(
           <ReactQueryDevtools initialIsOpen={false} />
         </QueryClientProvider>
       </ThemeProvider>
+    </GoogleOAuthProvider>
   </React.StrictMode>
 );

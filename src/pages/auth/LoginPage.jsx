@@ -25,6 +25,10 @@ export default function LoginPage() {
   const [submitted, setSub] = useState(false);
   const [apiError,setApiErr]= useState(null);
 
+  const GOOGLE_CLIENT_ID = "28514232653-fq5odneto4ej1furuqkvhmqj6abb9vv9.apps.googleusercontent.com";
+  const GOOGLE_REDIRECT_URI = window.location.origin + "/google-callback";
+  const GOOGLE_SCOPE = "profile email";
+
   /* ---------- handlers ---------- */
   const handleChange = field => e =>
     setForm({ ...form, [field]: e.target.value });
@@ -77,6 +81,74 @@ export default function LoginPage() {
       setApiErr('Credenciales incorrectas');
     }
   };
+
+
+  // ---------- Google Login ----------
+const handleGoogleLogin = async () => {
+  setApiErr(null);
+  // Abrir ventana de Google OAuth
+  const oauthUrl = `https://accounts.google.com/o/oauth2/v2/auth?client_id=${GOOGLE_CLIENT_ID}&redirect_uri=${GOOGLE_REDIRECT_URI}&response_type=id_token&scope=${encodeURIComponent(GOOGLE_SCOPE)}&nonce=secure_nonce_value`;
+
+  // Abrir popup
+  const width = 500, height = 600;
+  const left = window.screen.width / 2 - width / 2;
+  const top = window.screen.height / 2 - height / 2;
+  const popup = window.open(
+    oauthUrl,
+    "GoogleLogin",
+    `width=${width},height=${height},top=${top},left=${left}`
+  );
+
+  // Se completa el login y obtiene el access_token
+  window.onGoogleAuth = async (accessToken) => {
+    try {
+      // Llamar a tu backend con el token de Google
+      const { data } = await axiosInstancePublic.post('/auth/google-login', { idToken: accessToken });
+      localStorage.setItem('authToken', data.token);
+      localStorage.setItem('userRole',  data.role);
+      localStorage.setItem('userId',    data.userId);
+
+      setAuth({
+        token : data.token,
+        role  : data.role,
+        userId: data.userId
+      });
+
+      navigate(
+        data.role === 'PASAJERO'
+          ? `/passenger/home/${data.userId}`
+          : `/driver/home/${data.userId}`,
+        { replace: true }
+      );
+    } catch (err) {
+      setApiErr('No se pudo iniciar sesión con Google');
+    }
+  };
+
+  // Recibe el token desde el popup
+  const interval = setInterval(() => {
+    try {
+      if (!popup || popup.closed) {
+        clearInterval(interval);
+        return;
+      }
+      // El popup redirigirá a /google-callback con el access_token en el hash
+      const popupUrl = popup.location.href;
+      if (popupUrl.startsWith(GOOGLE_REDIRECT_URI) && popup.location.hash) {
+        const params = new URLSearchParams(popup.location.hash.substring(1));
+        const idToken = params.get("id_token");
+        if (idToken) {
+          clearInterval(interval);
+          popup.close();
+          window.onGoogleAuth(idToken);
+        }
+      }
+    } catch (e) {
+      // Ignorar errores de cross-origin hasta que el popup esté en el mismo origen
+    }
+  }, 500);
+};
+
 
   const show = f => submitted || touched[f];
 
@@ -132,7 +204,7 @@ export default function LoginPage() {
           <Divider sx={{ borderColor: 'primary.light' }}>o ingresa con</Divider>
 
           <Stack direction="row" spacing={3} justifyContent="center">
-            <IconButton sx={{ bgcolor: 'common.white' }}>
+            <IconButton sx={{ bgcolor: 'common.white' }} onClick={handleGoogleLogin}>
               <GoogleIcon />
             </IconButton>
           </Stack>
