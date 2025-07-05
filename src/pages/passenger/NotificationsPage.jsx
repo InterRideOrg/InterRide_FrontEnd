@@ -4,6 +4,7 @@ import {
 } from '@mui/material';
 
 import AuthLayout from '../../components/layout/AuthLayout';
+import MainLayout from '../../components/layout/MainLayout';
 import axiosProtected from '../../interceptors/axiosInstance';
 
 export default function PassengerNotificationsPage() {
@@ -48,7 +49,7 @@ export default function PassengerNotificationsPage() {
   );
 
   return (
-    <AuthLayout title="Tus Notificaciones">
+    <MainLayout title="Tus Notificaciones">
       <Box sx={{ p: 3 }}>
         {loading ? (
           <CircularProgress />
@@ -81,6 +82,6 @@ export default function PassengerNotificationsPage() {
           </Stack>
         )}
       </Box>
-    </AuthLayout>
+    </MainLayout  >
   );
 }

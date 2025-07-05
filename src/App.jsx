@@ -241,6 +241,15 @@ export default function App() {
         }
       />
 
+      <Route
+        path="/passenger/notifications"
+        element={
+          <PrivateRoute role="PASAJERO">
+            <PassengerNotificationsPage />
+          </PrivateRoute>
+        }
+      />
+
 
       {/* -------------------------  conductor (placeholder) ------------ */}
 
