@@ -69,7 +69,10 @@ export default function MainNavbar() {
           {/* Logo */}
           <Box
             component={Link}
-            to="/"
+            to = {onLanding ? "/" :
+              userRole === "PASAJERO" ? `/passenger/home/${userId}` :
+              userRole === "CONDUCTOR" ? `/driver/home/${userId}` :
+              "/home"}
             sx={{
               display         : "flex",
               alignItems      : "center",

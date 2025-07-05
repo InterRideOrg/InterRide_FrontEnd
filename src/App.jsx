@@ -42,10 +42,10 @@ import RequestsPage from "./pages/driver/RequestsPage";
 import RequestDetailsPage from "./pages/driver/RequestDetailsPage";
 import DriverAcceptedTripDetails from "./pages/driver/DriverAcceptedTripDetails";
 import DriverNotificationsPage from "./pages/driver/NotificationsPage";
-/* (cuando tengas Home + Profile del conductor los importas igual)      */
 import DriverHistoryPage from "./pages/driver/DriverHistoryPage";
 import DriverTripCompletedDetails from "./pages/driver/DriverTripCompletedDetails";
 import PassengerCurrentTripPage from "./pages/passenger/PassengerCurrentTripPage";
+import DriverWalletPage from "./pages/driver/DriverWalletPage"; // ✅  Asegúrate de que este componente exista
 
 /* (cuando tengas Home + Profile del conductor los importas igual)      */
 import PrivateRoute from "./auth/PrivateRoute";
@@ -341,6 +341,15 @@ export default function App() {
         element={
           <PrivateRoute role="CONDUCTOR">
             <DriverNotificationsPage />
+          </PrivateRoute>
+        }
+      />
+
+      <Route 
+        path="/driver/wallet/:driverId"
+        element={
+          <PrivateRoute role="CONDUCTOR">
+            <DriverWalletPage />
           </PrivateRoute>
         }
       />

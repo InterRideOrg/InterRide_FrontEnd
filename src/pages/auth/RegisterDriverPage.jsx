@@ -92,9 +92,9 @@ export default function RegisterDriverPage() {
   return (
     <AuthLayout title="Empecemos">
       <FormCard component="form" onSubmit={submit}>
-        <Stack spacing={3}>
+        <Stack spacing={0}>
           {[
-            ['Nombre completo'           , 'nombre'  ],
+            ['Nombres'           , 'nombre'  ],
             ['Apellidos'                 , 'apellidos'],
             ['Email'                     , 'correo'  , 'email'  ],
             ['Número de teléfono'        , 'telefono', 'tel'    ],
@@ -103,12 +103,30 @@ export default function RegisterDriverPage() {
             ['Confirmar contraseña'      , 'confirm' , 'password'],
           ].map(([lbl, key, type = 'text']) => (
             <Box key={key}>
-              <Typography className="rd-label">{lbl}</Typography>
-              <AuthTextField type={type} {...bind(key)} />
+              <Typography 
+                className="rp-label" 
+                variant="body2"  
+                sx={{ mb: 0.5 }} 
+              >
+              {lbl}
+              </Typography>
+                <AuthTextField 
+                type={type} 
+                {...bind(key)} 
+                size="small"  // Campo más pequeño
+              />
             </Box>
           ))}
 
-          {msg && <Typography color="secondary.light">{msg}</Typography>}
+          {msg && (
+            <Typography 
+              color="secondary.light" 
+              align="center"
+              variant="body2"  // Texto más pequeño
+            >
+              {msg}
+            </Typography>
+          )}
 
           <PrimaryButton type="submit">Continuar</PrimaryButton>
         </Stack>
