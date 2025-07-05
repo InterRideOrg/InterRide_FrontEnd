@@ -1,31 +1,3 @@
-/*
-Ejmplo de ticket
-{
-        "boletoId": 2,
-        "viajeId": 2,
-        "pasajeroId": 1,
-        "fechaHoraLlegada": "2025-06-27T23:40:17.476726",
-        "fechaHoraUnion": "2025-06-24T23:40:17.474625",
-        "asientosOcupados": 3,
-        "costo": 25.0,
-        "estado": "COMPLETADO",
-        "abordo": true,
-        "provinciaOrigen": "Lima",
-        "provinciaDestino": "Av. Benavides 234",
-        "direccionPartida": "Huaura",
-        "direccionDestino": "Jr. Lima 234"
-    }
-*/
-
-/*
-    mostrar
-    provinciaDestino
-    Fecha de esta manera: 9 Mar - 13:15
-    Precio
-
-    Y un ver mas para dirigirse a la pagina de detalles del ticket
-*/ 
-
 import { useNavigate } from "react-router-dom";
 import './styles/TicketCardHistory.css';
 

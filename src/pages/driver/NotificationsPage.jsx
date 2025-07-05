@@ -3,8 +3,8 @@ import {
   Box, Stack, Typography, Divider, CircularProgress
 } from '@mui/material';
 
-import AuthLayout from '../../components/layout/AuthLayout';
 import axiosProtected from '../../interceptors/axiosInstance';
+import MainLayout from '../../components/layout/MainLayout';
 
 export default function DriverNotificationsPage() {
   const [notifications, setNotifications] = useState([]);
@@ -48,7 +48,7 @@ export default function DriverNotificationsPage() {
   );
 
   return (
-    <AuthLayout title="Tus Notificaciones">
+    <MainLayout title="Tus Notificaciones">
       <Box sx={{ p: 3 }}>
         {loading ? (
           <CircularProgress />
@@ -81,6 +81,6 @@ export default function DriverNotificationsPage() {
           </Stack>
         )}
       </Box>
-    </AuthLayout>
+    </MainLayout>
   );
 }
