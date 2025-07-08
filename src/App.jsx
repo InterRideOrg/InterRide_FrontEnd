@@ -104,7 +104,7 @@ export default function App() {
       />
 
       <Route
-        path="/passenger/history/:userId"
+        path="/passenger/history/:pasajeroId"
         element={
           <PrivateRoute role="PASAJERO">
             <PassengerHistoryPage />
@@ -307,7 +307,7 @@ export default function App() {
       />
       
       <Route
-        path="/driver/history/:userId"
+        path="/driver/history/:driverId"
         element={
           <PrivateRoute role="CONDUCTOR">
             <MainLayout>
@@ -318,7 +318,7 @@ export default function App() {
       /> 
       
       <Route
-        path="/driver/trip/:id"
+        path="/driver/trip/:driverId/:id"
         element={
           <PrivateRoute role="CONDUCTOR">
             <MainLayout>

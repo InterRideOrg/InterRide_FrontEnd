@@ -3,6 +3,7 @@ import axiosInstance from "../../interceptors/axiosInstance"
 import MainFilter from "../../components/filters/mainfilter"
 import MainNavbar from "../../components/navigation/MainNavbar"
 import TicketCardHistory from "../../components/cards/TicketCardHistory"
+import { useParams } from "react-router-dom"
 import dayjs from "dayjs"
 import './styles/HistoryPage.css'
 
@@ -12,9 +13,11 @@ const PassengerHistoryPage = () => {
     const [date, setDate] = useState(dayjs())
     const [province, setProvince] = useState("")
     const [tickets, setTickets] = useState(null)
+ 
+    const { pasajeroId } = useParams();
 
     useEffect(() => {
-        axiosInstance.get('/boletos/1?state=COMPLETADO')
+        axiosInstance.get(`/boletos/${pasajeroId}?state=COMPLETADO`)
         .then(response => {
             setTickets(response.data);
         })
@@ -23,7 +26,7 @@ const PassengerHistoryPage = () => {
         });
 
         
-    }, []);
+    }, [pasajeroId]);
 
 
     return (

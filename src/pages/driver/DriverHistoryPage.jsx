@@ -1,9 +1,11 @@
 import { useNavigate } from "react-router-dom";
 import { useState, useEffect } from "react";
+import { useParams } from "react-router-dom";
 import axiosInstance from "../../interceptors/axiosInstance";
 import MainFilter from "../../components/filters/mainfilter";
 import MainNavbar from "../../components/navigation/MainNavbar";
 import dayjs from "dayjs";
+import 'dayjs/locale/es';
 import "../passenger/styles/HistoryPage.css";
 
 // Tarjeta simple para cada viaje completado
@@ -25,10 +27,10 @@ function CompletedTripCard({ ticket, onClick }) {
     >
       <div>
         <div style={{ fontWeight: 500 }}>
-          Fecha: {dayjs(ticket.fecha).format("DD [de] MMMM - YYYY")}
+          Fecha: {dayjs(ticket.fechaHoraPartida).locale('es').format("DD [de] MMMM")}
         </div>
         <div style={{ fontSize: 13, opacity: 0.8 }}>
-          Hora: {ticket.hora || "15:26"}
+          Hora: {dayjs(ticket.fechaHoraPartida).format("HH:mm") || "15:26"}
         </div>
       </div>
       <div style={{ fontSize: 15, opacity: 0.8 }}>
@@ -46,16 +48,19 @@ const DriverHistoryPage = () => {
   const [tickets, setTickets] = useState(null);
   const navigate = useNavigate();
 
+  const { driverId } = useParams(); 
+
+
   useEffect(() => {
     axiosInstance
-      .get("/viajes/1?state=COMPLETADO") // Cambia la ruta según tu backend para viajes del conductor
+      .get(`/trips/viajesCompletados/${driverId}`) // Endpoint para obtener viajes completados del conductor
       .then((response) => {
         setTickets(response.data);
       })
       .catch((error) => {
         console.error("Error fetching data:", error);
       });
-  }, []);
+  }, [driverId]);
 
   // Agrupación de viajes por semana (ejemplo simple)
   const groupTicketsByWeek = (tickets) => {
@@ -103,9 +108,9 @@ const DriverHistoryPage = () => {
           {thisWeek && thisWeek.length > 0 ? (
             thisWeek.map((ticket) => (
               <CompletedTripCard
-                key={ticket.viajeId || ticket.boletoId}
+                key={ticket.idViaje || ticket.boletoId}
                 ticket={ticket}
-                onClick={() => navigate(`/driver/trip/${ticket.viajeId}`)}
+                onClick={() => navigate(`/driver/trip/${driverId}/${ticket.idViaje}`)}
               />
             ))
           ) : (

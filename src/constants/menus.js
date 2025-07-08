@@ -44,7 +44,7 @@ export default function useMenus() {
   if (user?.role === "CONDUCTOR") {
     return [
       { label: "Inicio",              path: `/driver/home/${userId}` },
-      { label: "Viajes completados",  path: `/driver/history/${userId}` },
+      { label: "Viajes completados",  path: `/driver/history/${driverId}` },
       { label: "Finanzas",           path: `/driver/wallet/${driverId}` },
       { label: "Ayuda",               path: `/helpDriver/${userId}` },
       { label: "Notificaciones",      path: "/driver/notifications" }
