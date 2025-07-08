@@ -40,3 +40,56 @@
 .accept-button:hover {
   background-color: #1565c0;
 }
+
+
+.accept-button {
+  position: relative;
+  transition: all 0.3s ease;
+}
+
+.accept-button.accepting {
+  background-color: #6c757d;
+  cursor: not-allowed;
+  opacity: 0.8;
+}
+
+.accept-button:disabled {
+  pointer-events: none;
+}
+
+/* Spinner de carga */
+.spinner {
+  display: inline-block;
+  width: 16px;
+  height: 16px;
+  border: 2px solid #ffffff;
+  border-radius: 50%;
+  border-top-color: transparent;
+  animation: spin 1s ease-in-out infinite;
+  margin-right: 8px;
+}
+
+@keyframes spin {
+  to { transform: rotate(360deg); }
+}
+
+/* Mensaje de aceptación */
+.accepting-message {
+  margin-top: 20px;
+  padding: 15px;
+  background-color: #e3f2fd;
+  border: 2px solid #2196f3;
+  border-radius: 8px;
+  text-align: center;
+}
+
+.accepting-message p {
+  margin: 5px 0;
+  color: #1976d2;
+  font-weight: 500;
+}
+
+.accepting-message p:first-child {
+  font-size: 16px;
+  font-weight: 600;
+}

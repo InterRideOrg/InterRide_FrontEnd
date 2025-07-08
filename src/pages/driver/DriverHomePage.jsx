@@ -1,5 +1,6 @@
 // src/pages/driver/DriverHomePage.jsx
 import React, { useMemo } from "react";
+import { useState, useEffect } from "react";
 import {
   Box,
   Stack,
@@ -78,12 +79,17 @@ export default function DriverHomePage() {
   });
 
   /* 4️⃣  Solicitudes de viajes (pendientes de aceptación) */
-  const { data: requestedTrips = [] } = useQuery({
-    queryKey : ["viajesSolicitados"],
-    queryFn  : () =>
-      axiosInstance.get("/trips/viajesSolicitados").then(r => r.data),
-    staleTime: 30_000,
-  });
+  const [requestedTrips, setRequestedTrips] = useState([]);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState(null);
+
+  useEffect(() => {
+    setLoading(true);
+    axiosInstance.get("/trips/viajesSolicitados")
+      .then(r => setRequestedTrips(r.data))
+      .catch(e => setError(e))
+      .finally(() => setLoading(false));
+  }, []);
 
   /* 5️⃣ Viajes proximos */
   const { data: upcomingTrips = [] } = useQuery({
