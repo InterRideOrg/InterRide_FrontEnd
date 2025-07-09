@@ -1,6 +1,6 @@
 import { useState, useEffect} from "react"
 import axiosInstance from "../../interceptors/axiosInstance"
-import MainFilter from "../../components/filters/mainfilter"
+import MainFilter from "../../components/filters/Mainfilter"
 import MainNavbar from "../../components/navigation/MainNavbar"
 import TicketCardHistory from "../../components/cards/TicketCardHistory"
 import { useParams } from "react-router-dom"

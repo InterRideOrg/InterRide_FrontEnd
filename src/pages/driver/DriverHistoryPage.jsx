@@ -2,7 +2,7 @@ import { useNavigate } from "react-router-dom";
 import { useState, useEffect } from "react";
 import { useParams } from "react-router-dom";
 import axiosInstance from "../../interceptors/axiosInstance";
-import MainFilter from "../../components/filters/mainfilter";
+import MainFilter from "../../components/filters/Mainfilter";
 import MainNavbar from "../../components/navigation/MainNavbar";
 import dayjs from "dayjs";
 import 'dayjs/locale/es';
