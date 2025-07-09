@@ -37,8 +37,8 @@ const TicketDetailPage = () => {
     }, [pasajeroId, viajeId]);
 
     useEffect(() => {
-        if (calification && calification.conductorId) {
-            axiosInstance.get(`/usuario/profile/conductor/${calification.conductorId}`)
+        if (ticket && ticket.conductorId) {
+            axiosInstance.get(`/usuario/profile/conductor/${ticket.conductorId}`)
                 .then(response => {
                     setDriver(response.data);
                 })
@@ -46,7 +46,7 @@ const TicketDetailPage = () => {
                     console.error('Error fetching driver details:', error);
                 });
         }
-    }, [calification]);
+    }, [ticket]);
 
     return (
         <>
@@ -91,7 +91,7 @@ const TicketDetailPage = () => {
                             </div>
                             <div className="ticket-calification-comment">
                                 <p>
-                                    {calification ? calification.comentario : "Comentario"}
+                                    {calification ? calification.comentario : "Sin comentario"}
                                 </p>
 
                             </div>
