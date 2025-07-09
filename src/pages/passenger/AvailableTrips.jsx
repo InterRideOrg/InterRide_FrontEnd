@@ -1,5 +1,5 @@
 import MainNavbar from "../../components/navigation/MainNavbar";
-import MainFilter from "../../components/filters/Mainfilter";
+import MainFilter from "../../components/filters/MainFilter";
 import {useEffect, useState} from "react";
 import axiosInstance from "../../interceptors/axiosInstance";
 import AvailableTripCard from "../../components/cards/AvailableTripCard";
