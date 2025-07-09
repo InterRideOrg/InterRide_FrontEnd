@@ -29,7 +29,7 @@ const ReservedTripDetailPage = () => {
       try {
         if (!ticket || !ticket.conductorId) return; 
 
-        const response = await axiosInstance.get(`/usuario/profile/pasajero/${ticket.conductorId}`);
+        const response = await axiosInstance.get(`/usuario/profile/conductor/${ticket.conductorId}`);
         setDriver(response.data);
       } catch (error) {
         console.error('Error fetching driver:', error);
@@ -87,7 +87,7 @@ const ReservedTripDetailPage = () => {
               <p><strong>Fecha y Hora de Partida:</strong> {new Date(ticket.fechaHoraPartida).toLocaleString()}</p>
               <p><strong>Fecha y Hora de Llegada:</strong> {new Date(ticket.fechaHoraLlegada).toLocaleString()}</p>
               <p><strong>Estado:</strong> {ticket.estado}</p>
-              <p><strong>Costo:</strong> ${ticket.costo}</p>
+              <p><strong>Costo:</strong> {ticket.costo} PEN</p>
               <p><strong>Asientos Ocupados:</strong> {ticket.asientosOcupados}</p>
               <p><strong>Origen:</strong> {ticket.provinciaOrigen} - {ticket.direccionPartida}</p>
               <p><strong>Destino:</strong> {ticket.provinciaDestino} - {ticket.direccionDestino}</p>
