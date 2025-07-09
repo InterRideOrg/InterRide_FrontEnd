@@ -2,7 +2,8 @@ import axios from 'axios';
 
 const axiosInstance = axios.create({
     //baseURL: 'URL DEL RENDER',
-    baseURL: 'http://localhost:8081/api/v1',
+    //baseURL: 'http://localhost:8081/api/v1',
+    baseURL: 'https://interride-api-latest.onrender.com/api/v1',
     headers: { 'Content-Type': 'application/json' }
 }); 
 

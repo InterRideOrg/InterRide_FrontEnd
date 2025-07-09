@@ -5,7 +5,9 @@ import axios from 'axios';
  * Se usa para /auth/login, /auth/register, /public/… etc.
  */
 const axiosInstancePublic = axios.create({
-  baseURL: 'http://localhost:8081/api/v1',
+  
+  //baseURL: 'http://localhost:8081/api/v1',
+  baseURL: 'https://interride-api-latest.onrender.com/api/v1',
   headers: { 'Content-Type': 'application/json' },
 });
 
