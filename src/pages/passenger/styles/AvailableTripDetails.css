@@ -1,166 +1,499 @@
+/* Variables CSS */
+:root {
+  --primary-color: #1976d2;
+  --secondary-color: #38687a;
+  --accent-color: #4caf50;
+  --warning-color: #ff9800;
+  --error-color: #f44336;
+  --success-color: #4caf50;
+  --background-gradient: linear-gradient(135deg, #e3f2fd 0%, #bbdefb 100%);
+  --card-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
+  --border-radius: 20px;
+  --transition: all 0.3s ease;
+}
+
 body {
-  background: #e3f2fd !important;
+  background: var(--background-gradient) !important;
+  font-family: 'Inter', 'Segoe UI', 'Roboto', sans-serif;
 }
 
+/* Loading */
+.loading-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  min-height: 70vh;
+  text-align: center;
+}
+
+.loading-spinner {
+  width: 50px;
+  height: 50px;
+  border: 4px solid #e3f2fd;
+  border-top: 4px solid var(--primary-color);
+  border-radius: 50%;
+  animation: spin 1s linear infinite;
+  margin-bottom: 1rem;
+}
+
+.loading-spinner-small {
+  width: 16px;
+  height: 16px;
+  border: 2px solid rgba(255,255,255,0.3);
+  border-top: 2px solid white;
+  border-radius: 50%;
+  animation: spin 1s linear infinite;
+  display: inline-block;
+  margin-right: 8px;
+}
+
+@keyframes spin {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}
+
+/* Container principal */
 .available-trip-details-sec {
-  background: #e3f2fd;
+  background: var(--background-gradient);
   min-height: 100vh;
-  padding: 0;
+  padding: 2rem 0;
 }
 
+/* Header mejorado */
 .available-trip-details-header {
-  margin-left: 3rem;
-  margin-top: 2rem;
-  margin-bottom: 1.5rem;
+  text-align: center;
+  margin: 0 auto 2rem auto;
+  max-width: 1200px;
+  padding: 0 2rem;
+}
+
+.header-content {
+  
+  padding: 1rem 1rem;
+  backdrop-filter: blur(10px);
 }
 
 .available-trip-details-header h1 {
   font-size: 2rem;
   font-weight: 700;
-  color: #222;
-  margin-bottom: 0.2rem;
+  background: linear-gradient(135deg, var(--primary-color) 0%, var(--secondary-color) 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  margin-bottom: 0.5rem;
+  line-height: 1.1;
 }
 
 .available-trip-details-header p {
-  font-size: 1rem;
-  color: #222;
+  font-size: 1.3rem;
+  color: #666;
+  font-weight: 500;
+  margin-bottom: 1.8rem;
 }
 
+.trip-badges {
+  display: flex;
+  gap: 1rem;
+  justify-content: center;
+  flex-wrap: wrap;
+}
+
+.destination-badge,
+.availability-badge {
+  padding: 0.7rem 1.5rem;
+  border-radius: 25px;
+  font-weight: 600;
+  font-size: 0.9rem;
+  color: white;
+  box-shadow: 0 4px 15px rgba(0,0,0,0.2);
+}
+
+.destination-badge {
+  background: linear-gradient(135deg, var(--primary-color) 0%, #1565c0 100%);
+}
+
+.availability-badge {
+  background: linear-gradient(135deg, var(--accent-color) 0%, #388e3c 100%);
+}
+
+/* Content principal */
 .available-trip-details-content {
   display: flex;
   flex-direction: row;
   justify-content: center;
-  gap: 2.5rem;
+  gap: 3rem;
   width: 100%;
-  margin-top: 1.5rem;
+  max-width: 1400px;
+  margin: 0 auto;
+  padding: 0 2rem;
 }
 
+/* Información del viaje */
 .available-trip-details-info {
-  padding-right: 2.5rem;
-  min-width: 400px;
+  min-width: 450px;
+  max-width: 500px;
 }
 
 .available-trip-details-info-header {
   display: flex;
   justify-content: space-between;
-  align-items: flex-start;
-  margin-bottom: 1.5rem;
+  align-items: center;
+  margin-bottom: 2rem;
+  background: rgba(255,255,255,0.9);
+  padding: 1.5rem 2rem;
+  border-radius: var(--border-radius);
+  box-shadow: var(--card-shadow);
 }
 
-.available-trip-details-info-header p {
+.available-trip-details-info-header h3 {
+  font-size: 1.5rem;
+  font-weight: 700;
+  color: var(--secondary-color);
+  margin: 0;
+}
+
+.trip-status {
+  background: var(--accent-color);
+  color: white;
+  padding: 0.5rem 1rem;
+  border-radius: 20px;
+  font-size: 0.9rem;
   font-weight: 600;
-  font-size: 1.15rem;
-  color: #000;
 }
 
 .available-trip-details-info-body {
-  background: #38687a;
-  border-radius: 16px;
-  box-shadow: 0 4px 16px rgba(0,0,0,0.07);
-  padding: 2rem 2.5rem 2rem 2.5rem;
-  min-width: 400px;
-  max-width: 350px;
-  display: flex;
-  flex-direction: column;
+  background: linear-gradient(135deg, var(--secondary-color) 0%, #2c5966 100%);
+  border-radius: var(--border-radius);
+  box-shadow: var(--card-shadow);
+  padding: 2.5rem;
   color: #fff;
+  border: 1px solid rgba(255,255,255,0.1);
 }
 
-.available-trip-details-info-body > div {
-  margin-bottom: 1.1rem;
+/* Items de información */
+.info-item {
+  display: flex;
+  align-items: flex-start;
+  gap: 1rem;
+  margin-bottom: 2rem;
+}
+
+.info-icon {
+  font-size: 2rem;
+  width: 50px;
+  height: 50px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: rgba(255,255,255,0.1);
+  backdrop-filter: blur(10px);
+  flex-shrink: 0;
+}
+
+.info-content {
+  flex: 1;
 }
 
 .available-trip-details-info-body h5 {
-  margin: 0 0 0.2rem 0;
-  font-size: 1rem;
+  margin: 0 0 0.5rem 0;
+  font-size: 0.9rem;
   font-weight: 700;
-  color: #fff;
+  color: rgba(255,255,255,0.8);
+  letter-spacing: 1px;
 }
 
 .available-trip-details-info-body p {
-  margin: 0;
-  font-size: 1rem;
-  color: #fff;
-}
-
-.available-trip-details-actions {
-  display: flex;
-  flex-direction: column;
-  justify-content: flex-start;
-  gap: 1.5rem;
-  min-width: 270px;
-  max-width: 320px;
-}
-
-.available-trip-details-actions-seats-quantity,
-.available-trip-details-actions-destination {
-  margin-bottom: 0.5rem;
-}
-
-.available-trip-details-actions h5 {
-  font-size: 1rem;
-  font-weight: 700;
-  color: #222;
-  margin-bottom: 0.2rem;
-}
-
-.available-trip-details-actions p {
-  font-size: 0.95rem;
-  color: #222;
-  margin-bottom: 0.5rem;
-}
-
-.available-trip-details-seats-input,
-.available-trip-details-destination-input {
-  width: 80%;
-  padding: 0.5rem 0.7rem;
-  border-radius: 4px;
-  border: none;
-  background: #f3f3f3;
-  color: #222;
-  font-size: 1rem;
-  margin-bottom: 0.5rem;
-  outline: none;
-  box-shadow: 0 1px 2px rgba(0,0,0,0.03);
-}
-
-.available-trip-details-seats-input:focus,
-.available-trip-details-destination-input:focus {
-  border: 1.5px solid #38687a;
-  background: #fff;
-}
-
-.available-trip-details-book-btn {
-  margin-top: 1.2rem;
-  padding: 0.7rem 2.5rem;
-  border-radius: 20px;
-  border: 1.5px solid #222;
-  background: #fff;
-  color: #222;
-  font-size: 1rem;
+  margin: 0 0 0.5rem 0;
+  font-size: 1.1rem;
   font-weight: 600;
-  cursor: pointer;
-  transition: background 0.2s, color 0.2s;
-  box-shadow: 0 2px 8px rgba(0,0,0,0.07);
-}
-
-.available-trip-details-book-btn:hover {
-  background: #38687a;
   color: #fff;
-  border: 1.5px solid #38687a;
 }
 
-/* Responsive */
-@media (max-width: 1100px) {
+.driver-rating {
+  display: flex;
+  gap: 1rem;
+  margin-top: 0.5rem;
+}
+
+.rating,
+.verified {
+  font-size: 0.85rem;
+  padding: 0.2rem 0.6rem;
+  border-radius: 12px;
+  background: rgba(255,255,255,0.15);
+}
+
+.time-info {
+  margin-top: 0.5rem;
+}
+
+.time {
+  font-size: 0.9rem;
+  color: rgba(255,255,255,0.9);
+}
+
+.info-divider {
+  height: 1px;
+  background: rgba(255,255,255,0.2);
+  margin: 2rem 0;
+}
+
+/* Sección de ruta */
+.route-section {
+  margin: 1.5rem 0;
+}
+
+.route-section h5 {
+  margin-bottom: 1.5rem !important;
+}
+
+.route-container {
+  position: relative;
+  padding-left: 2rem;
+}
+
+.route-item {
+  display: flex;
+  align-items: flex-start;
+  gap: 1rem;
+  margin: 1.5rem 0;
+  position: relative;
+}
+
+.route-dot {
+  width: 16px;
+  height: 16px;
+  border-radius: 50%;
+  position: absolute;
+  left: -2.5rem;
+  top: 0.2rem;
+  z-index: 2;
+}
+
+.origin-dot {
+  background: var(--accent-color);
+  box-shadow: 0 0 0 4px rgba(76, 175, 80, 0.2);
+}
+
+.destination-dot {
+  background: var(--error-color);
+  box-shadow: 0 0 0 4px rgba(244, 67, 54, 0.2);
+}
+
+.route-line {
+  position: absolute;
+  left: -2.1rem;
+  top: 1.8rem;
+  width: 2px;
+  height: 3rem;
+  background: linear-gradient(to bottom, var(--accent-color), var(--error-color));
+  opacity: 0.6;
+}
+
+.route-type {
+  font-size: 0.75rem;
+  font-weight: 600;
+  color: rgba(255,255,255,0.7);
+  letter-spacing: 1px;
+  display: block;
+  margin-bottom: 0.3rem;
+}
+
+.route-info h6 {
+  font-size: 1.1rem;
+  font-weight: 700;
+  margin: 0 0 0.3rem 0;
+  color: white;
+}
+
+.route-info p {
+  font-size: 0.9rem;
+  color: rgba(255,255,255,0.8);
+  margin: 0;
+}
+
+.seats-detail {
+  font-size: 0.85rem;
+  color: rgba(255,255,255,0.8);
+}
+
+/* Formulario de acciones */
+.available-trip-details-actions {
+  min-width: 400px;
+  max-width: 450px;
+}
+
+.form-header {
+  background: linear-gradient(135deg, var(--primary-color) 0%, var(--secondary-color) 100%);
+  color: white;
+  padding: 2rem;
+  border-radius: var(--border-radius) var(--border-radius) 0 0;
+  text-align: center;
+  box-shadow: var(--card-shadow);
+}
+
+.form-header h3 {
+  font-size: 1.8rem;
+  font-weight: 700;
+  margin: 0 0 0.5rem 0;
+}
+
+.form-header p {
+  margin: 0;
+  opacity: 0.9;
+  font-size: 1rem;
+}
+
+.form-content {
+  background: linear-gradient(135deg, #fff 0%, #f8f9fa 100%);
+  padding: 2rem;
+  border-radius: 0 0 var(--border-radius) var(--border-radius);
+  box-shadow: var(--card-shadow);
+}
+
+.form-section {
+  margin-bottom: 2rem;
+}
+
+.section-header {
+  display: flex;
+  align-items: center;
+  gap: 0.8rem;
+  margin-bottom: 1rem;
+}
+
+.section-icon {
+  font-size: 1.5rem;
+}
+
+.section-header h4 {
+  font-size: 1.2rem;
+  font-weight: 600;
+  color: #333;
+  margin: 0;
+}
+
+/* Inputs modernos */
+.modern-input {
+  width: 100% !important;
+  padding: 1rem 1.2rem;
+  border-radius: 12px;
+  border: 2px solid #e0e0e0;
+  background: white;
+  color: #333;
+  font-size: 1rem;
+  transition: var(--transition);
+  box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+  margin-bottom: 0.5rem;
+}
+
+.modern-input:focus {
+  outline: none;
+  border-color: var(--primary-color);
+  box-shadow: 0 0 0 3px rgba(25, 118, 210, 0.1);
+  background: #fff;
+}
+
+.modern-input.disabled {
+  background: #f5f5f5;
+  color: #999;
+  cursor: not-allowed;
+}
+
+.modern-input::placeholder {
+  color: #999;
+}
+
+/* Mapa */
+.map-container {
+  border-radius: 16px;
+  overflow: hidden;
+  box-shadow: 0 4px 20px rgba(0,0,0,0.1);
+  border: 2px solid #e3f2fd;
+  background: white;
+}
+
+/* Botón moderno */
+.modern-btn {
+  width: 100%;
+  padding: 1.2rem 2rem;
+  font-size: 1.2rem;
+  font-weight: 700;
+  border-radius: 16px;
+  border: none;
+  cursor: pointer;
+  transition: var(--transition);
+  text-transform: none;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  margin-top: 1.5rem;
+  background: linear-gradient(135deg, var(--secondary-color) 0%, #2c5966 100%);
+  color: white;
+  box-shadow: 0 6px 20px rgba(56, 104, 122, 0.4);
+}
+
+.modern-btn:hover:not(:disabled) {
+  background: linear-gradient(135deg, #2c5966 0%, #1e3c47 100%);
+  transform: translateY(-2px);
+  box-shadow: 0 8px 25px rgba(56, 104, 122, 0.5);
+}
+
+.modern-btn:disabled {
+  background: #ccc;
+  cursor: not-allowed;
+  transform: none;
+  box-shadow: none;
+}
+
+.modern-btn.reserving {
+  background: #999;
+}
+
+/* Mensajes de estado */
+.status-message {
+  margin-top: 1rem;
+  padding: 1rem 1.2rem;
+  border-radius: 12px;
+  font-weight: 500;
+  text-align: center;
+  border-left: 4px solid;
+}
+
+.status-message.info {
+  background: #e3f2fd;
+  color: #1976d2;
+  border-color: #1976d2;
+}
+
+.status-message.success {
+  background: #e8f5e8;
+  color: #2e7d32;
+  border-color: #4caf50;
+}
+
+.status-message.error {
+  background: #ffebee;
+  color: #d32f2f;
+  border-color: #f44336;
+}
+
+/* Responsive Design */
+@media (max-width: 1200px) {
   .available-trip-details-content {
-    gap: 1.2rem;
+    gap: 2rem;
+    padding: 0 1rem;
   }
-  .available-trip-details-info {
-    padding-right: 1rem;
-    min-width: 320px;
+  
+  .available-trip-details-info,
+  .available-trip-details-actions {
+    min-width: 350px;
   }
-  .available-trip-details-info-body {
-    min-width: 320px;
-    padding: 1.2rem 1rem;
+  
+  .available-trip-details-header h1 {
+    font-size: 2.5rem;
   }
 }
 
@@ -170,42 +503,121 @@ body {
     align-items: center;
     gap: 2rem;
   }
+  
   .available-trip-details-header {
-    margin-left: 1rem;
+    padding: 0 1rem;
   }
+  
+  .header-content {
+    padding: 2rem 1rem;
+  }
+  
+  .available-trip-details-header h1 {
+    font-size: 2rem;
+  }
+  
+  .available-trip-details-header p {
+    font-size: 1.1rem;
+  }
+  
+  .trip-badges {
+    flex-direction: column;
+    align-items: center;
+  }
+  
   .available-trip-details-info,
-  .available-trip-details-info-body {
-    min-width: 90vw;
-    max-width: 98vw;
-    padding-right: 0;
-    padding-left: 0;
-  }
   .available-trip-details-actions {
     min-width: 90vw;
-    max-width: 98vw;
+    max-width: 500px;
+  }
+  
+  .available-trip-details-info-body {
+    padding: 2rem 1.5rem;
+  }
+  
+  .form-content {
+    padding: 1.5rem;
   }
 }
 
 @media (max-width: 600px) {
   .available-trip-details-header h1 {
-    font-size: 1.3rem;
+    font-size: 1.8rem;
   }
-  .available-trip-details-header {
-    margin-left: 0.5rem;
-    margin-top: 1rem;
-    margin-bottom: 1rem;
+  
+  .header-content {
+    padding: 1.5rem 1rem;
   }
+  
   .available-trip-details-info-body {
-    padding: 1rem 0.5rem;
+    padding: 1.5rem 1rem;
   }
-  .available-trip-details-seats-input,
-  .available-trip-details-destination-input {
-    width: 100%;
-    font-size: 0.95rem;
+  
+  .form-header,
+  .form-content {
+    padding: 1.5rem 1rem;
   }
-  .available-trip-details-book-btn {
-    width: 100%;
-    padding: 0.7rem 0;
-    font-size: 1rem;
+  
+  .info-item {
+    flex-direction: column;
+    text-align: center;
+    gap: 0.8rem;
   }
+  
+  .info-icon {
+    align-self: center;
+  }
+  
+  .route-container {
+    padding-left: 1rem;
+  }
+  
+  .route-dot {
+    left: -1.5rem;
+  }
+  
+  .route-line {
+    left: -1.1rem;
+  }
+  
+  .section-header {
+    flex-direction: column;
+    text-align: center;
+    gap: 0.5rem;
+  }
+  
+  .modern-btn {
+    font-size: 1.1rem;
+    padding: 1rem;
+  }
+}
+
+/* Animaciones adicionales */
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(30px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.available-trip-details-info,
+.available-trip-details-actions {
+  animation: fadeInUp 0.8s ease-out;
+}
+
+/* Efectos hover mejorados */
+.available-trip-details-info-body:hover,
+.form-content:hover {
+  transform: translateY(-5px);
+  transition: var(--transition);
+}
+
+.destination-badge:hover,
+.availability-badge:hover {
+  transform: scale(1.05);
+  transition: var(--transition);
 }
