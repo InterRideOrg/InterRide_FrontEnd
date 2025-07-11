@@ -47,6 +47,7 @@ const AvailableTripDetails = () => {
   const [loading, setLoading] = useState(true);
   const [reserving, setReserving] = useState(false);
   const [car, setCar] = useState(null);
+  const [totalAsientosOcupados, setTotalAsientosOcupados] = useState(0);
 
   const [destino, setDestino] = useState({
     direccion: "",
@@ -68,8 +69,15 @@ const AvailableTripDetails = () => {
       .then(async res => {
         const boletos = res.data;
         if (boletos.length > 0) {
+          
           const viaje = boletos[0];
           setTrip(viaje);
+
+          const totalAsientos = boletos.reduce((total, boleto) => {
+            return total + (boleto.asientosOcupados || 0);
+          }, 0);
+
+          setTotalAsientosOcupados(totalAsientos);
 
           const direccionCompleta = `${viaje.direccionPartida}`;
 
@@ -209,7 +217,7 @@ const AvailableTripDetails = () => {
       }, 1500);
     } catch (err) {
       console.error(err);
-      setMensaje("Error al reservar. Intenta nuevamente.");
+      setMensaje("Error: "+  err.response?.data?.detail || "Error al procesar la reserva. Inténtalo de nuevo.");
       setReserving(false);
     }
   };
@@ -311,13 +319,13 @@ const AvailableTripDetails = () => {
                 <div className="info-content">
                   <h5>DISPONIBILIDAD</h5>
                   <p>
-                  {trip ? 
-                    `${(car?.cantidadAsientos || 0) - trip.asientosOcupados} de ${car?.cantidadAsientos || 0} asientos libres` 
-                    : "Cargando..."
-                  }
+                    {trip && car ? 
+                      `${Math.max(0, car.cantidadAsientos - totalAsientosOcupados)} de ${car.cantidadAsientos} asientos libres` 
+                      : "Cargando..."
+                    }
                   </p>
                   <span className="seats-detail">
-                    {trip ? `${trip.asientosOcupados} pasajeros confirmados` : ""}
+                    {totalAsientosOcupados > 0 ? `${totalAsientosOcupados} asientos reservados en total` : "Ningún asiento reservado aún"}
                   </span>
                 </div>
               </div>

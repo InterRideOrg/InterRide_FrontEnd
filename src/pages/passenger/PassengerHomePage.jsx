@@ -160,7 +160,7 @@ export default function PassengerHomePage() {
                 <FiberManualRecordIcon
                   sx={{ fontSize: 12, color: "var(--clr-success)", mr: 1 }}
                 />
-                <Typography fontWeight={700}>Viajes que solicitaste</Typography>
+                <Typography fontWeight={700}>Viajes programados</Typography>
               </Box>
 
               <Typography
@@ -179,7 +179,7 @@ export default function PassengerHomePage() {
                     key={ticket.boletoId}
                     title={ticket.provinciaDestino}
                     subtitle={`ESTADO: ${ticket.estado} `}
-                    onClick={() => navigate(`/passenger/requested-trips/${passengerId}/${ticket.boletoId}`)}
+                    onClick={() => navigate(`/passenger/requested-trips/${passengerId}/${ticket.viajeId}`)}
                   />
                 ))}
               </Stack>

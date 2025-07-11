@@ -22,7 +22,7 @@ const TicketReservedCard = ({ ticket }) => {
             <div className="ticket-reserved-actions">
                 <button
                     className="ticket-reserved-more-btn"
-                    onClick={() => navigate(`/passenger/requested-trips/${ticket.pasajeroId}/${ticket.boletoId}`)}
+                    onClick={() => navigate(`/passenger/requested-trips/${ticket.pasajeroId}/${ticket.viajeId}`)}
                 >
                     Detalles <span className="arrow-large">&rarr;</span>
                 </button>

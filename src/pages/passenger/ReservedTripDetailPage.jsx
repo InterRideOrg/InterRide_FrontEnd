@@ -45,7 +45,7 @@ const ReservedTripDetailPage = () => {
       const confirm = window.confirm("¿Estás seguro de que deseas cancelar esta reserva?");
       if (!confirm) return;
 
-      await axiosInstance.put(`/boletos/${boletoId}/cancelar`);
+      await axiosInstance.put(`/boletos/${ticket.boletoId}/cancelar`);
       alert("Reserva cancelada exitosamente.");
       navigate(`/passenger/requested-trips/${pasajeroId}`); // Redirigir a la lista de viajes reservados
 
