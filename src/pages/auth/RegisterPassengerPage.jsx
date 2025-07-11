@@ -5,6 +5,7 @@ import FormCard            from '../../components/ui/FormCard';
 import AuthTextField       from '../../components/inputs/AuthTextField';
 import PrimaryButton       from '../../components/buttons/PrimaryButton';
 import axiosInstancePublic from '../../interceptors/axiosInstancePublic';
+import { useNavigate } from 'react-router-dom';
 
 import './styles/RegisterPassenger.css';     // recuerda el prefijo rp- en las clases
 
@@ -14,6 +15,8 @@ const phoneRx  = /^\d{7,15}$/;
 const userRx   = /^[a-zA-Z0-9_]{3,20}$/;
 
 export default function RegisterPassengerPage() {
+
+   const navigate = useNavigate();
   /* ────── estado ────── */
   const [form, setForm]  = useState({
     nombre    : '',
@@ -62,6 +65,7 @@ export default function RegisterPassengerPage() {
         username : form.username.trim(),
       });
       setMsg('¡Registro exitoso!');
+      navigate('/login');
     } catch (e) {
       console.error(e);
       setMsg('Error al registrar');

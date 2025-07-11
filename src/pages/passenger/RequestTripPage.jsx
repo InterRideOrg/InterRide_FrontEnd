@@ -10,6 +10,7 @@ import { LocalizationProvider } from "@mui/x-date-pickers";
 import { DateTimePicker } from "@mui/x-date-pickers/DateTimePicker";
 import { AdapterDayjs } from "@mui/x-date-pickers/AdapterDayjs";
 import { GoogleMap, useJsApiLoader, Marker } from "@react-google-maps/api";
+import { useNavigate } from "react-router-dom";
 
 import MainLayout from "../../components/layout/MainLayout";
 import FormCard from "../../components/ui/FormCard";
@@ -29,6 +30,9 @@ function extractProvince(address) {
 }
 
 export default function RequestTripPage() {
+
+  const navigate = useNavigate();
+
   const [form, setForm] = useState({
     from: "",
     to: "",
@@ -130,6 +134,10 @@ export default function RequestTripPage() {
       await axiosInstance.post(`/trips/solicitar/${pasajeroId}`, requestData);
 
       alert("¡Solicitud enviada correctamente!");
+
+      navigate(`/passenger/home/${pasajeroId}`);
+      
+      
       // Opcional: limpiar formulario o redirigir
     } catch (error) {
       console.error(error);
