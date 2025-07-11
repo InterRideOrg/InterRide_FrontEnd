@@ -1,0 +1,75 @@
+/* Contenedor de todo */
+.available-trips-sec-history {
+  padding: 1rem;
+  display: flex;
+  flex-direction: column;
+  gap: 2rem;
+  background-color: #E3F2FD;
+  min-height: 100vh;
+}
+
+.available-trips-principal {
+  display: flex;
+  align-items: flex-start;
+  gap: 1.5rem;
+  flex-wrap: wrap;
+  padding: 1rem 1.5rem;
+}
+
+/* Título */
+.available-trips-title {
+  min-width: 200px;
+}
+.available-trips-title h2 {
+  font-size: 1.5rem;
+  margin: 0;
+  color: #333;
+}
+.available-trips-title p {
+  font-size: 0.9rem;
+  color: #666;
+}
+
+
+
+
+/* Historial */
+.available-trips-history {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+  gap: 1.5rem;
+}
+
+.available-trips-history-item {
+  background: #fff;
+  border-radius: 10px;
+  padding: 1rem;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+  transition: transform 0.2s ease;
+}
+.available-trips-history-item:hover {
+  transform: translateY(-3px);
+}
+.available-trips-history-item h3 {
+  margin-bottom: 0.5rem;
+  font-size: 1.1rem;
+}
+.available-trips-history-item p {
+  margin: 0.25rem 0;
+  font-size: 0.9rem;
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+  .available-trips-principal {
+    flex-direction: column;
+  }
+
+  .available-trips-sec-filter {
+    flex-direction: column;
+  }
+
+  .available-trips-filter-group {
+    width: 100%;
+  }
+}

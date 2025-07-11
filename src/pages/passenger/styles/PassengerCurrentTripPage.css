@@ -1,0 +1,357 @@
+.current-trip-page-sec-current-trip {
+    min-height: 100vh;
+    padding: 40px 20px;
+    background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+.current-trip-page-title {
+    text-align: center;
+    margin-bottom: 40px;
+    padding: 0 20px;
+}
+
+.current-trip-page-title h1 {
+    font-size: 32px;
+    font-weight: 700;
+    margin: 0;
+    color: #2c3e50;
+    text-shadow: 0 2px 4px rgba(0,0,0,0.1);
+}
+
+.current-trip-page-principal {
+    display: flex;
+    gap: 30px;
+    max-width: 1200px;
+    margin: 0 auto;
+    align-items: flex-start;
+}
+
+/* Panel de información */
+.current-trip-page-info {
+    background: white;
+    border-radius: 16px;
+    flex: 0 0 380px;
+    overflow: hidden;
+    box-shadow: 0 8px 24px rgba(0,0,0,0.12);
+    border: 2px solid #39A6AC;
+}
+
+/* Estilos para cada sección */
+.current-trip-page-info-driver,
+.current-trip-page-info-arrival,
+.current-trip-page-info-origin,
+.current-trip-page-info-destination {
+    border-bottom: 1px solid #e0e0e0;
+}
+
+.current-trip-page-info-destination {
+    border-bottom: none;
+}
+
+/* Títulos de las secciones */
+.current-trip-page-info-driver-title,
+.current-trip-page-info-arrival-title,
+.current-trip-page-info-origin-title,
+.current-trip-page-info-destination-title {
+    background: linear-gradient(135deg, #39A6AC 0%, #32586B 100%);
+    padding: 0;
+}
+
+.current-trip-page-info-driver-title h4,
+.current-trip-page-info-arrival-title h4,
+.current-trip-page-info-origin-title h4,
+.current-trip-page-info-destination-title h4 {
+    color: white;
+    margin: 0;
+    padding: 16px 24px;
+    font-size: 14px;
+    font-weight: 600;
+    letter-spacing: 0.5px;
+    text-transform: uppercase;
+}
+
+/* Contenido de cada sección */
+.current-trip-page-info-driver-text,
+.current-trip-page-info-arrival-text,
+.current-trip-page-info-origin-text,
+.current-trip-page-info-destination-text {
+    padding: 20px 24px;
+    min-height: 60px;
+    display: flex;
+    align-items: center;
+    background: #f8f9fa;
+    margin: 0;
+}
+
+.current-trip-page-info-driver-text p,
+.current-trip-page-info-arrival-text p,
+.current-trip-page-info-origin-text p,
+.current-trip-page-info-destination-text p {
+    color: #2c3e50;
+    margin: 0;
+    font-size: 16px;
+    font-weight: 600;
+    line-height: 1.5;
+    width: 100%;
+}
+
+/* Estilos especiales para el conductor */
+.current-trip-page-info-driver-text p {
+    font-size: 18px;
+    font-weight: 700;
+    color: #39A6AC;
+}
+
+/* Estilos especiales para la hora */
+.current-trip-page-info-arrival-text p {
+    font-size: 18px;
+    font-weight: 700;
+    color: #32586B;
+    text-align: center;
+}
+
+/* Contenedor del mapa */
+.current-trip-page-map-container {
+    flex: 1;
+    background: white;
+    border-radius: 16px;
+    overflow: hidden;
+    box-shadow: 0 8px 24px rgba(0,0,0,0.12);
+    border: 2px solid #39A6AC;
+}
+
+.current-trip-page-map-header {
+    background: linear-gradient(135deg, #39A6AC 0%, #32586B 100%);
+    padding: 16px 24px;
+}
+
+.current-trip-page-map-header h3 {
+    color: white;
+    margin: 0;
+    font-size: 16px;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+}
+
+.current-trip-page-map {
+    height: 500px;
+    position: relative;
+}
+
+.current-trip-page-map-wrapper {
+    width: 100%;
+    height: 100%;
+    position: relative;
+    overflow: hidden;
+}
+
+/* Asegurar que el mapa llene completamente el contenedor */
+.current-trip-page-map-wrapper > div {
+    width: 100% !important;
+    height: 100% !important;
+}
+
+/* Estilos para el componente OnlyViewMap dentro de este contexto */
+.current-trip-page-map-wrapper .map-container {
+    width: 100%;
+    height: 100%;
+    border-radius: 0;
+}
+
+.current-trip-page-map-wrapper .map-wrapper {
+    width: 100%;
+    height: 100%;
+}
+
+/* Personalizar los controles del mapa */
+.current-trip-page-map-wrapper .controls-panel {
+    position: absolute;
+    bottom: 15px;
+    left: 15px;
+    right: 15px;
+    background: rgba(255, 255, 255, 0.95);
+    border-radius: 12px;
+    padding: 12px;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+    z-index: 1000;
+    backdrop-filter: blur(10px);
+}
+
+
+.current-trip-page-map-wrapper .info-row {
+    display: flex;
+    justify-content: space-between;
+    gap: 12px;
+}
+
+.current-trip-page-map-wrapper .info-text {
+    background: linear-gradient(135deg, #39A6AC 0%, #32586B 100%);
+    color: white;
+    padding: 8px 16px;
+    border-radius: 20px;
+    font-size: 13px;
+    font-weight: 600;
+    flex: 1;
+    text-align: center;
+    box-shadow: 0 2px 8px rgba(57, 166, 172, 0.3);
+}
+
+/* Loading del mapa */
+.current-trip-page-map-loading {
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    background: #f8f9fa;
+    color: #666;
+}
+
+.current-trip-page-spinner {
+    width: 40px;
+    height: 40px;
+    border: 4px solid #f3f3f3;
+    border-top: 4px solid #39A6AC;
+    border-radius: 50%;
+    animation: spin 1s linear infinite;
+    margin-bottom: 15px;
+}
+
+@keyframes spin {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
+}
+
+.current-trip-page-map-loading p {
+    color: #666;
+    font-size: 16px;
+    font-weight: 500;
+    margin: 0;
+}
+
+/* Efectos hover */
+.current-trip-page-info:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 12px 32px rgba(0,0,0,0.15);
+    transition: all 0.3s ease;
+}
+
+.current-trip-page-map-container:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 12px 32px rgba(57, 166, 172, 0.2);
+    transition: all 0.3s ease;
+}
+
+/* Responsive Design */
+@media (max-width: 1024px) {
+    .current-trip-page-principal {
+        gap: 25px;
+    }
+    
+    .current-trip-page-info {
+        flex: 0 0 350px;
+    }
+}
+
+@media (max-width: 768px) {
+    .current-trip-page-sec-current-trip {
+        padding: 30px 15px;
+    }
+
+    .current-trip-page-principal {
+        flex-direction: column;
+        gap: 25px;
+    }
+
+    .current-trip-page-info {
+        flex: none;
+        width: 100%;
+    }
+
+    .current-trip-page-map {
+        height: 350px;
+    }
+
+    .current-trip-page-title h1 {
+        font-size: 26px;
+    }
+
+    .current-trip-page-map-wrapper .controls-panel {
+        bottom: 10px;
+        left: 10px;
+        right: 10px;
+        padding: 10px;
+    }
+
+    .current-trip-page-map-wrapper .info-row {
+        flex-direction: column;
+        gap: 8px;
+    }
+}
+
+@media (max-width: 480px) {
+    .current-trip-page-sec-current-trip {
+        padding: 20px 10px;
+    }
+
+    .current-trip-page-title h1 {
+        font-size: 22px;
+    }
+
+    .current-trip-page-info-driver-title h4,
+    .current-trip-page-info-arrival-title h4,
+    .current-trip-page-info-origin-title h4,
+    .current-trip-page-info-destination-title h4 {
+        font-size: 12px;
+        padding: 14px 20px;
+    }
+
+    .current-trip-page-info-driver-text,
+    .current-trip-page-info-arrival-text,
+    .current-trip-page-info-origin-text,
+    .current-trip-page-info-destination-text {
+        padding: 16px 20px;
+        min-height: 50px;
+    }
+
+    .current-trip-page-info-driver-text p,
+    .current-trip-page-info-arrival-text p,
+    .current-trip-page-info-origin-text p,
+    .current-trip-page-info-destination-text p {
+        font-size: 14px;
+    }
+
+    .current-trip-page-info-driver-text p {
+        font-size: 16px;
+    }
+
+    .current-trip-page-info-arrival-text p {
+        font-size: 16px;
+    }
+
+    .current-trip-page-map {
+        height: 280px;
+    }
+
+    .current-trip-page-map-header {
+        padding: 12px 16px;
+    }
+
+    .current-trip-page-map-header h3 {
+        font-size: 14px;
+    }
+
+    .current-trip-page-map-wrapper .controls-panel {
+        bottom: 8px;
+        left: 8px;
+        right: 8px;
+        padding: 8px;
+    }
+
+    .current-trip-page-map-wrapper .info-text {
+        font-size: 11px;
+        padding: 6px 12px;
+    }
+}

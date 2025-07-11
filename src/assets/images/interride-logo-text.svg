@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg
+  xmlns="http://www.w3.org/2000/svg"
+  width="385" height="100"
+  viewBox="0 0 385 100"
+>
+  <defs>
+    <!-- vertical gradient (unchanged) -->
+    <linearGradient id="grad1" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" stop-color="#7ECAF6"/>
+      <stop offset="100%" stop-color="#5AADE6"/>
+    </linearGradient>
+
+    <!-- Anton web-font (unchanged) -->
+    <style type="text/css"><![CDATA[
+      @font-face {
+        font-family: 'Anton';
+        font-style: normal;
+        font-weight: 400;
+        src: url('https://fonts.gstatic.com/s/anton/v25/1Ptgg87LROyAm5_Xs2RYDQ.woff2') format('woff2');
+      }
+      .logo-text {
+        font-family: 'Anton', Impact, sans-serif;
+        font-size: 60px;
+        font-weight: 400;
+        /* ↓ tightened so the full word fits in 385 px */
+        letter-spacing: 11px;
+        fill: url(#grad1);
+      }
+    ]]></style>
+  </defs>
+
+  <!-- 180 % vertical stretch -->
+  <g transform="scale(1,1.8)">
+    <!-- baseline chosen so nothing gets clipped top or bottom -->
+    <text x="0" y="44" class="logo-text">INTERRIDE</text>
+  </g>
+</svg>

@@ -1,0 +1,86 @@
+.complete-payment-card {
+    background: #39A6AC;
+    border-radius: 8px;
+    padding: 16px 20px;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+    border: 1px solid #e0e0e0;
+    margin-bottom: 10px;
+    transition: box-shadow 0.3s ease;
+}
+
+.complete-payment-card:hover {
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+}
+
+.complete-payment-card-details {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 100%;
+}
+
+/* Estilos específicos para el título (monto) */
+.complete-payment-card-title {
+    margin: 0;
+    font-size: 18px;
+    font-weight: 600;
+    color: white;
+}
+
+/* Estilos específicos para el subtítulo (fecha) */
+.complete-payment-card-subtitle {
+    margin: 0;
+    font-size: 14px; /* Más pequeño que el título */
+    font-weight: 400; /* Menos peso que el título */
+    color: #e0f2f1; /* Color más suave */
+    margin-top: 4px; /* Pequeño espacio entre monto y fecha */
+}
+
+.complete-payment-card-btn {
+    background: #39A6AC;
+    color: white;
+    border: none;
+    border-radius: 6px;
+    padding: 8px 16px;
+    font-size: 14px;
+    font-weight: 500;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    transition: background-color 0.3s ease;
+    flex: 0 0 auto;
+}
+
+.complete-payment-card-btn:hover {
+    background: #2e8b8b;
+}
+
+.arrow-large {
+    font-size: 16px;
+    transition: transform 0.3s ease;
+}
+
+.complete-payment-card-btn:hover .arrow-large {
+    transform: translateX(2px);
+}
+
+/* Responsive */
+@media (max-width: 480px) {
+    .complete-payment-card {
+        padding: 12px 16px;
+    }
+
+    .complete-payment-card-title {
+        font-size: 16px;
+    }
+
+    .complete-payment-card-subtitle {
+        font-size: 12px;
+    }
+
+    .complete-payment-card-btn {
+        padding: 6px 12px;
+        font-size: 12px;
+    }
+}

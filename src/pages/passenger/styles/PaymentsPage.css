@@ -1,0 +1,132 @@
+.payments-page-sec {
+    display: flex;
+    gap: 20px; 
+    padding: 20px;
+    max-width: 1200px;
+    margin: 0 auto;
+}
+
+.payments-page-pending-payments {
+    flex: 1; 
+    background: #f5f5f5;
+    border-radius: 8px;
+    padding: 20px;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+}
+
+.payments-page-history-payments {
+    flex: 1; 
+    background: #f5f5f5;
+    border-radius: 8px;
+    padding: 20px;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+}
+
+.payments-page-methods-payments {
+    flex: 1; /* Toma el mismo espacio que el otro */
+    background: #f5f5f5;
+    border-radius: 8px;
+    padding: 20px;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+}
+
+.payments-page-pending-payments-title h4,
+.payments-page-history-payments-title h4,
+.payments-page-methods-payments-title h4 {
+    margin: 0 0 15px 0;
+    color: #333;
+    font-size: 18px;
+    font-weight: 600;
+}
+
+.payments-page-history-payments-title {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 15px;
+}
+
+.payments-page-history-payments-title h4 {
+    margin: 0;
+}
+
+.payments-page-history-payments-title button {
+    margin: 0;
+    font-size: 14px;
+    color: #666;
+    background: none;
+    border: none;
+    cursor: pointer;
+    text-decoration: underline;
+    padding: 0;
+}
+
+.payments-page-history-payments-title button:hover {
+    color: #39A6AC;
+}
+
+.payments-page-pending-payments-list {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.payments-page-history-payments-list {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+/* Estilos para la lista de métodos de pago */
+.payments-page-methods-payments-list {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    margin-bottom: 20px;
+}
+
+/* Estilos para la sección del botón agregar */
+.payments-page-methods-payments-add {
+    margin-top: 20px;
+    display: flex;
+    justify-content: center;
+}
+
+.payments-page-methods-payments-add-btn {
+    background: #39A6AC;
+    color: white;
+    border: none;
+    border-radius: 8px;
+    padding: 12px 24px;
+    font-size: 16px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    box-shadow: 0 2px 8px rgba(25, 118, 210, 0.3);
+    min-width: 200px;
+}
+
+.payments-page-methods-payments-add-btn:hover {
+    background: #39A6AC;
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(25, 118, 210, 0.4);
+}
+
+.payments-page-methods-payments-add-btn:active {
+    transform: translateY(0);
+}
+
+/* Responsive - En móviles se apilan verticalmente */
+@media (max-width: 768px) {
+    .payments-page-sec {
+        flex-direction: column;
+        padding: 15px;
+    }
+    
+    .payments-page-methods-payments-add-btn {
+        width: 100%;
+        min-width: auto;
+        padding: 14px 20px;
+        font-size: 14px;
+    }
+}

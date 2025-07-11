@@ -1,0 +1,123 @@
+.ticket-reserved-info * {
+  margin: 0 !important;
+  padding: 5px !important;
+  line-height: 1 !important;
+}
+.ticket-card-reserved {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 1rem;
+  background: #39A6AC;
+  border-radius: 10px;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+  min-width: 0;
+}
+
+.ticket-reserved-info {
+  display: flex;
+  flex-direction: column; /* Elementos en columna a la izquierda */
+  align-items: flex-start; /* Centrados verticalmente */
+  gap: 0.1rem; /* CAMBIO: gap más pequeño */
+  flex: 1 1 auto;
+  min-width: 0;
+}
+
+.ticket-card-reserved h5 {
+  margin: 0; /* Sin margin */
+  padding: 0; /* NUEVO: Sin padding */
+  font-size: 1.4rem;
+  color: white;
+  font-weight: 600;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  flex: 0 0 auto;
+  line-height: 1.2; /* NUEVO: line-height más pequeño */
+}
+
+.ticket-reserved-date {
+  font-size: 0.92rem;
+  color: white;
+  margin: 0; /* Sin margin */
+  padding: 0; /* NUEVO: Sin padding */
+  flex: 0 0 auto;
+  line-height: 1.1; /* NUEVO: line-height más pequeño */
+}
+
+.ticket-reserved-price {
+  font-size: 0.88rem;
+  color: white;
+  margin: 0; /* Sin margin */
+  padding: 0; /* NUEVO: Sin padding */
+  font-weight: 500;
+  flex: 0 0 auto;
+  line-height: 1.1; /* NUEVO: line-height más pequeño */
+}
+
+.ticket-reserved-actions {
+  flex: 0 0 auto;
+}
+
+.ticket-reserved-more-btn {
+  background-color: #32586B;
+  color: white;
+  border: none;
+  border-radius: 6px;
+  padding: 7px 18px;
+  font-size: 0.95rem;
+  font-weight: 500;
+  cursor: pointer;
+  transition: transform 0.2s ease;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.ticket-reserved-more-btn:hover {
+  transform: translateY(-2px) scale(1.03);
+  background-color: #32586B;
+}
+
+.arrow-large {
+  font-size: 1.3rem;
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+  .ticket-reserved-info {
+    gap: 0.05rem; /* CAMBIO: gap súper pequeño */
+  }
+  
+  .ticket-card-reserved h5 {
+    font-size: 1rem;
+  }
+  
+  .ticket-reserved-date,
+  .ticket-reserved-price {
+    font-size: 0.85rem;
+  }
+  
+  .ticket-reserved-more-btn {
+    padding: 6px 12px;
+    font-size: 0.9rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .ticket-reserved-info {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 0.02rem; /* CAMBIO: gap casi nulo */
+  }
+  
+  .ticket-card-reserved {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 1rem;
+  }
+  
+  .ticket-reserved-actions {
+    align-self: flex-end;
+  }
+}

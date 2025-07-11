@@ -1,0 +1,99 @@
+.sec-filter {
+  display: flex;
+  gap: 1rem;
+  justify-content: flex-start;
+  align-items: flex-end;
+
+}
+
+/* Grupo de cada filtro */
+.filter-group {
+  display: flex;
+  flex-direction: column;
+  flex: 1 1 180px;
+  max-width: 200px;
+}
+
+/* Etiquetas */
+.filter-group label {
+  font-weight: 600;
+  margin-bottom: 0.3rem;
+  font-size: 0.75rem;
+  color: #333;
+}
+
+/* Contenedor del input */
+.filter-group .MuiFormControl-root {
+  width: 100%;
+}
+
+/* Inputs compactos */
+.MuiInputBase-root {
+  border-radius: 6px;
+  min-height: 36px !important;
+  font-size: 0.8rem !important;
+  padding: 0 8px !important;
+}
+
+/* Para inputs que no respetan la altura por default */
+.MuiOutlinedInput-input {
+  padding: 8px 10px !important;
+  font-size: 0.8rem !important;
+}
+
+/* Tamaño de label del DatePicker / TimePicker */
+.MuiFormLabel-root {
+  font-size: 0.75rem !important;
+}
+
+/* Icono de filtro */
+.filter-icon {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-top: auto;
+  margin-bottom: auto;
+  
+}
+.filter-icon h6 {
+  margin-bottom: 0.3rem;
+  font-weight: 600;
+  font-size: 0.85rem;
+}
+.filter-icon img {
+  width: 30px;
+  height: 30px;
+  object-fit: contain;
+  margin-bottom: 0.5rem;
+}
+/* Botón de limpiar filtros */
+
+.clear-filters-btn {
+  color: #333;
+  border: 1px solid #bdbdbd;
+  border-radius: 25px;
+  padding: 7px 18px;
+  font-size: 0.95rem;
+  font-weight: 500;
+  cursor: pointer;
+  height: 50px;
+  width: 180px;
+  align-items: center;
+  outline: none;
+}
+
+
+
+/* Responsive: pantalla pequeña */
+@media (max-width: 768px) {
+  .sec-filter {
+    flex-direction: column;
+    gap: 1rem;
+  }
+
+  .filter-group {
+    width: 100%;
+  }
+}
+
+

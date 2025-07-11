@@ -1,0 +1,56 @@
+/*  Driver Home Page
+    ------------------------------------------------------------------ */
+
+    :root{
+        --clr-primary   : #154e68; /* tarjetas */
+        --clr-secondary : #1d9aa3; /* viaje en curso */
+        --clr-success   : #70c33f;
+        --clr-error     : #e43e3e;
+        --clr-gray      : #8c99a6;
+      }
+      
+      /* contenedores principales */
+      .dh-header,
+      .dh-section-bar{
+        display:flex;
+        justify-content:space-between;
+        align-items:center;
+        flex-wrap:wrap;
+        gap:1rem;
+      }
+      
+      .dh-section-title{
+        display:flex;
+        align-items:center;
+      }
+      
+      /* tarjeta genérica */
+      .dh-card{
+        width:100%;
+        color:#fff;
+        display:flex;
+        justify-content:space-between;
+        align-items:center;
+        padding:1rem 1.25rem;
+        border-radius:8px;
+        cursor:pointer;
+        transition:filter .15s;
+      }
+      .dh-card:hover{ filter:brightness(1.07); }
+      
+      /* texto gris claro reutilizado */
+      .dh-muted{
+        margin-left:1.9rem;
+        font-size:.9rem;
+        opacity:.65;
+      }
+      
+      /* enlace subrayado hover */
+      .dh-link{
+        font-weight:500;
+        color:var(--clr-primary);
+        text-decoration:underline;
+        cursor:pointer;
+      }
+      .dh-link:hover{ opacity:.7; }
+      

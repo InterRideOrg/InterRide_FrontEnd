@@ -1,0 +1,95 @@
+/* src/pages/driver/styles/RequestDetailsPage.css */
+
+.page-container {
+  background-color: #e3f2fd;
+  min-height: 100vh;
+  padding: 2rem;
+}
+
+.trip-details-card {
+  background-color: #ffffff;
+  max-width: 600px;
+  margin: 2rem auto;
+  padding: 2rem;
+  border-radius: 16px;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+}
+
+.trip-details-card h2 {
+  margin-bottom: 1.5rem;
+  color: #0d47a1;
+}
+
+.trip-details-card p {
+  margin: 0.5rem 0;
+  font-size: 1rem;
+}
+
+.accept-button {
+  margin-top: 2rem;
+  background-color: #1976d2;
+  color: white;
+  border: none;
+  padding: 0.75rem 1.5rem;
+  border-radius: 12px;
+  font-size: 1rem;
+  cursor: pointer;
+  transition: background-color 0.3s;
+}
+
+.accept-button:hover {
+  background-color: #1565c0;
+}
+
+
+.accept-button {
+  position: relative;
+  transition: all 0.3s ease;
+}
+
+.accept-button.accepting {
+  background-color: #6c757d;
+  cursor: not-allowed;
+  opacity: 0.8;
+}
+
+.accept-button:disabled {
+  pointer-events: none;
+}
+
+/* Spinner de carga */
+.spinner {
+  display: inline-block;
+  width: 16px;
+  height: 16px;
+  border: 2px solid #ffffff;
+  border-radius: 50%;
+  border-top-color: transparent;
+  animation: spin 1s ease-in-out infinite;
+  margin-right: 8px;
+}
+
+@keyframes spin {
+  to { transform: rotate(360deg); }
+}
+
+/* Mensaje de aceptación */
+.accepting-message {
+  margin-top: 20px;
+  padding: 15px;
+  background-color: #e3f2fd;
+  border: 2px solid #2196f3;
+  border-radius: 8px;
+  text-align: center;
+}
+
+.accepting-message p {
+  margin: 5px 0;
+  color: #1976d2;
+  font-weight: 500;
+}
+
+.accepting-message p:first-child {
+  font-size: 16px;
+  font-weight: 600;
+}
