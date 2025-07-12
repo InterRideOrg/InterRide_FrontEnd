@@ -70,13 +70,13 @@ export default function RequestsPage() {
           >
               <div className="trip-card">
               <h3>
-                  Viaje #{trip.id} - <span>{trip.estado}</span>
+                  Solicitud de viaje
               </h3>
-              <p>Fecha de partida: {dayjs(trip.fechaHoraPartida).format("YYYY-MM-DD HH:mm")}</p>
+              <p>Fecha de partida: {dayjs(trip.fechaHoraPartida).format("DD/MM/YYYY HH:mm")}</p>
               <p>Origen: {trip.provinciaOrigen} ({trip.direccionOrigen})</p>
               <p>Destino: {trip.provinciaDestino} ({trip.direccionDestino})</p>
               <p>Asientos reservados: {trip.asientosReservados}</p>
-              <p>Costo: S/. {trip.costo.toFixed(2)}</p>
+              <p>Ganancia: S/. {trip.costo.toFixed(2)}</p>
               </div>
           </Link>
       ))}

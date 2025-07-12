@@ -44,7 +44,7 @@ const DriverHistoryPage = () => {
   const [timeFrom, setTimeFrom] = useState(dayjs());
   const [timeTo, setTimeTo] = useState(dayjs());
   const [date, setDate] = useState(dayjs());
-  const [province, setProvince] = useState("");
+  //const [province, setProvince] = useState("");
   const [tickets, setTickets] = useState(null);
   const navigate = useNavigate();
 
@@ -88,18 +88,7 @@ const DriverHistoryPage = () => {
           <h2>Viajes Completados</h2>
           <p>Consulta el historial de viajes realizados.</p>
         </div>
-        <div>
-          <MainFilter
-            timeFrom={timeFrom}
-            setTimeFrom={setTimeFrom}
-            timeTo={timeTo}
-            setTimeTo={setTimeTo}
-            date={date}
-            setDate={setDate}
-            province={province}
-            setProvince={setProvince}
-          />
-        </div>
+        
       </div>
       <div className="history-page-history">
         {/* Esta Semana */}
