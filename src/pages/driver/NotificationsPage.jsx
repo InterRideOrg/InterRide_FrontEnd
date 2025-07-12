@@ -114,6 +114,16 @@ export default function DriverNotificationsPage() {
         emoji: '✅'
       };
     }
+    if (mensaje.includes('pago')) {
+      return { 
+        icon: <InfoIcon />, 
+        color: 'info', 
+        bgColor: '#f3e5f5',
+        borderColor: '#9c27b0',
+        emoji: '💬'
+      };
+    }
+
     if (mensaje.includes('viaje') || mensaje.includes('boleto') || mensaje.includes('pasajero')) {
       return { 
         icon: <CarIcon />, 

@@ -1,4 +1,4 @@
-import { useState, useEffect} from "react"
+import { useState, useEffect, useMemo } from "react"
 import axiosInstance from "../../interceptors/axiosInstance"
 import MainFilter from "../../components/filters/MainFilter"
 import MainNavbar from "../../components/navigation/MainNavbar"
@@ -8,18 +8,18 @@ import dayjs from "dayjs"
 import './styles/HistoryPage.css'
 
 const PassengerHistoryPage = () => {
-    const [timeFrom, setTimeFrom] = useState(dayjs())
-    const [timeTo, setTimeTo] = useState(dayjs())
-    const [date, setDate] = useState(dayjs())
-    const [province, setProvince] = useState("")
-    const [tickets, setTickets] = useState(null)
- 
+    const [dateFrom, setDateFrom] = useState(null)
+    const [dateTo, setDateTo] = useState(null)
+    //const [province, setProvince] = useState("")
+    const [tickets, setTickets] = useState([])
+
     const { pasajeroId } = useParams();
 
     useEffect(() => {
         axiosInstance.get(`/boletos/${pasajeroId}?state=COMPLETADO`)
         .then(response => {
             setTickets(response.data);
+
         })
         .catch(error => {
             console.error('Error fetching data:', error);
@@ -28,6 +28,23 @@ const PassengerHistoryPage = () => {
         
     }, [pasajeroId]);
 
+    const filteredTickets = useMemo(() => {
+        if (!tickets) return null;
+
+        return tickets.filter(ticket => {
+            const fechaPartida = dayjs(ticket.fechaHoraPartida);
+            
+            if (dateFrom && fechaPartida.isBefore(dateFrom, 'day')) {
+                return false;
+            }
+            
+            if (dateTo && fechaPartida.isAfter(dateTo, 'day')) {
+                return false;
+            }
+            
+            return true;
+        });
+    }, [tickets, dateFrom, dateTo]);
 
     return (
         <>
@@ -41,22 +58,18 @@ const PassengerHistoryPage = () => {
                     
                     <div>
                         <MainFilter
-                            timeFrom={timeFrom}
-                            setTimeFrom={setTimeFrom}
-                            timeTo={timeTo}
-                            setTimeTo={setTimeTo}
-                            date={date}
-                            setDate={setDate}
-                            province={province}
-                            setProvince={setProvince}
+                            dateFrom={dateFrom}
+                            setDateFrom={setDateFrom}
+                            dateTo={dateTo}
+                            setDateTo={setDateTo}
                         />
                     </div>
 
                     
                 </div>
                 <div className="history-page-history">
-                    {tickets && tickets.length > 0 ? (
-                        tickets.map(ticket => (
+                    {filteredTickets && filteredTickets.length > 0 ? (
+                        filteredTickets.map(ticket => (
                             <TicketCardHistory key={ticket.boletoId} ticket={ticket} />
                         ))
                     ) : (
